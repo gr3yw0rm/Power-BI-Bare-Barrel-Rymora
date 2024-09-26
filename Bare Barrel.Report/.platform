@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Bare Barrel"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9045b60a-d685-4cad-8cfb-10d3d01fba48"
+  }
+}

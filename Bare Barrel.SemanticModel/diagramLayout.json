@@ -1,0 +1,1472 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 1817.621586000002,
+        "y": 6956.3296708366779
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 942,
+            "y": 15578.498417545434
+          },
+          "nodeIndex": "detail_page_sales_and_traffic_child",
+          "nodeLineageTag": "28d294fe-4d98-41bc-a463-9e69b7deec90",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 28
+        },
+        {
+          "location": {
+            "x": 953.64841172410524,
+            "y": 15938.763831745819
+          },
+          "nodeIndex": "detail_page_sales_and_traffic_parent",
+          "nodeLineageTag": "99527b15-cf02-4395-a77c-7a655b11bcbf",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 25
+        },
+        {
+          "location": {
+            "x": 1363.9968118381969,
+            "y": 15174.303784194726
+          },
+          "nodeIndex": "search_query_performance_asin_view",
+          "nodeLineageTag": "4ec28651-868f-40ee-90a2-ea6ebf1a02c1",
+          "size": {
+            "height": 497.30664061344555,
+            "width": 473.58663503061234
+          },
+          "zIndex": 41
+        },
+        {
+          "location": {
+            "x": 1366.4200252160222,
+            "y": 15700.839800283917
+          },
+          "nodeIndex": "search_query_performance_brand_view",
+          "nodeLineageTag": "70d3fa63-b112-4d84-950b-acf668155561",
+          "size": {
+            "height": 505.501076,
+            "width": 466.07449100000031
+          },
+          "zIndex": 44
+        },
+        {
+          "location": {
+            "x": 10.2374857546165,
+            "y": 15347.662641387593
+          },
+          "nodeIndex": "amazon_orders",
+          "nodeLineageTag": "431daf47-1944-49f3-829c-0290eab39702",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 26
+        },
+        {
+          "location": {
+            "x": 5.4140500038077164,
+            "y": 15858.108989228291
+          },
+          "nodeIndex": "summaries",
+          "nodeLineageTag": "d624be71-3aee-4c93-b77b-34756f7195f4",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 24
+        },
+        {
+          "location": {
+            "x": 479.8742420852958,
+            "y": 15723.149345830654
+          },
+          "nodeIndex": "DimPrimePrice",
+          "nodeLineageTag": "59b9c5cc-b0ba-40c5-8a77-44fb591a13be",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 27
+        },
+        {
+          "location": {
+            "x": 1230.6966895376945,
+            "y": 14799.756120555132
+          },
+          "nodeIndex": "DimFBAInventory",
+          "nodeLineageTag": "508dae5e-86b7-4dbe-899f-c52b2180afc9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 23
+        },
+        {
+          "location": {
+            "x": 1228.6134792015605,
+            "y": 14471.588668388373
+          },
+          "nodeIndex": "DimFBAPlanningInventory",
+          "nodeLineageTag": "ef9eb182-bde6-4197-a787-a89b83f77657",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 22
+        },
+        {
+          "location": {
+            "x": 1886.9599564963605,
+            "y": 14743.195819242868
+          },
+          "nodeIndex": "SP campaign",
+          "nodeLineageTag": "9af1bb5e-5e36-42ac-9c4a-450fe95f13c9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 29
+        },
+        {
+          "location": {
+            "x": 3322.1791585903766,
+            "y": 14734.980472371837
+          },
+          "nodeIndex": "SP search_term",
+          "nodeLineageTag": "998abc84-c53a-4f36-81de-14df7bbc9bd4",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 42
+        },
+        {
+          "location": {
+            "x": 2181.6342289270451,
+            "y": 14741.115124560012
+          },
+          "nodeIndex": "SP campaign_placement",
+          "nodeLineageTag": "11e90cc5-32e2-4329-813d-327f7fa83549",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 33
+        },
+        {
+          "location": {
+            "x": 2467.5837850579733,
+            "y": 14739.406702649623
+          },
+          "nodeIndex": "SP advertised_product",
+          "nodeLineageTag": "d6d38265-fca4-4aaa-b0e8-5a1aba466f26",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 32
+        },
+        {
+          "location": {
+            "x": 3053.5365249749602,
+            "y": 14735.845522654436
+          },
+          "nodeIndex": "SP campaign_adgroup",
+          "nodeLineageTag": "779cef7b-f72f-4bb1-a6bb-c87127b589fb",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 31
+        },
+        {
+          "location": {
+            "x": 2761.1016176636931,
+            "y": 14735.801148717572
+          },
+          "nodeIndex": "SP purchased_product",
+          "nodeLineageTag": "151fdbe2-e2b1-4eda-8488-8a85c056ddf8",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 30
+        },
+        {
+          "location": {
+            "x": 2179.5082797202308,
+            "y": 15219.50624386132
+          },
+          "nodeIndex": "Dim SP campaigns",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 21
+        },
+        {
+          "location": {
+            "x": 2789.022340149309,
+            "y": 15214.924873697895
+          },
+          "nodeIndex": "Dim SB campaigns",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 46
+        },
+        {
+          "location": {
+            "x": 2478.119387879975,
+            "y": 15233.30589141676
+          },
+          "nodeIndex": "Dim Amazon Portfolios",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 45
+        },
+        {
+          "location": {
+            "x": 1873.1624466219469,
+            "y": 15634.481030801064
+          },
+          "nodeIndex": "SB ad",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 34
+        },
+        {
+          "location": {
+            "x": 2157.1624466219469,
+            "y": 15634.481030801064
+          },
+          "nodeIndex": "SB adgroup",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 35
+        },
+        {
+          "location": {
+            "x": 3293.1624466219469,
+            "y": 15634.481030801064
+          },
+          "nodeIndex": "SB search_term",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 43
+        },
+        {
+          "location": {
+            "x": 3577.1624466219469,
+            "y": 15634.481030801064
+          },
+          "nodeIndex": "SB targeting",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 38
+        },
+        {
+          "location": {
+            "x": 2441.1624466219469,
+            "y": 15634.481030801064
+          },
+          "nodeIndex": "SB campaign",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 36
+        },
+        {
+          "location": {
+            "x": 2725.1624466219469,
+            "y": 15634.481030801064
+          },
+          "nodeIndex": "SB campaign_placement",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 37
+        },
+        {
+          "location": {
+            "x": 3009.1624466219469,
+            "y": 15634.481030801064
+          },
+          "nodeIndex": "SB purchased_product",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 39
+        },
+        {
+          "location": {
+            "x": 3122.8336090364724,
+            "y": 15211.354375353298
+          },
+          "nodeIndex": "Dim SD campaigns",
+          "nodeLineageTag": "d975b062-35de-4044-89e8-e3e13505f68a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 18
+        },
+        {
+          "location": {
+            "x": 65.365078640547068,
+            "y": 14905.109076887362
+          },
+          "nodeIndex": "Dim Date",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 19
+        },
+        {
+          "location": {
+            "x": 3809.6490370364736,
+            "y": 15213.354375353298
+          },
+          "nodeIndex": "SD Historical Campaign Cost",
+          "nodeLineageTag": "69ad3f3a-a047-42af-9ab6-a66c2e89bab7",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 20
+        },
+        {
+          "location": {
+            "x": 1625.4159775181058,
+            "y": 14318.829575878226
+          },
+          "nodeIndex": "Dim Customer Search Term",
+          "nodeLineageTag": "e64c8787-dba5-4a53-a457-d5fff51028c1",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 40
+        },
+        {
+          "location": {
+            "x": 1016.2030796821957,
+            "y": 15271.774891811139
+          },
+          "nodeIndex": "h10_keyword_tracker",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 416.25518577186074,
+            "y": 15257.395249100784
+          },
+          "nodeIndex": "amazon_order_items",
+          "size": {
+            "height": 394.27655573155823,
+            "width": 367.24419876726904
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 468.16728973512613,
+            "y": 14949.487506047029
+          },
+          "nodeIndex": "Dim Marketplace",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 801.84646577455976,
+            "y": 14789.821965894876
+          },
+          "nodeIndex": "Dim Product Codes",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 469.84666032422047,
+            "y": 14567.09090388125
+          },
+          "nodeIndex": "Dim Sku Market Category",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 4366.8209370288578,
+            "y": 12942.896198784572
+          },
+          "nodeIndex": "COGS (WW)",
+          "nodeLineageTag": "c9acc4dc-d449-49f8-895d-8527fc4d9f7b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 4645.40688702505,
+            "y": 12322.925181535986
+          },
+          "nodeIndex": "SB Historical Campaign Cost",
+          "nodeLineageTag": "7076c196-757d-45b9-ae3a-a545a23f51f9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 4929.40688702505,
+            "y": 12322.925181535986
+          },
+          "nodeIndex": "SP Historical Campaign Cost",
+          "nodeLineageTag": "6f5aba7d-ef79-4752-82ac-e0071352b3c8",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 5207.9928370212428,
+            "y": 11647.958273295673
+          },
+          "nodeIndex": "Exchange Rates Average",
+          "nodeLineageTag": "d2aecf07-995a-419f-94fb-a05346abce18",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 5491.9928370212428,
+            "y": 11623.958273295673
+          },
+          "nodeIndex": "KPI Tracker Measures",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 6049.1647370136279,
+            "y": 9591.2972211306769
+          },
+          "nodeIndex": "IsSelectedFlag",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 5770.5787870174354,
+            "y": 10694.998610743212
+          },
+          "nodeIndex": "SelectedDate",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 6327.7506870098205,
+            "y": 8279.3559158800235
+          },
+          "nodeIndex": "DateParameter",
+          "nodeLineageTag": "957ff7e3-19f7-479b-a5ef-ecca54393574",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 47
+        },
+        {
+          "location": {
+            "x": 6611.7506870098205,
+            "y": 8291.3559158800235
+          },
+          "nodeIndex": "Dim Previous Date Interval",
+          "nodeLineageTag": "4df7690f-598e-48fd-8d58-ad7dcd4b6e50",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 6895.7506870098205,
+            "y": 8255.3559158800235
+          },
+          "nodeIndex": "KPI Tracker Variance Measures",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 7179.7506870098205,
+            "y": 8255.3559158800235
+          },
+          "nodeIndex": "DatePeriods",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 7463.7506870098205,
+            "y": 8255.3559158800235
+          },
+          "nodeIndex": "CompareDatePeriods",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 6768.46331091736,
+            "y": 7702.7693270000145
+          },
+          "nodeIndex": "SpecialDates",
+          "nodeLineageTag": "c321000e-184b-4696-8e70-cd9bbc04b110",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 56.447393005377677,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 195,
+            "y": 380.92149773195536
+          },
+          "nodeIndex": "amazon_orders",
+          "nodeLineageTag": "431daf47-1944-49f3-829c-0290eab39702",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 22.391374332136252
+          },
+          "nodeIndex": "Dim Date",
+          "nodeLineageTag": "4dd79b73-5133-407e-90ab-eecd98104d12",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 525.5570126653422,
+            "y": 378.58541445796772
+          },
+          "nodeIndex": "amazon_order_items",
+          "nodeLineageTag": "0cacaa14-d127-4a46-89d2-ae1948bf73bd",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 512.468433021679,
+            "y": 31
+          },
+          "nodeIndex": "Dim Marketplace",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 888.81982840117234,
+            "y": 431.00810862832293
+          },
+          "nodeIndex": "Dim Product Codes",
+          "nodeLineageTag": "832e376b-a445-4b36-a1d4-9f1295586bc1",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 883.33333206176758,
+            "y": 27
+          },
+          "nodeIndex": "COGS (WW)",
+          "nodeLineageTag": "c9acc4dc-d449-49f8-895d-8527fc4d9f7b",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1211.3333320617676,
+            "y": 655.5
+          },
+          "nodeIndex": "KPI Tracker Measures",
+          "nodeLineageTag": "238bbe3d-3d73-40e3-a513-04729cb3d5a8",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1504.3333320617676,
+            "y": 681.5
+          },
+          "nodeIndex": "CompareDatePeriods",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1504,
+            "y": 535.5
+          },
+          "nodeIndex": "DatePeriods",
+          "nodeLineageTag": "927e5f4d-150b-41d2-b21d-eeeda8df9d1e",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 724.5
+          },
+          "nodeIndex": "SpecialDates",
+          "nodeLineageTag": "c321000e-184b-4696-8e70-cd9bbc04b110",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 10
+        }
+      ],
+      "name": "Orders",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 2,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 214.87496173714641
+          },
+          "nodeIndex": "Dim Date",
+          "nodeLineageTag": "4dd79b73-5133-407e-90ab-eecd98104d12",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 311.49433506366938,
+            "y": 0
+          },
+          "nodeIndex": "Dim Customer Search Term",
+          "nodeLineageTag": "e64c8787-dba5-4a53-a457-d5fff51028c1",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 310.0449362033014,
+            "y": 241.75903665017131
+          },
+          "nodeIndex": "h10_keyword_tracker",
+          "nodeLineageTag": "cc1f61f6-ddec-4a51-a21b-3848c47173df",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 594.271201979846,
+            "y": 449.6482806848216
+          },
+          "nodeIndex": "Dim Product Codes",
+          "nodeLineageTag": "832e376b-a445-4b36-a1d4-9f1295586bc1",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 594.33333206176758,
+            "y": 0
+          },
+          "nodeIndex": "Dim Marketplace",
+          "nodeLineageTag": "0502c810-5c63-4dff-8523-af2742970071",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Keyword Tracker",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 3,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 287.27051776005686,
+            "y": 347.20937532892606
+          },
+          "nodeIndex": "search_query_performance_asin_view",
+          "nodeLineageTag": "4ec28651-868f-40ee-90a2-ea6ebf1a02c1",
+          "size": {
+            "height": 300,
+            "width": 316
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 816.00555357081453,
+            "y": 0
+          },
+          "nodeIndex": "Dim Date",
+          "nodeLineageTag": "4dd79b73-5133-407e-90ab-eecd98104d12",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 936.33333206176758,
+            "y": 346.5
+          },
+          "nodeIndex": "search_query_performance_brand_view",
+          "nodeLineageTag": "70d3fa63-b112-4d84-950b-acf668155561",
+          "size": {
+            "height": 305,
+            "width": 347
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 475.33333206176758,
+            "y": 67
+          },
+          "nodeIndex": "Dim Customer Search Term",
+          "nodeLineageTag": "e64c8787-dba5-4a53-a457-d5fff51028c1",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 652,
+            "y": 691
+          },
+          "nodeIndex": "Dim Marketplace",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 11.894691551198349,
+            "y": 0
+          },
+          "nodeIndex": "Dim Product Codes",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        }
+      ],
+      "name": "Search Query Performance Report",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 4,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 294.18475118062986,
+            "y": -10
+          },
+          "nodeIndex": "detail_page_sales_and_traffic_child",
+          "nodeLineageTag": "28d294fe-4d98-41bc-a463-9e69b7deec90",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 10,
+            "y": 45.065109177341327
+          },
+          "nodeIndex": "Dim Marketplace",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 578.36163941536,
+            "y": 53.324992632434629
+          },
+          "nodeIndex": "Dim Product Codes",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 292.33333206176758,
+            "y": 408.5
+          },
+          "nodeIndex": "detail_page_sales_and_traffic_parent",
+          "nodeLineageTag": "99527b15-cf02-4395-a77c-7a655b11bcbf",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 288.5
+          },
+          "nodeIndex": "Dim Date",
+          "nodeLineageTag": "4dd79b73-5133-407e-90ab-eecd98104d12",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        }
+      ],
+      "name": "Detail Page Sales & Traffic",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 5,
+      "scrollPosition": {
+        "x": 0,
+        "y": 400
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 20.141484164647238,
+            "y": 710.39918311186636
+          },
+          "nodeIndex": "SP campaign",
+          "nodeLineageTag": "9af1bb5e-5e36-42ac-9c4a-450fe95f13c9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 10,
+            "y": 57.41190564270164
+          },
+          "nodeIndex": "SP search_term",
+          "nodeLineageTag": "998abc84-c53a-4f36-81de-14df7bbc9bd4",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 220.90838137110717,
+            "y": 1071.2090739722635
+          },
+          "nodeIndex": "SP purchased_product",
+          "nodeLineageTag": "151fdbe2-e2b1-4eda-8488-8a85c056ddf8",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 341.04183863388681,
+            "y": -10
+          },
+          "nodeIndex": "SP campaign_placement",
+          "nodeLineageTag": "11e90cc5-32e2-4329-813d-327f7fa83549",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 507.56714609142978,
+            "y": 1258.6812225984368
+          },
+          "nodeIndex": "SP advertised_product",
+          "nodeLineageTag": "d6d38265-fca4-4aaa-b0e8-5a1aba466f26",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 513.6838939361171,
+            "y": 793.79587312506487
+          },
+          "nodeIndex": "Dim SP campaigns",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 927.91040523553056,
+            "y": 1328.7674349237257
+          },
+          "nodeIndex": "Dim Amazon Portfolios",
+          "nodeLineageTag": "de403d9e-fc80-44f1-8739-666f789fae72",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 302.759527012603,
+            "y": 350.83380943154
+          },
+          "nodeIndex": "Dim Date",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1207.6106497476212,
+            "y": 1160.2733487595756
+          },
+          "nodeIndex": "Dim Marketplace",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 828.32973995616487,
+            "y": 888.41691207698216
+          },
+          "nodeIndex": "SP Historical Campaign Cost",
+          "nodeLineageTag": "6f5aba7d-ef79-4752-82ac-e0071352b3c8",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 806.48488393566413,
+            "y": 580.2824752924098
+          },
+          "nodeIndex": "SB Historical Campaign Cost",
+          "nodeLineageTag": "7076c196-757d-45b9-ae3a-a545a23f51f9",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 710.306568534578,
+            "y": 1618.6468277225154
+          },
+          "nodeIndex": "Dim Product Codes",
+          "nodeLineageTag": "832e376b-a445-4b36-a1d4-9f1295586bc1",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Sponsored Products",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 6,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 352.23121996040271,
+            "y": 1159.0427485640948
+          },
+          "nodeIndex": "SB ad",
+          "nodeLineageTag": "14b8d6eb-b52e-4187-a7f4-a6c03eb98717",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 858.97860702306184,
+            "y": 668.17807427004209
+          },
+          "nodeIndex": "Dim SB campaigns",
+          "nodeLineageTag": "0e8b54bd-65f8-4f6a-b86f-6735c452bd45",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 991.60771696489633,
+            "y": 1331.4614831132521
+          },
+          "nodeIndex": "SB adgroup",
+          "nodeLineageTag": "e269acd5-67b0-4b54-8081-a83514e8c212",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 649.63988834141037,
+            "y": 293.69197648833619
+          },
+          "nodeIndex": "SB campaign",
+          "nodeLineageTag": "d5896f4f-1ff7-4e02-8ea5-a51ec12e340b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1278.5447892777024,
+            "y": 981.01508194573364
+          },
+          "nodeIndex": "SB campaign_placement",
+          "nodeLineageTag": "539bc14e-564e-4c94-9df8-26ea5f5430a0",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 170.78535273137237,
+            "y": 805.35247605142672
+          },
+          "nodeIndex": "SB purchased_product",
+          "nodeLineageTag": "62128cbd-c847-4fa0-820b-c3d417dcd743",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1140.3407024810472,
+            "y": 315.65089903770559
+          },
+          "nodeIndex": "SB search_term",
+          "nodeLineageTag": "b45ce5f8-8e9e-404b-adf7-d3c421afc82b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 639.20635121225291,
+            "y": 1375.4583500838723
+          },
+          "nodeIndex": "SB targeting",
+          "nodeLineageTag": "8dc4952f-758e-4418-9b1a-1f2a4095e49a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 936.63687460842266,
+            "y": -10
+          },
+          "nodeIndex": "Dim Amazon Portfolios",
+          "nodeLineageTag": "de403d9e-fc80-44f1-8739-666f789fae72",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 704.62212528965858,
+            "y": 1021.7806908748311
+          },
+          "nodeIndex": "Dim Date",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1241.7853194506492,
+            "y": 111.38708194664673
+          },
+          "nodeIndex": "Dim Marketplace",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 10,
+            "y": 1157.3195932266503
+          },
+          "nodeIndex": "Dim Product Codes",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1226.6529673336017,
+            "y": 666.86452252873448
+          },
+          "nodeIndex": "SB Historical Campaign Cost",
+          "nodeLineageTag": "7076c196-757d-45b9-ae3a-a545a23f51f9",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 13
+        }
+      ],
+      "name": "Sponsored Brands",
+      "zoomValue": 89.192590520569468,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 7,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 980.33333206176758,
+            "y": 53.5
+          },
+          "nodeIndex": "Dim Amazon Portfolios",
+          "nodeLineageTag": "de403d9e-fc80-44f1-8739-666f789fae72",
+          "size": {
+            "height": 256,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 619.33333206176758,
+            "y": 37.5
+          },
+          "nodeIndex": "Dim SD campaigns",
+          "nodeLineageTag": "d975b062-35de-4044-89e8-e3e13505f68a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 92.333332061767578,
+            "y": 491.5
+          },
+          "nodeIndex": "Dim Date",
+          "nodeLineageTag": "4dd79b73-5133-407e-90ab-eecd98104d12",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 618.33333206176758,
+            "y": 493.5
+          },
+          "nodeIndex": "SD Historical Campaign Cost",
+          "nodeLineageTag": "69ad3f3a-a047-42af-9ab6-a66c2e89bab7",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 128.33333206176758,
+            "y": 142.5
+          },
+          "nodeIndex": "Dim Marketplace",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        }
+      ],
+      "name": "Sponsored Display",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 8,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 544,
+            "y": 0
+          },
+          "nodeIndex": "SpecialDates",
+          "nodeLineageTag": "c321000e-184b-4696-8e70-cd9bbc04b110",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 84,
+            "y": 0
+          },
+          "nodeIndex": "Dim Date",
+          "nodeLineageTag": "4dd79b73-5133-407e-90ab-eecd98104d12",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        }
+      ],
+      "name": "Date",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}
