@@ -596,6 +596,15 @@
             "width": 234
           },
           "zIndex": 5
+        },
+        {
+          "location": {},
+          "nodeIndex": "SQP Rankings",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -837,8 +846,8 @@
       "nodes": [
         {
           "location": {
-            "x": 287.27051776005686,
-            "y": 347.20937532892606
+            "x": 258.27051776005686,
+            "y": 419.20937532892606
           },
           "nodeIndex": "search_query_performance_asin_view",
           "nodeLineageTag": "4ec28651-868f-40ee-90a2-ea6ebf1a02c1",
@@ -846,12 +855,12 @@
             "height": 300,
             "width": 316
           },
-          "zIndex": 6
+          "zIndex": 7
         },
         {
           "location": {
-            "x": 816.00555357081453,
-            "y": 0
+            "x": 1594.0055535708145,
+            "y": 4
           },
           "nodeIndex": "Dim Date",
           "nodeLineageTag": "4dd79b73-5133-407e-90ab-eecd98104d12",
@@ -859,12 +868,12 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 3
         },
         {
           "location": {
-            "x": 936.33333206176758,
-            "y": 346.5
+            "x": 1008.3333320617676,
+            "y": 399.5
           },
           "nodeIndex": "search_query_performance_brand_view",
           "nodeLineageTag": "70d3fa63-b112-4d84-950b-acf668155561",
@@ -872,12 +881,12 @@
             "height": 305,
             "width": 347
           },
-          "zIndex": 5
+          "zIndex": 6
         },
         {
           "location": {
-            "x": 475.33333206176758,
-            "y": 67
+            "x": 689.33333206176758,
+            "y": 165
           },
           "nodeIndex": "Dim Customer Search Term",
           "nodeLineageTag": "e64c8787-dba5-4a53-a457-d5fff51028c1",
@@ -885,19 +894,20 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 5
         },
         {
           "location": {
-            "x": 652,
-            "y": 691
+            "x": 685,
+            "y": 779
           },
           "nodeIndex": "Dim Marketplace",
+          "nodeLineageTag": "0502c810-5c63-4dff-8523-af2742970071",
           "size": {
             "height": 152,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 1
         },
         {
           "location": {
@@ -909,7 +919,20 @@
             "height": 200,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1055.3333320617676,
+            "y": 0
+          },
+          "nodeIndex": "SQP Rankings",
+          "nodeLineageTag": "1f2eafa0-2dd4-4d63-8788-a61dc369ef70",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 4
         }
       ],
       "name": "Search Query Performance Report",
@@ -1467,6 +1490,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "All tables",
+  "selectedDiagram": "Search Query Performance Report",
   "defaultDiagram": "All tables"
 }
