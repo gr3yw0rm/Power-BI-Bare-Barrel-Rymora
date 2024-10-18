@@ -1,0 +1,91 @@
+DEFINE
+	VAR __DS0FilterTable = 
+		TREATAS({"US"}, 'Dim Marketplace'[marketplace])
+
+	VAR __DS0FilterTable2 = 
+		TREATAS({"ORIG"}, 'Dim Product Codes'[parent_code])
+
+	VAR __DS0FilterTable3 = 
+		FILTER(
+			KEEPFILTERS(VALUES('Dim Date'[Date])),
+			'Dim Date'[Date] >= DATE(2022, 3, 1)
+		)
+
+	VAR __DS0FilterTable4 = 
+		TREATAS({"Last 30 Days"}, 'SpecialDates'[Period])
+
+	VAR __DS0FilterTable5 = 
+		TREATAS({"Same Period"}, 'Dim Previous Date Interval'[Date Interval])
+
+	VAR __DS0FilterTable6 = 
+		FILTER(KEEPFILTERS(VALUES('SQP Rankings'[rank])), 'SQP Rankings'[rank] <= 10)
+
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			'Dim Date'[Date],
+			__DS0FilterTable,
+			__DS0FilterTable2,
+			__DS0FilterTable3,
+			__DS0FilterTable4,
+			__DS0FilterTable5,
+			__DS0FilterTable6,
+			"ROI", 'KPI Tracker Measures'[ROI],
+			"ROI_7D_MA", 'KPI Tracker Measures'[ROI 7D MA],
+			"Prev_ROI_7D_MA", 'KPI Tracker Variance Measures'[Prev ROI 7D MA],
+			"Net_Profit____", IGNORE('KPI Tracker Measures'[Net Profit ($)]),
+			"Profit_Margin__CM3__7D_MA", 'KPI Tracker Measures'[Profit Margin (CM3) 7D MA],
+			"TACOS_7D_MA", 'KPI Tracker Measures'[TACOS 7D MA],
+			"Profit_Margin__CM3_", 'KPI Tracker Measures'[Profit Margin (CM3)],
+			"Prev_Profit_Margin__CM3_", 'KPI Tracker Variance Measures'[Prev Profit Margin (CM3)],
+			"TACOS", 'KPI Tracker Measures'[TACOS],
+			"Prev_TACOS_7D_MA", 'KPI Tracker Variance Measures'[Prev TACOS 7D MA]
+		)
+
+	VAR __DS0IntersectionCount = CALCULATE(COUNTROWS(__DS0Core))
+
+	VAR __DS0BodyBinnedSample = 
+		SAMPLEAXISWITHLOCALMINMAX(
+			3500,
+			__DS0Core,
+			'Dim Date'[Date],
+			[ROI],
+			[ROI_7D_MA],
+			[Prev_ROI_7D_MA],
+			[Profit_Margin__CM3__7D_MA],
+			[TACOS_7D_MA],
+			[Profit_Margin__CM3_],
+			[Prev_Profit_Margin__CM3_],
+			[TACOS],
+			[Prev_TACOS_7D_MA],
+			350,
+			,
+			ALPHABETICAL,
+			ASC,
+			105000,
+			60
+		)
+
+EVALUATE
+	ROW(
+	"DS0IntersectionCount", __DS0IntersectionCount
+)
+
+EVALUATE
+	SUMMARIZECOLUMNS(
+		__DS0FilterTable,
+		__DS0FilterTable2,
+		__DS0FilterTable3,
+		__DS0FilterTable4,
+		__DS0FilterTable5,
+		__DS0FilterTable6,
+		"CFMinROIMA", IGNORE('KPI Tracker Measures'[CFMinROIMA]),
+		"CFMaxROIMA", IGNORE('KPI Tracker Measures'[CFMaxROIMA]),
+		"CFMinCM3TACOSMA", IGNORE('KPI Tracker Measures'[CFMinCM3TACOSMA]),
+		"CFMaxCM3TACOSMA", IGNORE('KPI Tracker Measures'[CFMaxCM3TACOSMA])
+	)
+
+EVALUATE
+	__DS0BodyBinnedSample
+
+ORDER BY
+	'Dim Date'[Date]
