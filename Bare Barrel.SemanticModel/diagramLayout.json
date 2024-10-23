@@ -617,8 +617,8 @@
     {
       "ordinal": 1,
       "scrollPosition": {
-        "x": 143.33333206176758,
-        "y": 20.5
+        "x": 0,
+        "y": 21
       },
       "nodes": [
         {
@@ -1024,7 +1024,7 @@
       "ordinal": 5,
       "scrollPosition": {
         "x": 0,
-        "y": 400
+        "y": 350.83380943154
       },
       "nodes": [
         {
@@ -1051,7 +1051,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 7
         },
         {
           "location": {
@@ -1068,8 +1068,8 @@
         },
         {
           "location": {
-            "x": 341.04183863388681,
-            "y": -10
+            "x": 577.04183863388675,
+            "y": 0
           },
           "nodeIndex": "SP campaign_placement",
           "nodeLineageTag": "11e90cc5-32e2-4329-813d-327f7fa83549",
@@ -1077,7 +1077,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 11
         },
         {
           "location": {
@@ -1090,7 +1090,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 2
         },
         {
           "location": {
@@ -1102,7 +1102,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 3
         },
         {
           "location": {
@@ -1115,7 +1115,7 @@
             "height": 272,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 4
         },
         {
           "location": {
@@ -1127,7 +1127,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 5
         },
         {
           "location": {
@@ -1139,7 +1139,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 6
         },
         {
           "location": {
@@ -1156,19 +1156,6 @@
         },
         {
           "location": {
-            "x": 806.48488393566413,
-            "y": 580.2824752924098
-          },
-          "nodeIndex": "SB Historical Campaign Cost",
-          "nodeLineageTag": "7076c196-757d-45b9-ae3a-a545a23f51f9",
-          "size": {
-            "height": 272,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
             "x": 710.306568534578,
             "y": 1618.6468277225154
           },
@@ -1178,11 +1165,11 @@
             "height": 248,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         }
       ],
       "name": "Sponsored Products",
-      "zoomValue": 100,
+      "zoomValue": 89.192590520569425,
       "pinKeyFieldsToTop": true,
       "showExtraHeaderInfo": true,
       "hideKeyFieldsWhenCollapsed": false,
@@ -1490,6 +1477,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Orders",
+  "selectedDiagram": "Sponsored Products",
   "defaultDiagram": "All tables"
 }
