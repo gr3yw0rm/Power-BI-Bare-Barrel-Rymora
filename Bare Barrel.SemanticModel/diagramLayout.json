@@ -771,7 +771,7 @@
       "ordinal": 2,
       "scrollPosition": {
         "x": 0,
-        "y": 1
+        "y": 2
       },
       "nodes": [
         {
@@ -863,8 +863,8 @@
     {
       "ordinal": 3,
       "scrollPosition": {
-        "x": 100,
-        "y": 100
+        "x": 0,
+        "y": 0
       },
       "nodes": [
         {
@@ -946,7 +946,7 @@
         },
         {
           "location": {
-            "x": 1055.3333320617676,
+            "x": 1056.7426652090064,
             "y": 0
           },
           "nodeIndex": "SQP Rankings",
@@ -959,7 +959,7 @@
         }
       ],
       "name": "Search Query Performance Report",
-      "zoomValue": 100,
+      "zoomValue": 70.955543900968792,
       "pinKeyFieldsToTop": true,
       "showExtraHeaderInfo": true,
       "hideKeyFieldsWhenCollapsed": false,
@@ -1500,6 +1500,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Keyword Tracker",
+  "selectedDiagram": "Search Query Performance Report",
   "defaultDiagram": "All tables"
 }
