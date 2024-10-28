@@ -605,6 +605,16 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "h10_keyword_tracker Search Volume",
+          "nodeLineageTag": "ff9dc987-a92c-4613-af13-53b363dece93",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
@@ -761,7 +771,7 @@
       "ordinal": 2,
       "scrollPosition": {
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "nodes": [
         {
@@ -792,8 +802,8 @@
         },
         {
           "location": {
-            "x": 310.0449362033014,
-            "y": 241.75903665017131
+            "x": 535.0449362033014,
+            "y": 160.75903665017131
           },
           "nodeIndex": "h10_keyword_tracker",
           "nodeLineageTag": "cc1f61f6-ddec-4a51-a21b-3848c47173df",
@@ -805,8 +815,8 @@
         },
         {
           "location": {
-            "x": 594.271201979846,
-            "y": 449.6482806848216
+            "x": 1048.271201979846,
+            "y": 545.64828068482166
           },
           "nodeIndex": "Dim Product Codes",
           "nodeLineageTag": "832e376b-a445-4b36-a1d4-9f1295586bc1",
@@ -818,13 +828,26 @@
         },
         {
           "location": {
-            "x": 594.33333206176758,
+            "x": 869.33333206176758,
             "y": 0
           },
           "nodeIndex": "Dim Marketplace",
           "nodeLineageTag": "0502c810-5c63-4dff-8523-af2742970071",
           "size": {
             "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 541,
+            "y": 443.5
+          },
+          "nodeIndex": "h10_keyword_tracker Search Volume",
+          "nodeLineageTag": "ff9dc987-a92c-4613-af13-53b363dece93",
+          "size": {
+            "height": 176,
             "width": 234
           },
           "zIndex": 0
@@ -1024,7 +1047,7 @@
       "ordinal": 5,
       "scrollPosition": {
         "x": 0,
-        "y": 350.83380943154
+        "y": 857.69456356756132
       },
       "nodes": [
         {
@@ -1143,8 +1166,8 @@
         },
         {
           "location": {
-            "x": 828.32973995616487,
-            "y": 888.41691207698216
+            "x": 905.69042608186658,
+            "y": 807.69271785885871
           },
           "nodeIndex": "SP Historical Campaign Cost",
           "nodeLineageTag": "6f5aba7d-ef79-4752-82ac-e0071352b3c8",
@@ -1477,6 +1500,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Sponsored Products",
+  "selectedDiagram": "Keyword Tracker",
   "defaultDiagram": "All tables"
 }
