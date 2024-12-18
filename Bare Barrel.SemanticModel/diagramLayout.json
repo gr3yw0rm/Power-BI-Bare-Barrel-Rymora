@@ -4,8 +4,8 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 1817.621586000002,
-        "y": 6956.9200470000078
+        "x": 479.07900389411634,
+        "y": 18245.559100687035
       },
       "nodes": [
         {
@@ -633,10 +633,23 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 8588.9225870022055,
+            "y": 0
+          },
+          "nodeIndex": "SPk-sEX Campaign Placement",
+          "nodeLineageTag": "6c620f4e-c555-42bd-8be1-a8f6aa0ee068",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
-      "zoomValue": 56.447393005377677,
+      "zoomValue": 39.450695702325504,
       "pinKeyFieldsToTop": true,
       "showExtraHeaderInfo": true,
       "hideKeyFieldsWhenCollapsed": false,
@@ -646,7 +659,7 @@
       "ordinal": 1,
       "scrollPosition": {
         "x": 0,
-        "y": 21
+        "y": 75
       },
       "nodes": [
         {
@@ -660,7 +673,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 10
         },
         {
           "location": {
@@ -673,7 +686,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 4
         },
         {
           "location": {
@@ -686,7 +699,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 10
+          "zIndex": 9
         },
         {
           "location": {
@@ -711,7 +724,7 @@
             "height": 200,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 2
         },
         {
           "location": {
@@ -724,7 +737,7 @@
             "height": 272,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 3
         },
         {
           "location": {
@@ -737,7 +750,7 @@
             "height": 200,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 5
         },
         {
           "location": {
@@ -749,7 +762,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 6
         },
         {
           "location": {
@@ -762,7 +775,7 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 8
+          "zIndex": 7
         },
         {
           "location": {
@@ -775,7 +788,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 9
+          "zIndex": 8
         }
       ],
       "name": "Orders",
@@ -788,8 +801,8 @@
     {
       "ordinal": 2,
       "scrollPosition": {
-        "x": 0,
-        "y": 2
+        "x": 59.5,
+        "y": 0
       },
       "nodes": [
         {
@@ -803,7 +816,7 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 2
         },
         {
           "location": {
@@ -816,7 +829,7 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 3
         },
         {
           "location": {
@@ -829,7 +842,7 @@
             "height": 248,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 6
         },
         {
           "location": {
@@ -842,7 +855,7 @@
             "height": 200,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 4
         },
         {
           "location": {
@@ -855,7 +868,7 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         },
         {
           "location": {
@@ -868,7 +881,7 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 5
         }
       ],
       "name": "Keyword Tracker",
@@ -1064,7 +1077,7 @@
     {
       "ordinal": 5,
       "scrollPosition": {
-        "x": 801.63609536053116,
+        "x": 0,
         "y": 0
       },
       "nodes": [
@@ -1096,8 +1109,8 @@
         },
         {
           "location": {
-            "x": 913.51696577288408,
-            "y": 697.40495887255065
+            "x": 881.9149428018419,
+            "y": 694.24475657544644
           },
           "nodeIndex": "SP purchased_product",
           "nodeLineageTag": "151fdbe2-e2b1-4eda-8488-8a85c056ddf8",
@@ -1185,7 +1198,7 @@
         },
         {
           "location": {
-            "x": 1578.3264259780121,
+            "x": 1791.6400810325467,
             "y": 0
           },
           "nodeIndex": "SP Historical Campaign Cost",
@@ -1233,10 +1246,23 @@
             "width": 234
           },
           "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1484.4873186137866,
+            "y": 0
+          },
+          "nodeIndex": "SPk-sEX Campaign Placement",
+          "nodeLineageTag": "6c620f4e-c555-42bd-8be1-a8f6aa0ee068",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 14
         }
       ],
       "name": "Sponsored Products",
-      "zoomValue": 89.192590520569425,
+      "zoomValue": 56.447393005377663,
       "pinKeyFieldsToTop": true,
       "showExtraHeaderInfo": true,
       "hideKeyFieldsWhenCollapsed": false,
@@ -1440,6 +1466,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Sponsored Brands",
+  "selectedDiagram": "Orders",
   "defaultDiagram": "All tables"
 }
