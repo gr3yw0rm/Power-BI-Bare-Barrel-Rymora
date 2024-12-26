@@ -659,7 +659,7 @@
       "ordinal": 1,
       "scrollPosition": {
         "x": 0,
-        "y": 75
+        "y": 87.5
       },
       "nodes": [
         {
@@ -1466,6 +1466,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Orders",
+  "selectedDiagram": "Sponsored Products",
   "defaultDiagram": "All tables"
 }
