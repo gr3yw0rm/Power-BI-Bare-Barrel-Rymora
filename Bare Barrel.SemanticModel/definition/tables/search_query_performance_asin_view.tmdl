@@ -1,0 +1,423 @@
+table search_query_performance_asin_view
+	lineageTag: 4ec28651-868f-40ee-90a2-ea6ebf1a02c1
+
+	measure 'Last Year impressions_asin_count' = CALCULATE(SUM('search_query_performance_asin_view'[impressions_asin_count]), SAMEPERIODLASTYEAR('Dim Date'[Date]))
+		formatString: #,0
+		lineageTag: 3036484d-d9ff-4ab8-a1ce-28e439614759
+
+	column reporting_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0240fd63-e6da-4ec2-ae32-2bc6ba48e6b8
+		summarizeBy: none
+		sourceColumn: reporting_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column reporting_range
+		dataType: string
+		lineageTag: 62de9acc-5310-469d-8891-66a5f3e48eff
+		summarizeBy: none
+		sourceColumn: reporting_range
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		lineageTag: 5d5cf9d8-dba9-40f2-97cc-f9bf834e94c4
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	column asin
+		dataType: string
+		lineageTag: 70a56d61-1ba6-4f94-bbd5-21c1ddadd59c
+		summarizeBy: none
+		sourceColumn: asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column search_query
+		dataType: string
+		lineageTag: 7b89c725-2a83-489c-9195-c5ea1823a7fd
+		summarizeBy: none
+		sourceColumn: search_query
+
+		annotation SummarizationSetBy = Automatic
+
+	column search_query_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 2851ebe2-ad31-48c4-8683-02fdbf8a33f9
+		summarizeBy: none
+		sourceColumn: search_query_score
+
+		annotation SummarizationSetBy = User
+
+	column search_query_volume
+		dataType: int64
+		formatString: #,0
+		lineageTag: 67e595e6-f0d5-4736-84a6-ba3cfea1f22a
+		summarizeBy: sum
+		sourceColumn: search_query_volume
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions_total_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c6c82d9-758e-42b1-ab92-bfee2e5c9f08
+		summarizeBy: sum
+		sourceColumn: impressions_total_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions_asin_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: 67b3f81c-ca91-4664-b535-bace85c16c5e
+		summarizeBy: sum
+		sourceColumn: impressions_asin_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions_asin_share
+		dataType: double
+		lineageTag: 1080fce1-0238-428a-9e91-41b1da06820c
+		summarizeBy: sum
+		sourceColumn: impressions_asin_share
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks_total_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 0fdf7d51-51cf-4326-8d21-b3bee1b5e18f
+		summarizeBy: sum
+		sourceColumn: clicks_total_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks_click_rate
+		dataType: double
+		lineageTag: 87f805db-56c5-44f3-ba80-ec528391f2af
+		summarizeBy: sum
+		sourceColumn: clicks_click_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks_asin_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 60d7b541-4724-49cd-991d-09e997fa845e
+		summarizeBy: sum
+		sourceColumn: clicks_asin_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks_asin_share
+		dataType: double
+		lineageTag: 92b34013-d269-4681-b6cf-c0536c025a35
+		summarizeBy: sum
+		sourceColumn: clicks_asin_share
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks_price
+		dataType: double
+		lineageTag: d5c58460-08a5-4075-8770-b5984ca4375b
+		summarizeBy: sum
+		sourceColumn: clicks_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks_asin_price
+		dataType: double
+		lineageTag: cd3d72c7-9f18-44fd-878d-cbb3146c5a01
+		summarizeBy: sum
+		sourceColumn: clicks_asin_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks_same_day_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: ca52b269-ee00-49fc-9713-79b69bd489e2
+		summarizeBy: sum
+		sourceColumn: clicks_same_day_shipping_speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks_1d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d977596-c990-4665-aae0-b66663f8c258
+		summarizeBy: sum
+		sourceColumn: clicks_1d_shipping_speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks_2d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: ade85cc8-baa9-4e88-95cb-49fecffa973b
+		summarizeBy: sum
+		sourceColumn: clicks_2d_shipping_speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column cart_adds_total_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d7852ca-9a56-4170-a1e0-110cc4204f5e
+		summarizeBy: sum
+		sourceColumn: cart_adds_total_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column cart_adds_cart_add_rate
+		dataType: double
+		lineageTag: 955646fe-c501-4af0-91c0-fe0e7bb9106b
+		summarizeBy: sum
+		sourceColumn: cart_adds_cart_add_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cart_adds_asin_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 6484a78e-f233-4cdb-b6ba-48f52392fd71
+		summarizeBy: sum
+		sourceColumn: cart_adds_asin_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column cart_adds_asin_share
+		dataType: double
+		lineageTag: b5eaf0b3-be13-4bb6-8abe-e4c88b1b1e85
+		summarizeBy: sum
+		sourceColumn: cart_adds_asin_share
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cart_adds_price
+		dataType: double
+		lineageTag: 8e1baeff-0ae8-4a8a-8ab4-7822289d6784
+		summarizeBy: sum
+		sourceColumn: cart_adds_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cart_adds_asin_price
+		dataType: double
+		lineageTag: ec70c182-6308-403b-b57c-df4a722057bd
+		summarizeBy: sum
+		sourceColumn: cart_adds_asin_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cart_adds_same_day_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 60d24a86-3778-4580-80ab-9ef8267e7563
+		summarizeBy: sum
+		sourceColumn: cart_adds_same_day_shipping_speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column cart_adds_1d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: e11fab2f-88be-4e89-9dd5-38cf91b7f9cc
+		summarizeBy: sum
+		sourceColumn: cart_adds_1d_shipping_speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column cart_adds_2d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 0cb0a1f7-8aa5-4510-af7a-75e3dedb137d
+		summarizeBy: sum
+		sourceColumn: cart_adds_2d_shipping_speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_total_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 81c71494-b904-4b25-bcef-0b27b604496d
+		summarizeBy: sum
+		sourceColumn: purchases_total_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_purchase_rate
+		dataType: double
+		lineageTag: 3150481d-d033-4d91-8740-1cca46884fd2
+		summarizeBy: sum
+		sourceColumn: purchases_purchase_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_asin_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f8d48a4-7cc7-47da-a259-676c2c34a6e9
+		summarizeBy: sum
+		sourceColumn: purchases_asin_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_asin_share
+		dataType: double
+		lineageTag: a8a9c804-5787-4b96-afd8-19efc8139870
+		summarizeBy: sum
+		sourceColumn: purchases_asin_share
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_price
+		dataType: double
+		lineageTag: d99dd324-662e-42c4-aa0c-15973729b1fe
+		summarizeBy: sum
+		sourceColumn: purchases_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_asin_price
+		dataType: double
+		lineageTag: fd7eb734-b1fa-4176-85b9-df074faffa2d
+		summarizeBy: sum
+		sourceColumn: purchases_asin_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_same_day_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 9aa42483-44f6-44a3-a7b4-ee00bbc0a979
+		summarizeBy: sum
+		sourceColumn: purchases_same_day_shipping_speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_1d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c21cd08-f74e-4eb9-8bc8-123198c5bd39
+		summarizeBy: sum
+		sourceColumn: purchases_1d_shipping_speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_2d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 4819dfe7-bc5b-4c74-917f-8af3e38b98df
+		summarizeBy: sum
+		sourceColumn: purchases_2d_shipping_speed
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8ff5d861-4a18-484c-8bda-2293d421f7c2
+		summarizeBy: none
+		sourceColumn: end_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column start_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cd38401f-6013-41e6-a5b7-2051c6a6860c
+		summarizeBy: none
+		sourceColumn: start_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column week
+		dataType: string
+		lineageTag: 0b8d5b74-e5e7-4930-8110-93aa481d390f
+		summarizeBy: none
+		sourceColumn: week
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a7809ffd-d17e-47e5-9bd5-bb32dcf09e6d
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: b7e0d402-4746-4a06-b07a-0117381c877f
+			defaultHierarchy: LocalDateTable_c4cd3127-aa40-41f8-b202-f25e3cff3cc7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a5840725-cc7f-4bab-a495-440c06ebc8f2
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: b5770fb7-b25f-4c48-ba72-8c2b428e45de
+			defaultHierarchy: LocalDateTable_482ceebe-9414-4609-8267-ca52a44ac0d7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition search_query_performance_asin_view = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    brand_analytics = Source{[Schema="brand_analytics"]}[Data],
+				    search_query_performance_asin_view1 = brand_analytics{[Name="search_query_performance_asin_view"]}[Data]
+				in
+				    search_query_performance_asin_view1
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

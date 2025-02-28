@@ -1,0 +1,61 @@
+table DimPrimePrice
+	lineageTag: 59b9c5cc-b0ba-40c5-8a77-44fb591a13be
+
+	column asin
+		dataType: string
+		lineageTag: bc1cd4cd-47c3-49d4-b3d3-820450e0d0ec
+		summarizeBy: none
+		sourceColumn: asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column prime_price
+		dataType: string
+		lineageTag: 47049729-f8e8-4bff-b304-dabc40983926
+		summarizeBy: none
+		sourceColumn: prime_price
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace_id
+		dataType: string
+		lineageTag: 3ad1c79f-8465-407b-bf17-24b0cc60953a
+		summarizeBy: none
+		sourceColumn: marketplace_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrimePriceSK
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b991562-4b69-4f3b-9e1e-bbb62ddd4580
+		summarizeBy: sum
+		sourceColumn: PrimePriceSK
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimPrimePrice = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    product_pricing = Source{[Schema="product_pricing"]}[Data],
+				    competitive_pricing1 = product_pricing{[Name="competitive_pricing"]}[Data],
+				    #"Sorted Rows" = Table.Sort(competitive_pricing1,{{"date", Order.Descending}, {"asin", Order.Ascending}, {"marketplace", Order.Ascending}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Sorted Rows", each ([customer_type] = "Business") and ([product_competitive_pricing_competitive_prices] <> "[]") and ([product_competitive_pricing_competitive_prices] <> null)),
+				    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"asin", "product_identifiers_marketplace_asin_marketplace_id"}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Removed Duplicates",{"asin", "product_competitive_pricing_competitive_prices", "product_identifiers_marketplace_asin_marketplace_id"}),
+				    #"Parsed JSON" = Table.TransformColumns(#"Removed Other Columns",{{"product_competitive_pricing_competitive_prices", Json.Document}}),
+				    #"Expanded product_competitive_pricing_competitive_prices" = Table.ExpandListColumn(#"Parsed JSON", "product_competitive_pricing_competitive_prices"),
+				    #"Expanded product_competitive_pricing_competitive_prices1" = Table.ExpandRecordColumn(#"Expanded product_competitive_pricing_competitive_prices", "product_competitive_pricing_competitive_prices", {"Price"}, {"product_competitive_pricing_competitive_prices.Price"}),
+				    #"Expanded product_competitive_pricing_competitive_prices.Price" = Table.ExpandRecordColumn(#"Expanded product_competitive_pricing_competitive_prices1", "product_competitive_pricing_competitive_prices.Price", {"ListingPrice"}, {"product_competitive_pricing_competitive_prices.Price.ListingPrice"}),
+				    #"Expanded product_competitive_pricing_competitive_prices.Price.ListingPrice" = Table.ExpandRecordColumn(#"Expanded product_competitive_pricing_competitive_prices.Price", "product_competitive_pricing_competitive_prices.Price.ListingPrice", {"Amount"}, {"product_competitive_pricing_competitive_prices.Price.ListingPrice.Amount"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Expanded product_competitive_pricing_competitive_prices.Price.ListingPrice",{{"product_competitive_pricing_competitive_prices.Price.ListingPrice.Amount", "prime_price"}, {"product_identifiers_marketplace_asin_marketplace_id", "marketplace_id"}}),
+				    #"Added Index1" = Table.AddIndexColumn(#"Renamed Columns", "Index.1", 1, 1, Int64.Type),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Added Index1",{{"Index.1", "PrimePriceSK"}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns1",{"PrimePriceSK", "asin", "marketplace_id", "prime_price"})
+				in
+				    #"Reordered Columns"
+
+	annotation PBI_ResultType = Table
+

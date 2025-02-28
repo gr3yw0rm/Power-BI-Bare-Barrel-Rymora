@@ -1,0 +1,435 @@
+table detail_page_sales_and_traffic_child
+	lineageTag: 28d294fe-4d98-41bc-a463-9e69b7deec90
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0d9f912a-824f-4f0c-aea2-f52e60075e36
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column marketplace
+		dataType: string
+		lineageTag: a976bb80-a2ed-4f74-9fd6-b8e4061ac448
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	column parent_asin
+		dataType: string
+		lineageTag: f924316c-dc1d-4af7-a8a6-180e3f54a48b
+		summarizeBy: none
+		sourceColumn: parent_asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column child_asin
+		dataType: string
+		lineageTag: dde21ba4-d6f6-4e86-9a0a-b1e69d8158f4
+		summarizeBy: none
+		sourceColumn: child_asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_by_asin_units_ordered
+		dataType: double
+		lineageTag: f639e68b-b3eb-468b-8936-566ee78d3d3a
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_units_ordered
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_by_asin_units_ordered_b2b
+		dataType: double
+		lineageTag: af802991-efb1-4ce8-8f3d-a6e06eef8df0
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_units_ordered_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_by_asin_ordered_product_sales_amount
+		dataType: double
+		lineageTag: ebe8f9ef-bcb0-4030-8687-22ca73e6570a
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_ordered_product_sales_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_by_asin_ordered_product_sales_currency_code
+		dataType: string
+		lineageTag: aabda51e-7a65-4785-88ec-746fe3464a99
+		summarizeBy: none
+		sourceColumn: sales_by_asin_ordered_product_sales_currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_by_asin_ordered_product_sales_b2b_amount
+		dataType: double
+		lineageTag: 5f26108d-0623-4dda-a5cb-5c7fbb064bb6
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_ordered_product_sales_b2b_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_by_asin_ordered_product_sales_b2b_currency_code
+		dataType: string
+		lineageTag: d9b78a47-a46d-4a43-9c20-9433b0ecc269
+		summarizeBy: none
+		sourceColumn: sales_by_asin_ordered_product_sales_b2b_currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_by_asin_total_order_items
+		dataType: double
+		lineageTag: ee616388-b269-4ffb-b66e-bf290f24851b
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_total_order_items
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_by_asin_total_order_items_b2b
+		dataType: double
+		lineageTag: 835b74b9-e2a7-464d-9271-363020855189
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_total_order_items_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_sessions
+		dataType: double
+		lineageTag: 6151317e-509b-459e-97aa-b262d4889379
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_sessions
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_sessions_b2b
+		dataType: double
+		lineageTag: 5ffc9cc9-29d4-498b-ab86-82e54b3ce00e
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_sessions_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_sessions
+		dataType: double
+		lineageTag: a1042bf4-d163-46c0-badb-f3f99a934837
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_sessions
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_sessions_b2b
+		dataType: double
+		lineageTag: 123431ad-341a-4be8-82fc-739f54dc0e62
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_sessions_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_sessions
+		dataType: double
+		formatString: 0
+		lineageTag: a3233c21-1511-450e-b112-934847c700ba
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_sessions
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_sessions_b2b
+		dataType: double
+		lineageTag: 9757c38b-8cb7-4067-a6b2-ed79913ae933
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_sessions_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_session_percentage
+		dataType: double
+		lineageTag: f449b59b-5619-4f30-9cca-0d9c7c7ce709
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_session_percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_session_percentage_b2b
+		dataType: double
+		lineageTag: 23f8998b-622e-40b9-aea0-3677aeedf7fa
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_session_percentage_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_session_percentage
+		dataType: double
+		lineageTag: 7863313c-72bc-4ccb-b9a8-4b213e4e450c
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_session_percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_session_percentage_b2b
+		dataType: double
+		lineageTag: 15a1553f-690c-40f5-a60e-f66f9d27d0b3
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_session_percentage_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_session_percentage
+		dataType: double
+		lineageTag: 70adbb22-dd08-48d1-a2ae-7511bd86202f
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_session_percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_session_percentage_b2b
+		dataType: double
+		lineageTag: 5c7dda1f-f2ca-4077-91a4-a74a2b2e4c90
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_session_percentage_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_page_views
+		dataType: double
+		lineageTag: 90d2c304-8eb4-462d-804f-e8b081ee3ee4
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_page_views
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_page_views_b2b
+		dataType: double
+		lineageTag: fd83529e-e327-4633-ba3c-5adfe3354b30
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_page_views_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_page_views
+		dataType: double
+		lineageTag: 83a9f833-74f5-4d39-adb8-fa295783a920
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_page_views
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_page_views_b2b
+		dataType: double
+		lineageTag: 2fd8cbb4-3f58-4e37-8fe0-c99bbbdb2dad
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_page_views_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_page_views
+		dataType: double
+		lineageTag: 7d5b6da6-4aa0-447d-be54-e19cef8c1758
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_page_views
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_page_views_b2b
+		dataType: double
+		lineageTag: 79c55eae-abcc-4718-a221-997516acd9a7
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_page_views_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_page_views_percentage
+		dataType: double
+		lineageTag: 1fc76e87-bebb-4d98-ad2f-e2a27512971a
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_page_views_percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_page_views_percentage_b2b
+		dataType: double
+		lineageTag: 8bf8dd9e-e474-429e-a359-60884c605536
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_page_views_percentage_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_page_views_percentage
+		dataType: double
+		lineageTag: 3ee88131-ab26-4607-8451-41ee36b3582b
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_page_views_percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_page_views_percentage_b2b
+		dataType: double
+		lineageTag: daeed438-b687-4064-9f44-8b8cf53d951f
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_page_views_percentage_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_page_views_percentage
+		dataType: double
+		lineageTag: 3c646f74-106c-4d12-b75c-37f14cb1bc5b
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_page_views_percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_page_views_percentage_b2b
+		dataType: double
+		lineageTag: 2a745fab-9905-4579-aeb3-52c6c5c7886a
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_page_views_percentage_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_buy_box_percentage
+		dataType: double
+		lineageTag: f20dcf80-df4c-4018-a6d8-3fe52fd196a6
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_buy_box_percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_buy_box_percentage_b2b
+		dataType: double
+		lineageTag: 69e111ce-b50d-407d-8c2b-0cde56fbbebf
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_buy_box_percentage_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_unit_session_percentage
+		dataType: double
+		lineageTag: 76921bbc-f8ba-47c9-abb4-010211ed9e5c
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_unit_session_percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_unit_session_percentage_b2b
+		dataType: double
+		lineageTag: 77832860-3489-49af-b8fd-06b88b88d2b0
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_unit_session_percentage_b2b
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 84a1ffde-ee33-47ad-a219-402115096e5f
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: e1bd193f-3f1d-41f2-b03d-9d589b95c978
+			defaultHierarchy: LocalDateTable_d1e3ca79-153d-4a5b-9d5e-72748910d30e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9983d3ce-6a6b-4af0-9b5c-beb9bed5015e
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 67d363a9-d9f5-47b1-958d-fbd52c79938c
+			defaultHierarchy: LocalDateTable_0b21c2ca-d669-44c0-82bf-1af8570c0ac4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition detail_page_sales_and_traffic_child = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    business_reports = Source{[Schema="business_reports"]}[Data],
+				    detail_page_sales_and_traffic_child1 = business_reports{[Name="detail_page_sales_and_traffic_child"]}[Data]
+				in
+				    detail_page_sales_and_traffic_child1
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

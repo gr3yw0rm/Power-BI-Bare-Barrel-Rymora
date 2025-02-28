@@ -1,0 +1,243 @@
+table summaries
+	isHidden
+	lineageTag: d624be71-3aee-4c93-b77b-34756f7195f4
+
+	column sku
+		dataType: string
+		isHidden
+		lineageTag: 8af3c899-eba4-4f59-9ae0-1b75e6dcf059
+		summarizeBy: none
+		sourceColumn: sku
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: e6c974e9-f691-4b0d-a68b-fefd62f3d699
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: 0a580557-6ab8-4652-94e4-ea1b9232f345
+			defaultHierarchy: LocalDateTable_61038e87-f864-4c07-bc08-866802ee8849.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column marketplace
+		dataType: string
+		isHidden
+		lineageTag: fcae6259-228a-45a3-97b0-88bdc327bf76
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace_id
+		dataType: string
+		isHidden
+		lineageTag: 22f9c014-3fa1-4a31-ae47-43161b5f52d2
+		summarizeBy: none
+		sourceColumn: marketplace_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column asin
+		dataType: string
+		isHidden
+		lineageTag: 5b73f1ba-a113-461f-bd59-12fcd92f21a9
+		summarizeBy: none
+		sourceColumn: asin
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_type
+		dataType: string
+		isHidden
+		lineageTag: 856a560e-ae51-4261-a255-704920dea6f1
+		summarizeBy: none
+		sourceColumn: product_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column condition_type
+		dataType: string
+		isHidden
+		lineageTag: 5a98c35f-abb6-4d00-bca7-effcdbb805f4
+		summarizeBy: none
+		sourceColumn: condition_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		isHidden
+		lineageTag: f589a06e-8ab0-4d93-b877-156b74bb1c77
+		summarizeBy: none
+		sourceColumn: status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column fn_sku
+		dataType: string
+		isHidden
+		lineageTag: 75f479f3-ba39-4dce-996d-d1f4493f4b12
+		summarizeBy: none
+		sourceColumn: fn_sku
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_name
+		dataType: string
+		isHidden
+		lineageTag: a8b7806e-47e6-4d30-834c-5e46122314fd
+		summarizeBy: none
+		sourceColumn: item_name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_date
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: c816d1dd-2134-4c4a-8d63-3db2bbe96697
+		summarizeBy: none
+		sourceColumn: created_date
+
+		variation Variation
+			isDefault
+			relationship: d99da05e-84b2-435b-a33c-f8cdb4b0fcd6
+			defaultHierarchy: LocalDateTable_489fe00b-02e4-4a81-84e9-147f3eca2dd1.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_updated_date
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: e312b955-65e3-428a-978a-58bcf0939d02
+		summarizeBy: none
+		sourceColumn: last_updated_date
+
+		variation Variation
+			isDefault
+			relationship: 0a2e33ac-b7f3-4f22-9ea3-d8c238a0af92
+			defaultHierarchy: LocalDateTable_76e6be49-ab29-454e-b714-1bcc73bd1fc0.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column main_image_link
+		dataType: string
+		isHidden
+		lineageTag: 3047cc5b-9205-4809-b944-403df9609aaf
+		summarizeBy: none
+		sourceColumn: main_image_link
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column main_image_height
+		dataType: double
+		isHidden
+		lineageTag: c8065d5b-8fc7-4724-a975-5c738524292c
+		summarizeBy: sum
+		sourceColumn: main_image_height
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column main_image_width
+		dataType: double
+		isHidden
+		lineageTag: f1a14c04-2f80-45ba-9f2a-7cdb15897e0d
+		summarizeBy: sum
+		sourceColumn: main_image_width
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column created_at
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 18810950-37a3-42ff-84fb-def3085d9ae6
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 298f6c1a-6666-4506-b8a0-b9e545c3eded
+			defaultHierarchy: LocalDateTable_bb3d9b59-d8f0-42f4-9a45-cd840f6b4aab.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 550e62d3-be74-410b-8b1e-1b43779ee09a
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 204de8a4-dd72-4c30-945e-3422492c89c6
+			defaultHierarchy: LocalDateTable_0ea5fab9-5c65-4107-904f-ae11c3002297.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition summaries = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    listings_items = Source{[Schema="listings_items"]}[Data],
+				    summaries1 = listings_items{[Name="summaries"]}[Data]
+				in
+				    summaries1
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

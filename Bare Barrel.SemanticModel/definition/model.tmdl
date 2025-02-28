@@ -1,0 +1,144 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+/// Errors in queries that were loaded on 8/16/2024 3:59:24 AM.
+queryGroup 'Query Errors - 8/16/2024 3:59:24 AM'
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation PBI_QueryOrder = ["search_query_performance_asin_view","search_query_performance_brand_view","detail_page_sales_and_traffic_parent","detail_page_sales_and_traffic_child","SP campaign","SP search_term","amazon_order_items","amazon_orders","Dim Marketplace","summaries","Dim Product Codes","Dim Sku Market Category","DimPrimePrice","h10_keyword_tracker","DimFBAInventory","DimFBAPlanningInventory","SP advertised_product","SP campaign_adgroup","SP campaign_placement","Dim SP campaigns","SP purchased_product","Dim Amazon Portfolios","Dim SB campaigns","SB campaign","SB campaign_placement","SB purchased_product","SB search_term","SB targeting","SB ad","SB adgroup","Dim SD campaigns","Dim Customer Search Term","Exhange Rates 2024","Exhange Rates 2023","Exhange Rates 2022","Exchange Rates","Exchange Rates Average","COGS (WW)","SP Historical Campaign Cost","SB Historical Campaign Cost","SD Historical Campaign Cost","Dim Previous Date Interval","SQP Rankings","h10_keyword_tracker Search Volume","Dim Parent Product Codes","SPk-sEX Campaign Placement"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.140.1078.0 (25.02)+2cce24fb16e8b71ba835921d23e7ffc1fab909df
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
+
+ref table search_query_performance_asin_view
+ref table DateTableTemplate_03afebc0-b5c8-4b73-9d25-e493ac6d8223
+ref table LocalDateTable_c4cd3127-aa40-41f8-b202-f25e3cff3cc7
+ref table LocalDateTable_482ceebe-9414-4609-8267-ca52a44ac0d7
+ref table search_query_performance_brand_view
+ref table LocalDateTable_35cdbef6-2f14-4c3b-b810-d4339fd1cbf6
+ref table LocalDateTable_0aa1069d-8e96-456b-ac09-6bbe7fa3d5ec
+ref table detail_page_sales_and_traffic_parent
+ref table LocalDateTable_25a1022f-b668-4f0e-b0db-72382fe28940
+ref table LocalDateTable_052c020e-77dd-40ae-9021-9d7f0579fc16
+ref table detail_page_sales_and_traffic_child
+ref table LocalDateTable_d1e3ca79-153d-4a5b-9d5e-72748910d30e
+ref table LocalDateTable_0b21c2ca-d669-44c0-82bf-1af8570c0ac4
+ref table 'SP campaign'
+ref table LocalDateTable_4566773f-f0a5-4d0e-bbc8-ae9dccf49d07
+ref table LocalDateTable_ffce6c09-5876-48d4-b30a-5ae632a29571
+ref table 'SP search_term'
+ref table amazon_order_items
+ref table amazon_orders
+ref table LocalDateTable_a5f4f180-b983-4993-bfc5-705779dbff7e
+ref table LocalDateTable_036a4c4d-3956-4527-9d21-80956b82dcb3
+ref table LocalDateTable_f167fee6-7e9c-4457-972e-2a0fec00c066
+ref table LocalDateTable_c2fa9080-e267-42e1-ad85-70ec21cc37e3
+ref table LocalDateTable_6d169281-a95b-4530-b6ab-568fb4c54dd3
+ref table 'Dim Marketplace'
+ref table 'Dim Date'
+ref table 'Dim Product Codes'
+ref table summaries
+ref table LocalDateTable_61038e87-f864-4c07-bc08-866802ee8849
+ref table LocalDateTable_489fe00b-02e4-4a81-84e9-147f3eca2dd1
+ref table LocalDateTable_76e6be49-ab29-454e-b714-1bcc73bd1fc0
+ref table LocalDateTable_bb3d9b59-d8f0-42f4-9a45-cd840f6b4aab
+ref table LocalDateTable_0ea5fab9-5c65-4107-904f-ae11c3002297
+ref table 'Dim Sku Market Category'
+ref table LocalDateTable_a273cbaa-e6ba-4f25-bc8c-e90734e5e854
+ref table LocalDateTable_206e875c-7fef-4af9-a01e-3731d8099120
+ref table LocalDateTable_3b8576d3-37fa-4469-91b3-7f3fc6a36ab3
+ref table LocalDateTable_e11a50a6-6783-4acd-b1a0-83d8a01e9600
+ref table LocalDateTable_9517bac8-ebe4-4847-a7c2-aa723000af9c
+ref table DimPrimePrice
+ref table h10_keyword_tracker
+ref table DimFBAInventory
+ref table DimFBAPlanningInventory
+ref table 'SP advertised_product'
+ref table LocalDateTable_dcc8ced1-e19a-4f2c-984a-59689d810a0a
+ref table LocalDateTable_3ef10329-06d0-4ab7-b473-68275570711d
+ref table 'SP campaign_adgroup'
+ref table LocalDateTable_cd7690a9-c4b0-4c3e-a13e-305c44390a3c
+ref table LocalDateTable_e7059b76-cb78-4e65-9eb4-ac65d9db6fcb
+ref table 'SP campaign_placement'
+ref table LocalDateTable_4767038c-7869-47a4-b91d-64135f33c58e
+ref table LocalDateTable_f3382e4c-b925-488b-9d0a-3954d6259d5b
+ref table 'Dim SP campaigns'
+ref table LocalDateTable_edfbd957-939e-41e4-870b-9ac84d15c391
+ref table LocalDateTable_dcd80188-c542-440c-ae0a-69583f4c0b5e
+ref table LocalDateTable_4cd9ea56-48a6-4721-a30f-a42cc57828b6
+ref table LocalDateTable_3c38d572-914d-4aae-9a04-d9245ec93ee9
+ref table 'SP purchased_product'
+ref table LocalDateTable_7124fca5-b148-4bea-80c4-3c1f92fd6b54
+ref table LocalDateTable_ae8d102b-de52-40da-a9e1-9347bc0e205d
+ref table 'Dim Amazon Portfolios'
+ref table LocalDateTable_10510963-bf4e-4618-bb52-6e097a943d2e
+ref table LocalDateTable_fd3a67ee-7fe3-4318-a3ca-46d33256f295
+ref table 'Dim SB campaigns'
+ref table 'SB campaign'
+ref table LocalDateTable_929e918f-ed8e-47b9-9b60-f2e4278c046b
+ref table LocalDateTable_68f39ee9-7671-4d98-9d62-c923673f0159
+ref table 'SB campaign_placement'
+ref table LocalDateTable_052da953-60f1-46a5-a597-36f6b725d556
+ref table LocalDateTable_45f1aae1-9193-4bd7-9a7e-2a9e2cea4cdf
+ref table 'SB purchased_product'
+ref table LocalDateTable_80af6f7a-f9f9-4ebb-ba0a-0b17d9898d87
+ref table LocalDateTable_9a02b9e7-52c0-422e-9c4f-efaae1127dd6
+ref table 'SB search_term'
+ref table LocalDateTable_dc06f505-f5da-4128-a1ac-f06f24ee3180
+ref table LocalDateTable_982f7b3d-b4cb-446f-a17a-9f6eb8e96ecb
+ref table 'SB targeting'
+ref table LocalDateTable_4b3ab5f4-a5ee-4f59-a18c-f064fa63afaa
+ref table LocalDateTable_114dfa91-cc74-4b23-8f7a-f48562186430
+ref table 'SB ad'
+ref table LocalDateTable_04d783bd-65af-4f59-b969-bedeb8605f54
+ref table LocalDateTable_22954ab2-3018-49ec-bd88-f7a94f2a22ea
+ref table 'SB adgroup'
+ref table LocalDateTable_4d621f5a-71d9-4ea9-a576-c4352e3b8493
+ref table LocalDateTable_c6129f7e-30af-4d84-9cbb-37b31ff67307
+ref table 'Dim SD campaigns'
+ref table 'SD Historical Campaign Cost'
+ref table 'Dim Customer Search Term'
+ref table LocalDateTable_cd75c65d-db27-4a06-9a7e-dd3313daef48
+ref table 'COGS (WW)'
+ref table 'SP Historical Campaign Cost'
+ref table 'SB Historical Campaign Cost'
+ref table 'KPI Tracker Measures'
+ref table 'Exchange Rates Average'
+ref table LocalDateTable_523bff25-9311-4f67-a70b-e674bb3b098e
+ref table SelectedDate
+ref table IsSelectedFlag
+ref table CompareDatePeriods
+ref table 'KPI Tracker Variance Measures'
+ref table DateParameter
+ref table LocalDateTable_4420d496-a5f5-4a2e-8427-2c3770302ee7
+ref table LocalDateTable_f5b4e1b9-0680-413d-8875-1ae46128688a
+ref table 'Dim Previous Date Interval'
+ref table DatePeriods
+ref table LocalDateTable_2bd0774f-3a5e-47e3-95bd-75552430b055
+ref table SpecialDates
+ref table LocalDateTable_cb219796-0035-4cc9-8c87-d652cf427928
+ref table LocalDateTable_4f58b252-52d9-45af-b511-4303641a80be
+ref table LocalDateTable_7800b94e-2294-451b-a704-51ab1622d834
+ref table LocalDateTable_bae4c8e4-5bed-4a6b-a3c2-8a48efc6491b
+ref table LocalDateTable_b951c3b7-c579-48bc-963f-3203015933d3
+ref table LocalDateTable_e643996a-71a7-4435-a8f5-3200a00efdc6
+ref table 'SQP Rankings'
+ref table 'h10_keyword_tracker Search Volume'
+ref table 'Dim Parent Product Codes'
+ref table 'SPk-sEX Campaign Placement'
+ref table LocalDateTable_efdde97a-5e88-4c48-b08b-56ae70043e79
+ref table LocalDateTable_88bc85ea-4faa-4f35-9f61-1318b0a98be1
+ref table LocalDateTable_3433b13a-e4b9-4aac-bbcd-5ea07c3fc707
+ref table LocalDateTable_788590da-be40-4d89-a043-c9392ef4b16e
+
+ref cultureInfo en-US
+

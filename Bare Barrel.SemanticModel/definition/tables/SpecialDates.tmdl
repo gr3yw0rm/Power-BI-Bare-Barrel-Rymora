@@ -1,0 +1,172 @@
+table SpecialDates
+	lineageTag: c321000e-184b-4696-8e70-cd9bbc04b110
+
+	measure ButtonLabel = ```
+			
+			    VAR _selectedperiod = SELECTEDVALUE(SpecialDates[Period])
+			    VAR _start = MIN(SpecialDates[Date])
+			    VAR _end = MAX(SpecialDates[Date])
+			    RETURN SWITCH(true,
+			        _selectedperiod = "Custom...",FORMAT(_start,"mmm d")&" - "&FORMAT(_end,"mmm d")&" ✎", 
+			        _selectedperiod = "Today", FORMAT(_start,"mmm d yyyy") ,
+			        _selectedperiod = "Yesterday", FORMAT(_start,"mmm d yyyy") ,
+			        FORMAT(_start,"M/D/YYYY")&" - "&FORMAT(_end,"M/D/YYYY") 
+			    )
+			```
+		lineageTag: af396963-2f03-4772-a4e2-71bc07541e04
+
+	column Date
+		formatString: General Date
+		lineageTag: bd2ff61f-87cc-43a6-93f7-055022dd614c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Date[Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: ce268972-3f37-45c3-91f2-924354e15202
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Dim Date[Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		lineageTag: df0df3ed-e3b3-4d70-a33d-7a6cf1ea6bd4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Date[Month Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		formatString: 0
+		lineageTag: 4f1816de-71bc-434d-ad8d-af63ed6ed7ed
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Dim Date[Day]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week'
+		formatString: 0
+		lineageTag: 778a3ca4-fe97-4b3b-a8dc-8b24c3dce653
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Dim Date[Day of Week]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weekday Name'
+		lineageTag: 9353b5df-30e3-4d35-b8aa-374e9da79d7c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Date[Weekday Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		formatString: 0
+		lineageTag: 1eb68363-e1aa-4823-a69e-0343f3567aed
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Dim Date[Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month
+		lineageTag: 927fbe9a-b5df-4e60-949b-cafdcddf76e1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Date[Year-Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekend
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 11cbc8ce-0aaa-4ebc-b1b2-0108c45e9514
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Date[IsWeekend]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Short Date'
+		lineageTag: 219bcff0-3616-4413-a56b-ab36f1b6034d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Date[Short Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'End of Week'
+		lineageTag: 7f89f68f-9b4c-4c48-bd42-e500fe126c2c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Date[End of Week]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		formatString: 0
+		lineageTag: bad2725d-e8b3-4d29-8e38-8ba961d5906c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Dim Date[Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Period
+		lineageTag: a4e0c0e7-98ed-4720-a727-9afc0a26d9de
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Period]
+		sortByColumn: Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		formatString: 0
+		lineageTag: 0b3e071c-1e7a-4433-88da-a75a65f66806
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SpecialDates = calculated
+		mode: import
+		source = ```
+				
+				-- https://www.linkedin.com/pulse/custom-range-date-slicer-power-bi-dynamic-defaults-more-a%C5%9F%C4%B1ro%C4%9Flu
+				VAR _datetable = 'Dim Date'
+				VAR _today = MAX('Dim Date'[Date])
+				VAR _month = MONTH(_today)
+				VAR _year = YEAR(_today)
+				VAR _thismonthstart = DATE(_year,_month,1)
+				VAR _thisyearstart = DATE(_year,1,1)
+				VAR _lastmonthstart = EDATE(_thismonthstart,-1)
+				VAR _lastmonthend = _thismonthstart-1  
+				VAR _thisquarterstart = DATE(YEAR(_today),SWITCH(true,_month>9,10,_month>6,7,_month>3,4,1),1)
+				
+				
+				RETURN UNION(
+				    ADDCOLUMNS(FILTER(_datetable,[Date]=_today),"Period","Today","Order",1),
+				    ADDCOLUMNS(FILTER(_datetable,[Date]=_today-1),"Period","Yesterday","Order",2),
+				    ADDCOLUMNS(FILTER(_datetable,[Date]>_today-7),"Period","Last 7 Days","Order",3),
+				    ADDCOLUMNS(FILTER(_datetable,[Date]>_today-14),"Period","Last 14 Days","Order",4),
+				    ADDCOLUMNS(FILTER(_datetable,[Date]>_today-30),"Period","Last 30 Days","Order",5),
+				    ADDCOLUMNS(FILTER(_datetable,[Date]>_today-60),"Period","Last 60 Days","Order",6),
+				    ADDCOLUMNS(FILTER(_datetable,[Date]>_today-90),"Period","Last 90 Days","Order",7),
+				    ADDCOLUMNS(FILTER(_datetable,[Date]>_today-180),"Period","Last 180 Days","Order",8),
+				    ADDCOLUMNS(FILTER(_datetable,[Date]>_today-365),"Period","Last 1 Year","Order",9),
+				    ADDCOLUMNS(FILTER(_datetable,[Date]>=_thismonthstart),"Period","This Month","Order",10),
+				    ADDCOLUMNS(FILTER(_datetable,[Date]>=_thisyearstart),"Period","This Year","Order",11),
+				    ADDCOLUMNS(_datetable,"Period","Custom...","Order",12)
+				    )
+				```
+
+	annotation PBI_Id = 08245a30d74d41d6b220fb3b58ba9961
+

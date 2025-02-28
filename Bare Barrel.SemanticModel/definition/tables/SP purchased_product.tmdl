@@ -1,0 +1,412 @@
+table 'SP purchased_product'
+	lineageTag: 151fdbe2-e2b1-4eda-8488-8a85c056ddf8
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ba364db6-2834-408a-8d3f-91e58d7c9e90
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column keyword_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 77c2d716-02cb-49b4-ab0f-a2b96f3b1ee4
+		summarizeBy: sum
+		sourceColumn: keyword_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_other_sku_7d
+		dataType: int64
+		formatString: 0
+		lineageTag: dd3d5be0-3de6-407d-a9b5-272f931e56e2
+		summarizeBy: sum
+		sourceColumn: purchases_other_sku_7d
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_clicks_1d
+		dataType: int64
+		formatString: 0
+		lineageTag: f9fd43cd-01e6-407c-b709-94a64a9dc083
+		summarizeBy: sum
+		sourceColumn: units_sold_clicks_1d
+
+		annotation SummarizationSetBy = Automatic
+
+	column match_type
+		dataType: string
+		lineageTag: 81b53e0c-ea07-4cf1-a0fd-79716b023602
+		summarizeBy: none
+		sourceColumn: match_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_other_sku_14d
+		dataType: int64
+		formatString: 0
+		lineageTag: 7588177d-2c09-4b19-b35f-bd25326f0c00
+		summarizeBy: sum
+		sourceColumn: units_sold_other_sku_14d
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_1d
+		dataType: double
+		lineageTag: 1a479c31-ce4f-4ea1-906f-d2961263cda8
+		summarizeBy: sum
+		sourceColumn: sales_1d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column units_sold_other_sku_30d
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c873e8d-d383-4359-962b-d8c4f99d367e
+		summarizeBy: sum
+		sourceColumn: units_sold_other_sku_30d
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_7d
+		dataType: double
+		lineageTag: 6b78c682-4bd2-4ef8-a1c0-d0798f2668a2
+		summarizeBy: sum
+		sourceColumn: sales_7d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ad_group_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d6f469dc-b95d-4316-8984-ac14dc2c98b6
+		summarizeBy: sum
+		sourceColumn: ad_group_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_other_sku_14d
+		dataType: double
+		lineageTag: 6e2d580b-bbd4-4881-9438-b7f11aab67b5
+		summarizeBy: sum
+		sourceColumn: sales_other_sku_14d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column kindle_edition_normalized_pages_royalties_14d
+		dataType: int64
+		formatString: 0
+		lineageTag: 78a53b94-5f45-4aac-a218-50cf430210cd
+		summarizeBy: sum
+		sourceColumn: kindle_edition_normalized_pages_royalties_14d
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_other_sku_30d
+		dataType: double
+		lineageTag: 25c1c345-ecfd-4025-b5a0-6d0d14638f5c
+		summarizeBy: sum
+		sourceColumn: sales_other_sku_30d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column units_sold_other_sku_7d
+		dataType: int64
+		formatString: 0
+		lineageTag: 49f1cee2-e0a1-4c8f-8899-370919486a18
+		summarizeBy: sum
+		sourceColumn: units_sold_other_sku_7d
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_other_sku_1d
+		dataType: double
+		lineageTag: 2ff533d4-86e2-4b32-9ce5-26e9b14548c7
+		summarizeBy: sum
+		sourceColumn: sales_other_sku_1d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column advertised_sku
+		dataType: string
+		lineageTag: 4493f39d-af29-46a4-9028-c2c801e81d7e
+		summarizeBy: none
+		sourceColumn: advertised_sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column advertised_asin
+		dataType: string
+		lineageTag: 4649a19f-47d5-41b8-a1ab-5b3ee5ea71bf
+		summarizeBy: none
+		sourceColumn: advertised_asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column keyword_type
+		dataType: string
+		lineageTag: 8666c77a-e5af-42f7-9240-87cde59c8d8c
+		summarizeBy: none
+		sourceColumn: keyword_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_1d
+		dataType: int64
+		formatString: 0
+		lineageTag: 28717f15-9264-4e94-8f01-4f668f7708e0
+		summarizeBy: sum
+		sourceColumn: purchases_1d
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_other_sku_1d
+		dataType: int64
+		formatString: 0
+		lineageTag: 072fa41a-d67c-4f89-a9cf-e6417e3a86fe
+		summarizeBy: sum
+		sourceColumn: purchases_other_sku_1d
+
+		annotation SummarizationSetBy = Automatic
+
+	column keyword
+		dataType: string
+		lineageTag: fc94f999-955b-43ca-9c1b-aa6bf7fb590b
+		summarizeBy: none
+		sourceColumn: keyword
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_other_sku_7d
+		dataType: double
+		lineageTag: b1a8aa00-a3f7-4bf2-8d95-aba94dcd6dee
+		summarizeBy: sum
+		sourceColumn: sales_other_sku_7d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_7d
+		dataType: int64
+		formatString: 0
+		lineageTag: 1896d3b4-6c4d-446f-8f03-f3dacf519ce2
+		summarizeBy: sum
+		sourceColumn: purchases_7d
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_clicks_14d
+		dataType: int64
+		formatString: 0
+		lineageTag: 9811df59-9b5f-40c1-bdba-6e5f643a61d9
+		summarizeBy: sum
+		sourceColumn: units_sold_clicks_14d
+
+		annotation SummarizationSetBy = Automatic
+
+	column ad_group_name
+		dataType: string
+		lineageTag: 019b96a9-0d8b-44c5-877b-2a849b31b4ed
+		summarizeBy: none
+		sourceColumn: ad_group_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1bdc9c31-5fe8-4f5d-9f6b-51f6cf12c13c
+		summarizeBy: none
+		sourceColumn: campaign_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_14d
+		dataType: double
+		lineageTag: 09c54b2f-de83-4c0e-8479-1d94d91ecd34
+		summarizeBy: sum
+		sourceColumn: sales_14d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column units_sold_other_sku_1d
+		dataType: int64
+		formatString: 0
+		lineageTag: b13ef22d-5f6a-4cc6-a474-06dc519ec192
+		summarizeBy: sum
+		sourceColumn: units_sold_other_sku_1d
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_30d
+		dataType: double
+		lineageTag: 022d7135-2b76-4bb9-adf1-eb4827f68f20
+		summarizeBy: sum
+		sourceColumn: sales_30d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column kindle_edition_normalized_pages_read_14d
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d6b6b69-d3c9-4358-9322-037277fe52eb
+		summarizeBy: sum
+		sourceColumn: kindle_edition_normalized_pages_read_14d
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_14d
+		dataType: int64
+		formatString: 0
+		lineageTag: c06a927d-8fad-4a3b-9103-f599c0f54bb0
+		summarizeBy: sum
+		sourceColumn: purchases_14d
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_clicks_30d
+		dataType: int64
+		formatString: 0
+		lineageTag: ba35c7dd-a1c5-4569-8897-c2bdf60b2e56
+		summarizeBy: sum
+		sourceColumn: units_sold_clicks_30d
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_other_sku_30d
+		dataType: int64
+		formatString: 0
+		lineageTag: 711a136b-7314-47e7-9401-2bfd747d1567
+		summarizeBy: sum
+		sourceColumn: purchases_other_sku_30d
+
+		annotation SummarizationSetBy = Automatic
+
+	column portfolio_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 456f604e-f637-4e57-8e57-84461bc3a5e5
+		summarizeBy: sum
+		sourceColumn: portfolio_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_budget_currency_code
+		dataType: string
+		lineageTag: d9f6942e-3a65-4f46-bae7-f3de1d2b1600
+		summarizeBy: none
+		sourceColumn: campaign_budget_currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_30d
+		dataType: int64
+		formatString: 0
+		lineageTag: 3207dbdd-aa32-40c4-b96d-597b8c880e44
+		summarizeBy: sum
+		sourceColumn: purchases_30d
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_other_sku_14d
+		dataType: int64
+		formatString: 0
+		lineageTag: 74fd8f62-fb20-4dc5-88cf-7e1829c6464a
+		summarizeBy: sum
+		sourceColumn: purchases_other_sku_14d
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_name
+		dataType: string
+		lineageTag: 526fa5be-43ce-4874-9c2c-e59290e2be4d
+		summarizeBy: none
+		sourceColumn: campaign_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchased_asin
+		dataType: string
+		lineageTag: e65854fd-34cf-42ca-b4dc-0a3ae1fdda16
+		summarizeBy: none
+		sourceColumn: purchased_asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_clicks_7d
+		dataType: int64
+		formatString: 0
+		lineageTag: 3952aadc-a93b-4d15-ae1c-b98c0b2a1ab5
+		summarizeBy: sum
+		sourceColumn: units_sold_clicks_7d
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 063cf8e9-c2c9-497c-b9cc-88c870ff1c06
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 2198ba7a-e7dd-4971-8f64-403d2ad3512d
+			defaultHierarchy: LocalDateTable_7124fca5-b148-4bea-80c4-3c1f92fd6b54.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 16d8dbd8-e4bf-4e63-9069-b798f98bc2c7
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 4fdee7c6-28fb-4cfb-b26b-6ea7dfc68e60
+			defaultHierarchy: LocalDateTable_ae8d102b-de52-40da-a9e1-9347bc0e205d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		lineageTag: 1c5ec5c6-8c37-4353-a205-c5ecdf63f51d
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'SP purchased_product' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    sponsored_products = Source{[Schema="sponsored_products"]}[Data],
+				    purchased_product1 = sponsored_products{[Name="purchased_product"]}[Data]
+				in
+				    purchased_product1
+
+	annotation PBI_ResultType = Table
+

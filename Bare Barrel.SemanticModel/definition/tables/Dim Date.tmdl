@@ -1,0 +1,178 @@
+table 'Dim Date'
+	lineageTag: 4dd79b73-5133-407e-90ab-eecd98104d12
+
+	measure FilteredDates = ```
+			
+			VAR SelectedPeriod = SELECTEDVALUE(DatePeriods[Days], 9999)
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        SelectedPeriod = 9999,
+			        'Dim Date'[Date] >= TODAY()
+			    )
+			
+			```
+		lineageTag: 93d2ca86-9501-4d62-a443-189b8573429d
+
+	measure ConditionalDateRange = ```
+			
+			VAR _latestdate = MAX('Dim Date'[Date])
+			VAR _oldestdate = MIN('Dim Date'[Date])
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    _latestdate = _oldestdate, 
+			    FORMAT(_oldestdate, "M/D/YYYY"), -- If latest date is equal to oldest date, return the single date
+			    FORMAT(_oldestdate, "M/D/YYYY") & " - " & FORMAT(_latestdate, "M/D/YYYY") -- If dates are different, return the range
+			)
+			
+			```
+		lineageTag: dc9403af-818c-4e58-9a95-3697f102870b
+
+	measure 'Prev ConditionalDateRange' = ```
+			
+			VAR _latestdate = MAX('Dim Date'[Date]) - [Days Diff]
+			VAR _oldestdate = MIN('Dim Date'[Date]) - [Days Diff]
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    _latestdate = _oldestdate, 
+			    "Prev " & FORMAT(_oldestdate, "M/D/YYYY"), -- If latest date is equal to oldest date, return the single date
+			    "Prev " & FORMAT(_oldestdate, "M/D/YYYY") & " - " & FORMAT(_latestdate, "M/D/YYYY") -- If dates are different, return the range
+			)
+			
+			```
+		lineageTag: a9f4776f-0477-4fc3-bcd6-381170a6b005
+
+	column Date
+		formatString: Short Date
+		lineageTag: d1e17aca-c6f1-46c1-87d5-307a8c6b17e1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: bd915eae-6264-434b-af2c-5299439032a8
+			defaultHierarchy: LocalDateTable_4420d496-a5f5-4a2e-8427-2c3770302ee7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 163df588-61e9-4c09-9374-628bb8d82be6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		lineageTag: 57d3407f-f557-419f-bd65-a57596a09024
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		formatString: 0
+		lineageTag: 06da1c7d-78f1-4f5a-9d2d-002229f865be
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Day]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week'
+		formatString: 0
+		lineageTag: eb1dc788-bc25-4662-a439-e4a17bcf65e9
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Day of Week]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weekday Name'
+		lineageTag: bbe50d83-2b94-4b21-8e85-88c5acfeadd8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Weekday Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		formatString: 0
+		lineageTag: a51db023-c639-4982-bc7b-cb30911b0c01
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month
+		lineageTag: c6043211-d229-48eb-8e98-7e328a321cae
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year-Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekend
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ae309360-55b9-4d76-b82b-db324d23139a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [IsWeekend]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Short Date'
+		lineageTag: d96f8557-8b78-4b11-b4ed-6ab7844e448b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Short Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'End of Week'
+		lineageTag: ac7af546-e86b-4bc3-a712-b75efb26025d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [End of Week]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		formatString: 0
+		lineageTag: fbb60e20-e09a-4b82-a3f2-996dd7c0fe4c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Date' = calculated
+		mode: import
+		source = ```
+				
+				ADDCOLUMNS (
+				    CALENDAR( MIN(amazon_orders[purchase_date]), MAX(amazon_orders[purchase_date]) ),
+				    "Short Date", FORMAT([Date], "YYYY-MM-DD"),
+				    "Year", YEAR([Date]),
+				    "Month", MONTH([Date]),
+				    "Month Name", FORMAT([Date], "MMMM"),
+				    "End of Week", FORMAT([Date] + (7 - WEEKDAY([Date], 1)), "YYYY-MM-DD"),    
+				    "Day", DAY([Date]),
+				    "Day of Week", WEEKDAY([Date]),
+				    "Weekday Name", FORMAT([Date], "dddd"),
+				    "Quarter", QUARTER([Date]),
+				    "Year-Month", FORMAT([Date], "YYYY-MM"),
+				    "IsWeekend", IF(WEEKDAY([Date], 2) >= 6, TRUE, FALSE)
+				)
+				```
+
+	annotation PBI_Id = e6137d41ab3e4987b8b17425a4bd436c
+

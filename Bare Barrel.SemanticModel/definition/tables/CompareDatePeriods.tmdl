@@ -1,0 +1,87 @@
+table CompareDatePeriods
+	lineageTag: 05c99ded-0be6-4da8-b8b1-2c2beae0ecd6
+
+	column Date
+		formatString: General Date
+		lineageTag: 727315ed-839c-436c-83a7-852be674fdfd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Date[Date]
+
+		variation Variation
+			isDefault
+			relationship: 26ba3e42-3487-490f-86a2-92bf5452e707
+			defaultHierarchy: LocalDateTable_2bd0774f-3a5e-47e3-95bd-75552430b055.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type
+		lineageTag: 7830b746-e17e-4263-b78e-9c452894e8b2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Type]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		formatString: 0
+		lineageTag: 85ba35d4-be4f-474f-9d9e-58ea49e3dde8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Sort]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CompareDatePeriods = calculated
+		mode: import
+		source =
+				
+				UNION (
+				    ADDCOLUMNS (
+				        DATESINPERIOD (
+				            'Dim Date'[Date],
+				            MAX ( 'Dim Date'[Date] ),
+				            -7,
+				            DAY
+				        ),
+				        -- Get the date range for the previous 7 days for sales calc representation in the bar chart.
+				        "Type", "D-1",
+				        "Sort", 1 -- Add a column to sort the periods in ascending order
+				    ),
+				    ADDCOLUMNS (
+				        DATESINPERIOD (
+				            'Dim Date'[Date],
+				            MAX ( 'Dim Date'[Date] ) ,
+				            -15,
+				            DAY
+				        ),
+				        -- Get the date range for the previous 15 days
+				        "Type", "Past 15 Days",
+				        "Sort", 2
+				    ),
+				    ADDCOLUMNS (
+				        DATESINPERIOD (
+				            'Dim Date'[Date],
+				            MAX ( 'Dim Date'[Date] ) ,
+				            -28,
+				            DAY
+				        ),
+				        -- Get the date range for the past 4 weeks
+				        "Type", "Past 4 Weeks",
+				        "Sort", 3
+				    ),
+				    ADDCOLUMNS (
+				        DATESINPERIOD (
+				            'Dim Date'[Date],
+				            MAX ( 'Dim Date'[Date] ) ,
+				            -90,
+				            DAY
+				        ),
+				        -- Get the date range for the past 3 months
+				        "Type", "Past 3 Months",
+				        "Sort", 4
+				    )
+				)
+
+	annotation PBI_Id = 7142bbf0671347d4b2abf051134992a5
+

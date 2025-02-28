@@ -1,0 +1,42 @@
+table 'Exchange Rates Average'
+	lineageTag: d2aecf07-995a-419f-94fb-a05346abce18
+
+	column 'Base Currency'
+		dataType: string
+		lineageTag: fe8de0cc-3aeb-4122-9a55-f2ef1ea2bbe1
+		summarizeBy: none
+		sourceColumn: Base Currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Exchange Rate'
+		dataType: double
+		lineageTag: 00249366-ebd1-423d-a780-3af1c5c95632
+		summarizeBy: sum
+		sourceColumn: Exchange Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Foreign Currency'
+		dataType: string
+		lineageTag: 85d48f87-9fee-48b9-8119-9044ea9f080a
+		summarizeBy: none
+		sourceColumn: Foreign Currency
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Exchange Rates Average' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCg12UdKBkoZKsTowEWdHsIiesSmSoLtTAJA00DO3VIqNBQA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Base Currency" = _t, #"Foreign Currency" = _t, #"Exchange Rate" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Base Currency", type text}, {"Foreign Currency", type text}, {"Exchange Rate", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

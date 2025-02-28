@@ -1,0 +1,22 @@
+table IsSelectedFlag
+	lineageTag: 7fea0755-e4c5-49e3-8a72-08b98b505893
+
+	column Flag
+		lineageTag: 2bd12cc4-eed5-419c-9a0c-db140757e0cf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Flag]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition IsSelectedFlag = calculated
+		mode: import
+		source =
+				
+				UNION (
+				    ROW ( "Flag", "Y" ),
+				    ROW ( "Flag", "N" )
+				)
+
+	annotation PBI_Id = 1c00ab9dba07441e9a6c422b02a93345
+

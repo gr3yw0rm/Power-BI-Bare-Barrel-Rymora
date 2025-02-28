@@ -1,0 +1,794 @@
+table 'KPI Tracker Variance Measures'
+	lineageTag: 792acd89-be71-4766-b88a-734578d3f588
+
+	measure 'Prev Sales Revenue ($)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Sales Revenue ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Sales Revenue ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Sales Revenue ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Sales Revenue ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Sales Revenue ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 76d2f03b-01d1-4572-bb06-7dbb76be35d9
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Days Diff' = ```
+			
+			var _mindate = MIN('Dim Date'[Date])
+			var _maxdate = MAX('Dim Date'[Date])
+			var _lastweek = DATE(YEAR(_maxdate), MONTH(_maxdate), DAY(_maxdate) - 7)
+			var _lastmonth = DATE(YEAR(_maxdate), MONTH(_maxdate) - 1, DAY(_maxdate))
+			var _lastquarter = DATE(YEAR(_maxdate), MONTH(_maxdate) - 3, DAY(_maxdate))
+			var _lastyear = DATE(YEAR(_maxdate) - 1, MONTH(_maxdate), DAY(_maxdate))
+			
+			
+			RETURN
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", DATEDIFF(_mindate, _maxdate, DAY),
+			    "Week", DATEDIFF(_lastweek, _maxdate, DAY),
+			    "Month", DATEDIFF(_lastmonth, _maxdate, DAY),
+			    "Quarter", DATEDIFF(_lastquarter, _maxdate, DAY),
+			    "Year", DATEDIFF(_lastyear, _maxdate, DAY),
+			    0
+			)
+			
+			```
+		formatString: 0
+		lineageTag: b1f56c09-bb97-4345-8515-b768ac588d54
+
+	measure 'Prev ROI' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[ROI], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[ROI], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[ROI], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[ROI], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[ROI], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d3781a05-4d0b-41f5-a73e-e9b750267948
+
+	measure 'Prev ROI 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[ROI 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[ROI 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[ROI 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[ROI 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[ROI 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 9b75761e-ce65-4d8f-8e97-d22df766930a
+
+	measure 'Prev Profit Margin (CM3)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Profit Margin (CM3)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Profit Margin (CM3)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Profit Margin (CM3)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Profit Margin (CM3)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Profit Margin (CM3)], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 8b6534ff-8443-4abb-bb64-5983fc1a6edf
+
+	measure 'Prev Profit Margin (CM3) 7D MA' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Profit Margin (CM3) 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Profit Margin (CM3) 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Profit Margin (CM3) 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Profit Margin (CM3) 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Profit Margin (CM3) 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+			
+			```
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		lineageTag: 416de8d7-3f25-49ee-81b8-62ad69063e00
+
+	measure 'Prev TACOS' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[TACOS], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[TACOS], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[TACOS], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[TACOS], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[TACOS], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: b04e9419-e5f4-45fd-a551-9792cd7b471f
+
+	measure 'Prev TACOS 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[TACOS 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[TACOS 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[TACOS 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[TACOS 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[TACOS 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 92f47964-f1c5-43ec-a966-3b82912de750
+
+	measure 'Prev Net Profit ($)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Net Profit ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Net Profit ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Net Profit ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Net Profit ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Net Profit ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			    )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 53f79a9d-2787-45d7-b2d3-dda0de69bd3c
+
+	measure 'Prev PPC Cost ($) 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[PPC Cost ($) 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[PPC Cost ($) 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[PPC Cost ($) 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[PPC Cost ($) 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[PPC Cost ($) 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: e6b7ada5-7825-4c1c-9615-570d7407a44e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Prev Net Profit p.u. ($)' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Net Profit p.u. ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Net Profit p.u. ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Net Profit p.u. ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Net Profit p.u. ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Net Profit p.u. ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 602db2db-8e09-4693-a310-fb0c26c3c539
+
+	measure 'Prev Net Profit p.u. ($) 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Net Profit p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Net Profit p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Net Profit p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Net Profit p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Net Profit p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 402cd8cb-4d9a-40f6-89e6-423c53421f8d
+
+	measure 'Prev Organic Units Sold' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Organic Units Sold], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Organic Units Sold], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Organic Units Sold], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Organic Units Sold], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Organic Units Sold], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: #,0
+		lineageTag: dbd721ae-7b6b-433f-9d38-cd9c8a76ce57
+
+	measure 'Prev Organic Units Sold 7D MA' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Organic Units Sold 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Organic Units Sold 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Organic Units Sold 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Organic Units Sold 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Organic Units Sold 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+			
+			```
+		formatString: #,0.0
+		lineageTag: dc4dd25e-ddab-4519-b05f-ef64d363817a
+
+	measure 'Prev PPC Units Sold' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[PPC Units Sold], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[PPC Units Sold], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[PPC Units Sold], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[PPC Units Sold], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[PPC Units Sold], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: #,0
+		lineageTag: c08d8488-443c-4bf3-a487-fc5a2d08dab0
+
+	measure 'Prev PPC Units Sold 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[PPC Units Sold 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[PPC Units Sold 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[PPC Units Sold 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[PPC Units Sold 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[PPC Units Sold 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0
+		lineageTag: 268e97ab-67d1-401b-80c6-fa0ec2969e26
+
+	measure 'Prev Total Orders' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Total Orders], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Total Orders], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Total Orders], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Total Orders], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Total Orders], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: #,0
+		lineageTag: 0342d603-5a46-4df0-b0e0-ffce27193178
+
+	measure 'Prev Total Orders 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Total Orders 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Total Orders 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Total Orders 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Total Orders 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Total Orders 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0
+		lineageTag: 206b801e-0cd0-4c0a-80e1-88456aaebbd0
+
+	measure 'Prev Sales Revenue ($) 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 9ffd8f52-cf1b-47f3-b3ff-ba4296a59c36
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Prev Revenue p.u. ($)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Revenue p.u. ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Revenue p.u. ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Revenue p.u. ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Revenue p.u. ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Revenue p.u. ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 69b304dd-ed47-466a-b3c2-cbb1d4419513
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Prev Revenue p.u. ($) 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Revenue p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Revenue p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Revenue p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Revenue p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Revenue p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 0ad8db5c-2535-44ce-a866-19ce20e7a377
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Prev Conversion Rate per Page View' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Conversion Rate per Page View], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Conversion Rate per Page View], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Conversion Rate per Page View], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Conversion Rate per Page View], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Conversion Rate per Page View], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: e7fdb099-53ff-4a17-8c8b-6f4820f5b2fe
+
+	measure 'Prev Conversion Rate per Page View 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Conversion Rate per Page View 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Conversion Rate per Page View 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Conversion Rate per Page View 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Conversion Rate per Page View 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Conversion Rate per Page View 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d2473d6f-108a-4926-bae1-7eb1b256f8c7
+
+	measure 'Prev PPC Conversion Rate' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[PPC Conversion Rate], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[PPC Conversion Rate], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[PPC Conversion Rate], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[PPC Conversion Rate], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[PPC Conversion Rate], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: c8ef42e5-a142-4b38-9f52-973002deca0d
+
+	measure 'Prev PPC Conversion Rate 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[PPC Conversion Rate 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[PPC Conversion Rate 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[PPC Conversion Rate 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[PPC Conversion Rate 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[PPC Conversion Rate 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 4c410f69-aa08-4fb1-ad21-c4b765711be3
+
+	measure 'Prev Sales Revenue ($) per Session' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) per Session], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) per Session], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) per Session], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) per Session], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) per Session], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 5eb15b3d-b0fa-4c9b-aefb-f7570a0608fe
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Prev Profit per PPC Order ($)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Profit per PPC Order ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Profit per PPC Order ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Profit per PPC Order ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Profit per PPC Order ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Profit per PPC Order ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 5b759f85-5320-46b1-bd8a-9e0c2a25427d
+
+	measure 'Prev Gross Profit p.u. ($) 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Gross Profit p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Gross Profit p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Gross Profit p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Gross Profit p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Gross Profit p.u. ($) 7D MA], DATEADD('Dim Date'[Date], -1, YEAR)))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 1a6e6506-b6a9-4e20-9299-6a148dd911ee
+
+	measure 'Prev Profit per PPC Order ($) 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Profit per PPC Order ($) 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Profit per PPC Order ($) 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Profit per PPC Order ($) 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Profit per PPC Order ($) 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Profit per PPC Order ($) 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 6187fdc0-34e6-46b5-b107-acfdbeb95a2e
+
+	measure 'Prev Sales Revenue ($) per Session 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) per Session 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) per Session 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) per Session 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) per Session 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Sales Revenue ($) per Session 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: e3637d9e-f629-4ab4-b350-f58254453691
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Change Sales Revenue ($)' = [Sales Revenue ($)] - [Prev Sales Revenue ($)]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: a6e9d489-700a-42a1-a166-7f22c2d56f08
+
+	measure 'Change % Sales Revenue ($)' = DIVIDE([Change Sales Revenue ($)], ABS([Prev Sales Revenue ($)]))
+		lineageTag: 72e9d5ee-78ff-44a4-9f1c-4e6a4ed8634a
+
+		formatStringDefinition = "↗ 0.00%;↘ 0.00%;0.00%"
+
+	measure 'Change Revenue p.u. ($)' = [Revenue p.u. ($)] - [Prev Revenue p.u. ($)]
+		lineageTag: 516dee93-c08c-47df-9b5d-3f9cdd5a54e4
+
+		formatStringDefinition = "▲ \$#,0.00;▼ \$#,0.00;\$#,0.00"
+
+	measure 'Change CM3 Net Profit ($)' = [Net Profit ($)] - [Prev Net Profit ($)]
+		lineageTag: b00d3c55-6c67-45e2-84e7-b15cff1ea216
+
+		formatStringDefinition = "▲ \$#,0.00;▼ \$#,0.00;\$#,0.00"
+
+	measure 'Change % CM3 Net Profit ($)' = DIVIDE([Change CM3 Net Profit ($)], ABS([Prev Net Profit ($)]))
+		lineageTag: 825b23cc-77fb-4cdd-b854-0d7c7e870fd6
+
+		formatStringDefinition = "↗ 0.00%;↘ 0.00%;0.00%"
+
+	measure 'Change Profit Margin (CM3)' = [Profit Margin (CM3)] - [Prev Profit Margin (CM3)]
+		lineageTag: 372084a1-f812-48b6-ad69-ca7da76d88ce
+
+		formatStringDefinition = "▲ 0.00%;▼ 0.00%;#,0.00%"
+
+	measure 'Change Total Orders' = [Total Orders] - [Prev Total Orders]
+		formatString: 0
+		lineageTag: 09f037ea-912a-4298-9fa6-7d3a80a803a6
+
+	measure 'Change % Total Orders' = DIVIDE([Change Total Orders], ABS([Prev Total Orders]))
+		lineageTag: 9059b089-f810-4d73-bfc9-d3e6b8808a54
+
+		formatStringDefinition = "↗ 0.00%;↘ 0.00%;0.00%"
+
+	measure 'Change PPC Cost ($)' = [PPC Cost ($)] - [Prev PPC Cost ($)]
+		lineageTag: df108e30-b063-4922-860c-86b3f41042f0
+
+		formatStringDefinition = "\$#,0.00;(\$#,0.00);\$#,0.00"
+
+	measure 'Prev PPC Cost ($)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[PPC Cost ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[PPC Cost ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[PPC Cost ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[PPC Cost ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[PPC Cost ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: a21ce11b-eaf8-4f9e-b215-c0a4f9729865
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Change % PPC Cost ($)' = DIVIDE([Change PPC Cost ($)], ABS([Prev PPC Cost ($)]))
+		lineageTag: 36bcf72f-3c09-4c95-a52a-7b210aa65490
+
+		formatStringDefinition = "↗ 0.00%;↘ 0.00%;0.00%"
+
+	measure 'Change TACOS' = [TACOS] - [Prev TACOS]
+		lineageTag: 1e051be7-0e9d-4f5c-86ab-f1a103213dbd
+
+		formatStringDefinition = "▲ 0.00%;▼ 0.00%;0.00%"
+
+	measure 'Prev Traffic Sessions' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Traffic Sessions], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Traffic Sessions], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Traffic Sessions], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Traffic Sessions], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Traffic Sessions], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: #,0
+		lineageTag: ac8771d1-4821-4ef5-b628-33eb830df8c0
+
+	measure 'Change Traffic Sessions' = [Traffic Sessions] - [Prev Traffic Sessions]
+		lineageTag: 7134478e-57a4-442e-853c-6fff6fc9536f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Change % Traffic Sessions' = DIVIDE([Change Traffic Sessions], ABS([Prev Traffic Sessions]))
+		lineageTag: be7a3911-238e-4d49-a8b8-ba2de61ba6bc
+
+		formatStringDefinition = "↗ 0.00%;↘ 0.00%;0.00%"
+
+	measure 'Change PPC Conversion Rate' = [PPC Conversion Rate] - [Prev PPC Conversion Rate]
+		lineageTag: 3fb9b33b-9f54-42a4-84e4-30ee2a896334
+
+		formatStringDefinition = "▲ 0.00%;▲ 0.00%;0.00%"
+
+	measure 'Prev Organic Sales %' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Organic Sales %], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Organic Sales %], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Organic Sales %], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Organic Sales %], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Organic Sales %], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: ec0d5c53-e315-48e4-bcb9-94fcf94158b9
+
+	measure 'Change Organic Sales %' = [Organic Sales %] - [Prev Organic Sales %]
+		lineageTag: e9def4f9-ea1f-4531-ab04-b993f1c5eb78
+
+		formatStringDefinition = "▲ 0.00%;▼ 0.00%;0.00%"
+
+	measure 'Change PPC Units Sold' = [PPC Units Sold] - [Prev PPC Units Sold]
+		formatString: 0
+		lineageTag: 8e5fb9cf-4298-4efe-a8fe-8f6797dca486
+
+	measure 'Prev Gross Profit p.u. ($)' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Gross Profit p.u. ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Gross Profit p.u. ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Gross Profit p.u. ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Gross Profit p.u. ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Gross Profit p.u. ($)], DATEADD('Dim Date'[Date], -1, YEAR)))
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: a3d542a7-2281-4d6f-9137-28c89de5d91b
+
+	measure 'Prev Traffic Sessions 7D MA' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Traffic Sessions 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Traffic Sessions 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Traffic Sessions 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Traffic Sessions 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Traffic Sessions 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+			
+			
+			```
+		formatString: #,0
+		lineageTag: 136ceb3b-5dbb-4cc4-944a-bd05b51c3bdc
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Prev Sales Revenue per Session 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Sales Revenue per Session 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Sales Revenue per Session 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Sales Revenue per Session 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Sales Revenue per Session 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Sales Revenue per Session 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 3780967a-9b14-4659-bde7-12a8172ad600
+
+	measure 'Prev Sales Revenue per Session' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Sales Revenue per Session], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Sales Revenue per Session], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Sales Revenue per Session], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Sales Revenue per Session], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Sales Revenue per Session], DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+			
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: b01449e4-c41b-400d-a56a-bfa8f4a9f316
+
+	measure 'Prev Total COGS ($)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Total COGS ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Total COGS ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Total COGS ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Total COGS ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Total COGS ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			    )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: e40caede-eb6b-40a8-ae63-541b519b4edf
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Change Total COGS ($)' = [Total COGS ($)] - [Prev Total COGS ($)]
+		lineageTag: 2a67e909-bbf1-4c49-9bea-a6f87cb366b6
+
+		formatStringDefinition = "▲ \$#,0;▼ \$#,0;\$#,0"
+
+	measure 'Change Net Profit p.u. ($)' = [Net Profit p.u. ($)] - [Prev Net Profit p.u. ($)]
+		lineageTag: c62c5e6a-3f5f-4bbc-84f2-c8b01cc84dbb
+
+		formatStringDefinition = "▲ \$#,0.00;▼ \$#,0.00;\$#,0.00"
+
+	measure 'Change Gross Profit p.u. ($)' = [Gross Profit p.u. ($)] - [Prev Gross Profit p.u. ($)]
+		lineageTag: d14c9117-fff5-4f63-8e17-b8e8844c0e0f
+
+		formatStringDefinition = "▲ \$#,0.00;▼ \$#,0.00;\$#,0.00"
+
+	measure 'Change Profit per PPC Order ($)' = [Profit per PPC Order ($)] - [Prev Profit per PPC Order ($)]
+		lineageTag: 3653ab8b-9701-4a12-bd2d-1c2732c5720b
+
+		formatStringDefinition = "▲ \$#,0.00;▼ \$#,0.00;\$#,0.00"
+
+	measure 'Change Sales Revenue ($) per Session' = [Sales Revenue ($) per Session] - [Prev Sales Revenue ($) per Session]
+		lineageTag: 7264e251-1ecc-44d7-ad0d-f0b7e56c7d3a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Change ROI' = [ROI] - [Prev ROI]
+		lineageTag: d2a8fcb0-2856-4f6c-9bca-ba03cd32278a
+
+		formatStringDefinition = "▲ #,0.00%;▼ #,0.00%;#,0.00%"
+
+	measure 'Prev COGS per Order Item ($)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[COGS per Order Item ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[COGS per Order Item ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[COGS per Order Item ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[COGS per Order Item ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[COGS per Order Item ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			    )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 4698979f-fab6-45be-b414-e8df89868353
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Change COGS per Order Item ($)' = [COGS per Order Item ($)] - [Prev COGS per Order Item ($)]
+		lineageTag: 2b27c3b8-d5b6-40c1-a3c4-5706a201d649
+
+		formatStringDefinition = "▲ \$#,0.00;▼ \$#,0.00;\$#,0.00"
+
+	measure 'Prev Net Profit ($) 7D MA' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Net Profit ($) 7D MA], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Net Profit ($) 7D MA], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Net Profit ($) 7D MA], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Net Profit ($) 7D MA], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Net Profit ($) 7D MA], DATEADD('Dim Date'[Date], -1, YEAR))
+			    )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 8babb949-33cb-4230-a076-0ecb2f0b9445
+
+	measure 'Measure 3'
+		lineageTag: 224af8f3-4723-491c-8ce7-b8b0052098e7
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Prev Avg Net Profit ($)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Avg Net Profit ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Avg Net Profit ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Avg Net Profit ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Avg Net Profit ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Avg Net Profit ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			    )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 38ec9ba7-3377-41e8-b88d-dcc4419ac135
+
+	measure 'Prev Avg Sales Revenue ($)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Avg Sales Revenue ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Avg Sales Revenue ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Avg Sales Revenue ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Avg Sales Revenue ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Avg Sales Revenue ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			    )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 6492696f-177f-43ab-b60e-69c721a0f036
+
+	measure 'Prev Avg PPC Cost ($)' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Avg PPC Cost ($)], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Avg PPC Cost ($)], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Avg PPC Cost ($)], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Avg PPC Cost ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Avg PPC Cost ($)], DATEADD('Dim Date'[Date], -1, YEAR))
+			    )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 247ca8f9-185e-4f3a-947f-58bb9d10e818
+
+	measure 'Prev Avg Total Orders' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Avg Total Orders], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Avg Total Orders], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Avg Total Orders], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Avg Total Orders], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Avg Total Orders], DATEADD('Dim Date'[Date], -1, YEAR))
+			    )
+		formatString: 0.00
+		lineageTag: 9476153b-aef9-4dd0-9d90-fdf1197bb437
+
+	measure 'Prev Avg Traffic Sessions' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE('KPI Tracker Measures'[Avg Traffic Sessions], DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE('KPI Tracker Measures'[Avg Traffic Sessions], DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE('KPI Tracker Measures'[Avg Traffic Sessions], DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE('KPI Tracker Measures'[Avg Traffic Sessions], DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE('KPI Tracker Measures'[Avg Traffic Sessions], DATEADD('Dim Date'[Date], -1, YEAR))
+			    )
+		formatString: 0
+		lineageTag: c3f50169-7938-46c6-aaaa-70a27b01e9fc
+
+	measure 'Change Avg Net Profit ($)' = [Avg Net Profit ($)] - [Prev Avg Net Profit ($)]
+		lineageTag: 242a79cf-0de8-4a11-a8a7-1b83fdf793ea
+
+		formatStringDefinition = "▲ \$#,0.00;▼ \$#,0.00;\$#,0.00"
+
+	measure 'Change Avg Sales Revenue ($)' = [Avg Sales Revenue ($)] - [Prev Avg Sales Revenue ($)]
+		lineageTag: 02474534-fc54-43b2-b5e9-33c87207f996
+
+		formatStringDefinition = "▲ \$#,0.00;▼ \$#,0.00;\$#,0.00"
+
+	measure 'Change Avg Total Orders' = [Avg Total Orders] - [Prev Avg Total Orders]
+		lineageTag: 4b09731c-5b01-418f-8bf9-7819007c904d
+
+		formatStringDefinition = "▲ #,0.00;▼ #,0.00; #,0.00"
+
+	measure 'Change Avg Traffic Sessions' = [Avg Traffic Sessions] - [Prev Avg Traffic Sessions]
+		lineageTag: 87450c17-5ec5-45be-9f02-d37b785e6254
+
+		formatStringDefinition = "▲ 0#,0;▼ #,0;#,0"
+
+	measure 'Change Avg PPC Cost ($)' = [Avg PPC Cost ($)] - [Prev Avg PPC Cost ($)]
+		lineageTag: 76b65e67-a6b7-478b-959e-c4c081b9ab91
+
+		formatStringDefinition = "▲ \$#,0.00;▼ \$#,0.00;\$#,0.00"
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: a2975f0d-96ff-4798-9fa8-3eef0d68fa6b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'KPI Tracker Variance Measures' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 24dccf7cd08e4adc9c713fb5eac1fd67
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

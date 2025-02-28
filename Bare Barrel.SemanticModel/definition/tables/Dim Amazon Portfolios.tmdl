@@ -1,0 +1,99 @@
+table 'Dim Amazon Portfolios'
+	lineageTag: de403d9e-fc80-44f1-8739-666f789fae72
+
+	measure Measure = SUM(search_query_performance_brand_view[impressions_brand_count]) / SUM(search_query_performance_brand_view[impressions_total_count])
+		lineageTag: d29ace49-58ed-4b15-a040-a67037953cab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column portfolio_id
+		dataType: int64
+		formatString: 0
+		lineageTag: cf410ef1-772f-412a-a790-f1874942f6bb
+		summarizeBy: none
+		sourceColumn: portfolio_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 9bf294aa-8f5e-48cc-83ea-2d325e45cffd
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column in_budget
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 45bba385-302a-4c05-ac25-a8a410f6684e
+		summarizeBy: none
+		sourceColumn: in_budget
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: 9182fb92-5124-40e3-ad9a-6cf4a4830f75
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column serving_status
+		dataType: string
+		lineageTag: 8971cf64-475c-4114-8204-a41e2fd7971a
+		summarizeBy: none
+		sourceColumn: serving_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		lineageTag: a8322377-8c95-41f8-b903-3dafe647542c
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 72b820db-5068-4370-a76d-0804bbb5fd49
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 46595003-524a-41f7-b04c-f6bea324fbb0
+			defaultHierarchy: LocalDateTable_10510963-bf4e-4618-bb52-6e097a943d2e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ae747084-3eac-478a-aacc-693244494ca2
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 4effe258-b6f3-495a-a0f3-4394091c284a
+			defaultHierarchy: LocalDateTable_fd3a67ee-7fe3-4318-a3ca-46d33256f295.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Amazon Portfolios' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    public = Source{[Schema="public"]}[Data],
+				    amazon_advertising_portfolios1 = public{[Name="amazon_advertising_portfolios"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(amazon_advertising_portfolios1,{"creation_date", "last_updated_date"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

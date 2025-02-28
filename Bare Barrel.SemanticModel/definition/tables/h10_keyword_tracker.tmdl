@@ -1,0 +1,109 @@
+table h10_keyword_tracker
+	lineageTag: cc1f61f6-ddec-4a51-a21b-3848c47173df
+
+	column asin
+		dataType: string
+		lineageTag: 37d76f77-288c-4680-b193-2ff0e3f81e05
+		summarizeBy: none
+		sourceColumn: asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column keyword
+		dataType: string
+		lineageTag: bdf34e30-909a-4aa0-87fb-60cc38f468d2
+		summarizeBy: none
+		sourceColumn: keyword
+
+		annotation SummarizationSetBy = Automatic
+
+	column search_volume
+		dataType: double
+		formatString: #,0
+		lineageTag: e565506b-8f89-4e0f-bb37-7c86953c8751
+		summarizeBy: sum
+		sourceColumn: search_volume
+
+		annotation SummarizationSetBy = Automatic
+
+	column organic_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: 8eb97df5-577b-49cb-8b81-6a58bb439e1b
+		summarizeBy: sum
+		sourceColumn: organic_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column sponsored_position
+		dataType: double
+		lineageTag: 4f80fbb9-200e-4a2e-9552-18f59709514d
+		summarizeBy: sum
+		sourceColumn: sponsored_position
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column date_added
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f2dc8464-31b0-42e8-9f39-d24752273af4
+		summarizeBy: none
+		sourceColumn: date_added
+
+		variation Variation
+			isDefault
+			relationship: 4b7563c7-426b-47c6-9221-33380f827aae
+			defaultHierarchy: LocalDateTable_cd75c65d-db27-4a06-9a7e-dd3313daef48.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace_id
+		dataType: string
+		lineageTag: e88db623-bd6c-4354-b39a-daa06612f19a
+		summarizeBy: none
+		sourceColumn: marketplace_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 37b22aa5-40db-4a23-9021-f5c2e6ce679e
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column date_added_local_tz
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: eed5d6b6-7ace-4b30-a34c-7857e020aac6
+		summarizeBy: none
+		sourceColumn: date_added_local_tz
+
+		variation Variation
+			isDefault
+			relationship: 7339c99a-d481-4eb6-a93e-1ca5b0314768
+			defaultHierarchy: LocalDateTable_3433b13a-e4b9-4aac-bbcd-5ea07c3fc707.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition h10_keyword_tracker = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]), "SELECT *,#(lf)       CASE#(lf)           WHEN marketplace_id IN ('US', 'CA', 'MX') THEN date_added AT TIME ZONE 'America/Los_Angeles'#(lf)           WHEN marketplace_id IN ('UK') THEN date_added AT TIME ZONE 'Europe/London'#(lf)           ELSE NULL#(lf)       END AS date_added_local_tz#(lf)FROM rankings.h10_keyword_tracker", null, [EnableFolding=true]),
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"title", "marketplace", "created_at", "updated_at"}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Removed Columns",306,null,Replacer.ReplaceValue,{"organic_rank"}),
+				    #"Inserted Date" = Table.AddColumn(#"Replaced Value", "Date", each Date.From([date_added_local_tz]), type date)
+				in
+				    #"Inserted Date"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

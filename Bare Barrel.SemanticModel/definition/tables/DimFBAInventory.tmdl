@@ -1,0 +1,261 @@
+table DimFBAInventory
+	lineageTag: 508dae5e-86b7-4dbe-899f-c52b2180afc9
+
+	column asin
+		dataType: string
+		lineageTag: ddaf6434-78ab-4894-a36c-19c7daba5155
+		summarizeBy: none
+		sourceColumn: asin
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		lineageTag: 4177d9f2-2c4f-4172-8dea-b11c05490f22
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: c3518eff-80b2-4fbb-bec7-1cbf079f0e7e
+		summarizeBy: sum
+		sourceColumn: total_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column fulfillable_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 1377297e-c103-45c8-a60e-6e92b3b46cb3
+		summarizeBy: sum
+		sourceColumn: fulfillable_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column inbound_working_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: cd859113-f785-4cd8-9cb0-414afca8ed17
+		summarizeBy: sum
+		sourceColumn: inbound_working_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column inbound_shipped_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: c0f2d291-f7e4-4532-b5f7-86752c585b5b
+		summarizeBy: sum
+		sourceColumn: inbound_shipped_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column inbound_receiving_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 35703d1d-43f2-4eb5-8c68-888d018fe911
+		summarizeBy: sum
+		sourceColumn: inbound_receiving_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column reserved_quantity_total_reserved_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: a3d62a5c-532b-4c56-b335-8f3a4675f95f
+		summarizeBy: sum
+		sourceColumn: reserved_quantity_total_reserved_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column reserved_quantity_pending_customer_order_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 370aab9b-d009-4ab3-8682-06515c115d53
+		summarizeBy: sum
+		sourceColumn: reserved_quantity_pending_customer_order_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column reserved_quantity_pending_transshipment_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 593c757b-02c2-41b8-b16c-0a7ca71f2b53
+		summarizeBy: sum
+		sourceColumn: reserved_quantity_pending_transshipment_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column reserved_quantity_fc_processing_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 651ece09-1797-4611-bf3b-3b863d174018
+		summarizeBy: sum
+		sourceColumn: reserved_quantity_fc_processing_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column researching_quantity_total_researching_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: f841135e-8324-4528-82fe-8eedef9eb374
+		summarizeBy: sum
+		sourceColumn: researching_quantity_total_researching_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column researching_quantity_researching_quantity_breakdown
+		dataType: string
+		lineageTag: adeee443-5118-497b-a03f-8f71ffe62374
+		summarizeBy: none
+		sourceColumn: researching_quantity_researching_quantity_breakdown
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column unfulfillable_quantity_total_unfulfillable_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: aef911d6-a66b-46fe-a2a8-2508bbd44903
+		summarizeBy: sum
+		sourceColumn: unfulfillable_quantity_total_unfulfillable_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column unfulfillable_quantity_customer_damaged_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c1afb25-c01f-4a4b-a8a6-f22f3e96826a
+		summarizeBy: sum
+		sourceColumn: unfulfillable_quantity_customer_damaged_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column unfulfillable_quantity_warehouse_damaged_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: d522dcbc-a76f-4429-bd76-dcadb08fe386
+		summarizeBy: sum
+		sourceColumn: unfulfillable_quantity_warehouse_damaged_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column unfulfillable_quantity_distributor_damaged_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 76772d1e-a22a-4537-9c3d-0dc289c245ee
+		summarizeBy: sum
+		sourceColumn: unfulfillable_quantity_distributor_damaged_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column unfulfillable_quantity_carrier_damaged_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 2691a3bc-80fa-4340-ac1e-63ca02447392
+		summarizeBy: sum
+		sourceColumn: unfulfillable_quantity_carrier_damaged_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column unfulfillable_quantity_defective_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 41aed41f-95e5-4fec-aacc-1559381931d4
+		summarizeBy: sum
+		sourceColumn: unfulfillable_quantity_defective_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column unfulfillable_quantity_expired_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e842183-6a64-4a96-ba63-7ec88522a286
+		summarizeBy: sum
+		sourceColumn: unfulfillable_quantity_expired_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column future_supply_quantity_reserved_future_supply_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 0312ce24-60ea-4cc3-9d58-8a2d2231e8e7
+		summarizeBy: sum
+		sourceColumn: future_supply_quantity_reserved_future_supply_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column future_supply_quantity_future_supply_buyable_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: c27c55df-f028-41fa-b4ea-faacbf944ec9
+		summarizeBy: sum
+		sourceColumn: future_supply_quantity_future_supply_buyable_quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimFBAInventory = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    inventory = Source{[Schema="inventory"]}[Data],
+				    fba1 = inventory{[Name="fba"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(fba1, each ([last_updated_time] <> null)),
+				    #"Sorted Rows" = Table.Sort(#"Filtered Rows",{{"date", Order.Descending}, {"asin", Order.Ascending}, {"marketplace", Order.Ascending}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Sorted Rows",{"asin", "total_quantity", "fulfillable_quantity", "inbound_working_quantity", "inbound_shipped_quantity", "inbound_receiving_quantity", "reserved_quantity_total_reserved_quantity", "reserved_quantity_pending_customer_order_quantity", "reserved_quantity_pending_transshipment_quantity", "reserved_quantity_fc_processing_quantity", "researching_quantity_total_researching_quantity", "researching_quantity_researching_quantity_breakdown", "unfulfillable_quantity_total_unfulfillable_quantity", "unfulfillable_quantity_customer_damaged_quantity", "unfulfillable_quantity_warehouse_damaged_quantity", "unfulfillable_quantity_distributor_damaged_quantity", "unfulfillable_quantity_carrier_damaged_quantity", "unfulfillable_quantity_defective_quantity", "unfulfillable_quantity_expired_quantity", "future_supply_quantity_reserved_future_supply_quantity", "future_supply_quantity_future_supply_buyable_quantity", "marketplace"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Other Columns",{"asin", "marketplace", "total_quantity", "fulfillable_quantity", "inbound_working_quantity", "inbound_shipped_quantity", "inbound_receiving_quantity", "reserved_quantity_total_reserved_quantity", "reserved_quantity_pending_customer_order_quantity", "reserved_quantity_pending_transshipment_quantity", "reserved_quantity_fc_processing_quantity", "researching_quantity_total_researching_quantity", "researching_quantity_researching_quantity_breakdown", "unfulfillable_quantity_total_unfulfillable_quantity", "unfulfillable_quantity_customer_damaged_quantity", "unfulfillable_quantity_warehouse_damaged_quantity", "unfulfillable_quantity_distributor_damaged_quantity", "unfulfillable_quantity_carrier_damaged_quantity", "unfulfillable_quantity_defective_quantity", "unfulfillable_quantity_expired_quantity", "future_supply_quantity_reserved_future_supply_quantity", "future_supply_quantity_future_supply_buyable_quantity"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Reordered Columns", {"asin", "marketplace"})
+				in
+				    #"Removed Duplicates"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

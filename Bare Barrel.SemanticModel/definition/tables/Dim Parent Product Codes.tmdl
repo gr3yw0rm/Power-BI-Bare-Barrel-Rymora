@@ -1,0 +1,52 @@
+table 'Dim Parent Product Codes'
+	lineageTag: b5dac055-52f7-43d9-a549-3304903ada6e
+
+	column parent_shaker_code
+		dataType: string
+		lineageTag: 7232c8dc-7cd3-4471-9ee3-e7ccc0f61861
+		summarizeBy: none
+		sourceColumn: parent_shaker_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column parent_code
+		dataType: string
+		lineageTag: b6476833-6813-41b1-89ab-389d83e56f0b
+		summarizeBy: none
+		sourceColumn: parent_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column shaker_code
+		dataType: string
+		lineageTag: 6cc10f1a-f7ab-4cf2-8287-789fe971566f
+		summarizeBy: none
+		sourceColumn: shaker_code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Parent Product Codes' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    listings_items = Source{[Schema="listings_items"]}[Data],
+				    summaries1 = listings_items{[Name="summaries"]}[Data],
+				    #"Sorted Rows" = Table.Sort(summaries1,{{"updated_at", Order.Descending}, {"sku", Order.Ascending}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Sorted Rows", {"asin"}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Removed Duplicates",{"sku"}),
+				    #"Inserted Text Between Delimiters" = Table.AddColumn(#"Removed Other Columns", "Text Between Delimiters", each Text.BetweenDelimiters([sku], "_", "-"), type text),
+				    #"Renamed Columns" = Table.RenameColumns(#"Inserted Text Between Delimiters",{{"Text Between Delimiters", "parent_code"}}),
+				    #"Inserted Text Between Delimiters1" = Table.AddColumn(#"Renamed Columns", "Text Between Delimiters", each Text.BetweenDelimiters([sku], "-", "-"), type text),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Inserted Text Between Delimiters1",{{"Text Between Delimiters", "shaker_code"}}),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Renamed Columns1", "parent_shaker_code", each Text.Combine({[parent_code], "-", [shaker_code]}), type text),
+				    #"Removed Columns" = Table.RemoveColumns(#"Inserted Merged Column",{"sku"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Columns",{"parent_shaker_code", "parent_code", "shaker_code"}),
+				    #"Removed Duplicates1" = Table.Distinct(#"Reordered Columns", {"parent_shaker_code"})
+				in
+				    #"Removed Duplicates1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,122 @@
+table 'SB Historical Campaign Cost'
+	lineageTag: 7076c196-757d-45b9-ae3a-a545a23f51f9
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3c843bc9-93d6-448c-ab27-4e3adb57f850
+		summarizeBy: none
+		sourceColumn: date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		lineageTag: 611e121e-0ab3-4e6f-aad2-55938133a5a6
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_cost
+		dataType: double
+		lineageTag: 65a4156b-fee6-4812-be3d-b1926afc2159
+		summarizeBy: sum
+		sourceColumn: total_cost
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column attributed_units_ordered_new_to_brand_14d
+		dataType: int64
+		formatString: 0
+		lineageTag: ac36ae87-21e8-4365-9cc6-14e26c29a446
+		summarizeBy: sum
+		sourceColumn: attributed_units_ordered_new_to_brand_14d
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_clicks
+		dataType: int64
+		formatString: 0
+		lineageTag: 178a18e5-1c21-474c-9b5d-3ecebcee1a78
+		summarizeBy: sum
+		sourceColumn: total_clicks
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_impressions
+		dataType: int64
+		formatString: 0
+		lineageTag: df051bab-d1ce-4d03-be21-602043f9f733
+		summarizeBy: sum
+		sourceColumn: total_impressions
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column attributed_sales_14d
+		dataType: double
+		lineageTag: 4cde8242-26a3-4963-808c-9dc71f3ffe81
+		summarizeBy: sum
+		sourceColumn: attributed_sales_14d
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column portfolio_id
+		dataType: int64
+		formatString: 0
+		lineageTag: cc878325-25bf-4232-ad99-2f206a2a14e2
+		summarizeBy: sum
+		sourceColumn: portfolio_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		lineageTag: a994e347-0bdf-49a6-8258-b66d11c7c1dc
+		summarizeBy: none
+		sourceColumn: currency
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'portfolio name' = LOOKUPVALUE('Dim Amazon Portfolios'[name], 'Dim Amazon Portfolios'[portfolio_id], [portfolio_id])
+		lineageTag: d1bc7d4e-ac8a-462f-9d66-9fece017687c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'SB Historical Campaign Cost' = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [CommandTimeout=#duration(0, 0, 5, 0)]), "-- API Data source v2 (2023-06-11 - present)#(lf)select t1.date, t1.marketplace, t2.portfolio_id, t1.currency,#(lf)    sum(t1.cost) total_cost,#(lf)    sum(t1.attributed_units_ordered_new_to_brand_14d) attributed_units_ordered_new_to_brand_14d,#(lf)    sum(t1.clicks) total_clicks,#(lf)    sum(t1.impressions) total_impressions,#(lf)    sum(attributed_sales_14d) attributed_sales_14d#(lf)from sponsored_brands.campaign_v2 t1#(lf)left join sponsored_brands.campaigns t2 on t1.campaign_id = t2.campaign_id#(lf)where t1.campaign_status in ('enabled', 'paused')#(lf)group by t1.date, t2.portfolio_id, t1.marketplace, t1.currency#(lf)#(lf)UNION#(lf)#(lf)-- Advertising reports from advertising console (2022-07-10 - 2023-06-10)#(lf)select t1.date, t1.marketplace, t2.portfolio_id, t1.currency,#(lf)    sum(t1.spend) total_cost,#(lf)    sum(t1.""14_day_total_units"") attributed_units_ordered_new_to_brand_14d,#(lf)    sum(t1.clicks) total_clicks,#(lf)    sum(t1.impressions) total_impressions,#(lf)    sum(t1.""14_day_total_sales"") attributed_sales_14d#(lf)from sponsored_brands.campaign_console t1#(lf)left join amazon_advertising_portfolios t2#(lf)    on t1.portfolio_name = t2.name and t1.marketplace = t2.marketplace#(lf)where t1.date <= '2023-06-10'#(lf)group by t1.date, t2.portfolio_id, t1.marketplace, t1.currency#(lf)order by date, marketplace, portfolio_id", null, [EnableFolding=true])
+				in
+				    Source
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

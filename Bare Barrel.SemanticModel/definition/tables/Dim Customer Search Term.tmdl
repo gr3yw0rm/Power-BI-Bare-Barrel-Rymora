@@ -1,0 +1,23 @@
+table 'Dim Customer Search Term'
+	lineageTag: e64c8787-dba5-4a53-a457-d5fff51028c1
+
+	column search_term
+		dataType: string
+		lineageTag: bb20d000-898e-4dd3-ac6b-a1f47277d325
+		summarizeBy: none
+		sourceColumn: search_term
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Customer Search Term' = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [CommandTimeout=#duration(0, 0, 5, 0)]), "SELECT DISTINCT LOWER(search_term) search_term FROM sponsored_products.search_term", null, [EnableFolding=true])
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

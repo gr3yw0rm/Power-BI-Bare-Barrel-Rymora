@@ -1,0 +1,156 @@
+table 'COGS (WW)'
+	lineageTag: c9acc4dc-d449-49f8-895d-8527fc4d9f7b
+
+	column 'Date Start'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 89d53ea7-84f9-4b53-aade-7baf690cabfc
+		summarizeBy: none
+		sourceColumn: Date Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Parent Product'
+		dataType: string
+		lineageTag: 1868ba64-aaaa-4ddd-8aef-ec76b091162a
+		summarizeBy: none
+		sourceColumn: Parent Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Code'
+		dataType: string
+		lineageTag: 1b2cfce7-137e-4511-a16b-2256c2d5b443
+		summarizeBy: none
+		sourceColumn: Product Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column SKU
+		dataType: string
+		lineageTag: f61e8cce-ca82-4378-9dd3-5cfe4aa6edab
+		summarizeBy: none
+		sourceColumn: SKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column ASIN
+		dataType: string
+		lineageTag: c1da061c-c10e-42ef-a2ed-3b9fa39f5682
+		summarizeBy: none
+		sourceColumn: ASIN
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marketplace
+		dataType: string
+		lineageTag: af312589-e675-4ac0-8b37-a126650b7a7f
+		summarizeBy: none
+		sourceColumn: Marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	column COGS
+		dataType: decimal
+		lineageTag: 8c1db475-2321-4603-89f5-c20da48c26d3
+		summarizeBy: none
+		sourceColumn: COGS
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Date End'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4fd3e670-6308-44e3-8d52-545266d56d33
+		summarizeBy: none
+		sourceColumn: Date End
+
+		variation Variation
+			isDefault
+			relationship: 16dfc51c-e387-49b4-97c1-0ae02d87c66d
+			defaultHierarchy: LocalDateTable_523bff25-9311-4f67-a70b-e674bb3b098e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'FBA Fee'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 2b82c0e5-4cb2-4362-8217-183834eb003e
+		summarizeBy: sum
+		sourceColumn: FBA Fee
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column Storage
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: b98bdf2d-6898-4743-a143-5985e9ff8f26
+		summarizeBy: sum
+		sourceColumn: Storage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column Returns
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: d94ada35-9b2a-4eb6-a8ed-bb2b3b80e2e9
+		summarizeBy: sum
+		sourceColumn: Returns
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column Currency
+		dataType: string
+		lineageTag: c93cb81a-bb92-4e80-a20c-db623da045a6
+		summarizeBy: none
+		sourceColumn: Currency
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'COGS (WW)' = m
+		mode: import
+		source = ```
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1-DKSsS0yA8tFDHBeOawVQp4nczCjmNPNJrsqyjgR4bc/edit?gid=1736232776#gid=1736232776"),
+				    #"COGS (WW)_Table" = Source{[name="COGS (WW)",ItemKind="Table"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(#"COGS (WW)_Table",{"Column1", "Column2"}),
+				    #"Removed Top Rows" = Table.Skip(#"Removed Columns",4),
+				    #"Removed Blank Rows" = Table.SelectRows(#"Removed Top Rows", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Removed Blank Rows", [PromoteAllScalars=true]),
+				    #"Renamed Columns" = Table.RenameColumns(#"Promoted Headers",{{"Local", "US COGS"}, {"Local_1", "US FBA Fee"}, {"Storage", "US Storage"}, {"Returns", "US Returns"}, {"Local_2", "CA Local COGS"}, {"Local_3", "CA Local FBA Fee"}, {"Storage_4", "CA Local Storage"}, {"Returns_5", "CA Local Returns"}, {"NARF", "NARF COGS"}, {"NARF_9", "NARF FBA Fee"}, {"Storage_10", "NARF Storage"}, {"Returns_11", "NARF Returns"}, {"Local_16", "UK COGS"}, {"Local_17", "UK FBA Fee"}, {"Storage_18", "UK Storage"}, {"Returns_19", "UK Returns"}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Renamed Columns", "CA COGS", each if [Fulfilment Type] = "LOCAL" then [CA Local COGS] else if [Fulfilment Type] = "NARF" then [NARF COGS] else null),
+				    #"Added Conditional Column1" = Table.AddColumn(#"Added Conditional Column", "CA FBA Fee", each if [Fulfilment Type] = "LOCAL" then [CA Local FBA Fee] else if [Fulfilment Type] = "NARF" then [NARF FBA Fee] else null),
+				    #"Added Conditional Column2" = Table.AddColumn(#"Added Conditional Column1", "CA Storage", each if [Fulfilment Type] = "LOCAL" then [CA Local Storage] else if [Fulfilment Type] = "NARF" then [NARF Storage] else null),
+				    #"Added Conditional Column3" = Table.AddColumn(#"Added Conditional Column2", "CA Returns", each if [Fulfilment Type] = "LOCAL" then [CA Local Returns] else if [Fulfilment Type] = "NARF" then [NARF Returns] else null),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Added Conditional Column3",{"Date Start", "Date End", "Parent Product", "Product Code", "SKU", "ASIN", 
+				                                                        "US COGS", "US FBA Fee", "US Storage", "US Returns", 
+				                                                        "CA COGS", "CA FBA Fee", "CA Storage", "CA Returns", 
+				                                                        "UK COGS", "UK FBA Fee", "UK Storage", "UK Returns"}),
+				    #"Unpivoted Columns1" = Table.UnpivotOtherColumns(#"Removed Other Columns", {"Date Start", "Date End", "Parent Product", "Product Code", "SKU", "ASIN"}, "Attribute", "Value"),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Unpivoted Columns1", "Attribute", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.None, false), {"Marketplace", "Fee Name"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Value", Currency.Type}, {"Date Start", type date}, {"Date End", type date}}),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Changed Type", {"Value"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Errors", each [Value] <> null and [Value] <> ""),
+				    #"Pivoted Column" = Table.Pivot(#"Filtered Rows", List.Distinct(#"Filtered Rows"[#"Fee Name"]), "Fee Name", "Value"),
+				    #"Added Conditional Column4" = Table.AddColumn(#"Pivoted Column", "Currency", each if [Marketplace] = "US" then "USD" else if [Marketplace] = "CA" then "CAD" else if [Marketplace] = "UK" then "GBP" else null),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Added Conditional Column4",{"Date Start", "Date End", "Parent Product", "Product Code", "SKU", "ASIN", "Marketplace", "Currency", "COGS", "FBA Fee", "Storage", "Returns"})
+				in
+				    #"Reordered Columns"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

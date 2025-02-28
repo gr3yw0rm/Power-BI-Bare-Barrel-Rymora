@@ -1,0 +1,49 @@
+table DateParameter
+	lineageTag: 957ff7e3-19f7-479b-a5ef-ecca54393574
+
+	column DateParameter
+		lineageTag: 7eafbbe2-3c4f-44c3-a8d5-fd06b407f972
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'DateParameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'DateParameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DateParameter Fields'
+		isHidden
+		lineageTag: f3b13862-a416-4e2f-b9b2-afc4e39e7031
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'DateParameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DateParameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 80621ed5-0cb8-40de-96ce-15055ef21ecd
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DateParameter = calculated
+		mode: import
+		source =
+				{
+				    ("Month", NAMEOF('Dim Date'[Month]), 0),
+				    ("Quarter", NAMEOF('Dim Date'[Quarter]), 1),
+				    ("Year", NAMEOF('Dim Date'[Year]), 2)
+				}
+
+	annotation PBI_Id = 406700e17e864a1a9eadf04eb4befde6
+

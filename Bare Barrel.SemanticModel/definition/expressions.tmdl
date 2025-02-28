@@ -1,0 +1,97 @@
+expression 'Exhange Rates 2024' = ```
+		let
+		    Source = Json.Document( Web.Contents(
+		                                "https://api.exchangerate.host/timeframe?access_key=bd552d946247b24b39d556976b8073fd&start_date=2024-01-01&end_date=" 
+		                                // & DateTime.ToText(DateTime.LocalNow(), "yyyy-MM-dd") & 
+		                                & "2024-12-30" &
+		                                "&source=USD&currencies=CAD,GBP") 
+		)
+		
+		// Fetches YTD data. Maximum range is 365 days. 
+		// Create new table for every new year
+		
+		
+		// Fetches YTD data. Maximum range is 365 days.
+		
+		
+		// Fetches YTD data. Maximum range is 365 days.
+		
+		
+		// Fetches YTD data. Maximum t
+		,
+		    quotes = Source[quotes],
+		    #"Converted to Table" = Record.ToTable(quotes),
+		    #"Expanded Value" = Table.ExpandRecordColumn(#"Converted to Table", "Value", {"USDCAD", "USDGBP"}, {"Value.USDCAD", "Value.USDGBP"}),
+		    #"Inserted Rounding" = Table.AddColumn(#"Expanded Value", "USDCAD", each Number.Round([Value.USDCAD], 2), type number),
+		    #"Inserted Rounding1" = Table.AddColumn(#"Inserted Rounding", "USDGBP", each Number.Round([Value.USDGBP], 2), type number),
+		    #"Removed Columns" = Table.RemoveColumns(#"Inserted Rounding1",{"Value.USDCAD", "Value.USDGBP"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"Name", type date}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Name", "Date"}})
+		in
+		    #"Renamed Columns"
+		```
+	lineageTag: bafd2ebc-45e5-4eed-83d0-51120b92846e
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
+expression 'Exhange Rates 2023' =
+		let
+		    Source = Json.Document( Web.Contents("https://api.exchangerate.host/timeframe?access_key=bd552d946247b24b39d556976b8073fd&start_date=2023-01-01&end_date=2023-12-31&source=USD&currencies=CAD,GBP") ),
+		    quotes = Source[quotes],
+		    #"Converted to Table" = Record.ToTable(quotes),
+		    #"Expanded Value" = Table.ExpandRecordColumn(#"Converted to Table", "Value", {"USDCAD", "USDGBP"}, {"Value.USDCAD", "Value.USDGBP"}),
+		    #"Inserted Rounding" = Table.AddColumn(#"Expanded Value", "USDCAD", each Number.Round([Value.USDCAD], 2), type number),
+		    #"Inserted Rounding1" = Table.AddColumn(#"Inserted Rounding", "USDGBP", each Number.Round([Value.USDGBP], 2), type number),
+		    #"Removed Columns" = Table.RemoveColumns(#"Inserted Rounding1",{"Value.USDCAD", "Value.USDGBP"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"Name", type date}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Name", "Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 44114a76-cad2-4a59-9f4b-264451ed623c
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Exhange Rates 2022' =
+		let
+		    Source = Json.Document( Web.Contents("https://api.exchangerate.host/timeframe?access_key=bd552d946247b24b39d556976b8073fd&start_date=2022-01-01&end_date=2022-12-31&source=USD&currencies=CAD,GBP") ),
+		    quotes = Source[quotes],
+		    #"Converted to Table" = Record.ToTable(quotes),
+		    #"Expanded Value" = Table.ExpandRecordColumn(#"Converted to Table", "Value", {"USDCAD", "USDGBP"}, {"Value.USDCAD", "Value.USDGBP"}),
+		    #"Inserted Rounding" = Table.AddColumn(#"Expanded Value", "USDCAD", each Number.Round([Value.USDCAD], 2), type number),
+		    #"Inserted Rounding1" = Table.AddColumn(#"Inserted Rounding", "USDGBP", each Number.Round([Value.USDGBP], 2), type number),
+		    #"Removed Columns" = Table.RemoveColumns(#"Inserted Rounding1",{"Value.USDCAD", "Value.USDGBP"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"Name", type date}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Name", "Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 9200a9cd-da8a-4eb8-9b77-a3d28e1cefb5
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+/// Appends mutliple tables. Base currency is  USD.
+/// Maximum date range for each Exchange Rates YYYY table is 365 days. Therefore, new exchange rate table must be created every year. See https://exchangerate.host/documentation
+expression 'Exchange Rates' =
+		let
+		    Source = Table.Combine({#"Exhange Rates 2024", #"Exhange Rates 2023", #"Exhange Rates 2022"}),
+		    #"Removed Duplicates" = Table.Distinct(Source, {"Date"}),
+		    #"Added Custom" = Table.AddColumn(#"Removed Duplicates", "USDUSD", each 1),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Added Custom",{"Date", "USDUSD", "USDCAD", "USDGBP"}),
+		    #"Unpivoted Only Selected Columns" = Table.Unpivot(#"Reordered Columns", {"USDUSD", "USDCAD", "USDGBP"}, "Currency Pair", "Exchange Rate"),
+		    #"Split Column by Position" = Table.SplitColumn(#"Unpivoted Only Selected Columns", "Currency Pair", Splitter.SplitTextByRepeatedLengths(3), {"Base Currency", "Foreign Currency"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Position",{{"Base Currency", type text}, {"Foreign Currency", type text}}),
+		    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"Date", Order.Descending}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Sorted Rows",{{"Exchange Rate", type number}})
+		in
+		    #"Changed Type1"
+	lineageTag: cdda6c75-25ed-4909-97e4-86560745ba59
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

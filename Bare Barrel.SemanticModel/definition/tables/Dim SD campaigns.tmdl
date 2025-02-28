@@ -1,0 +1,157 @@
+table 'Dim SD campaigns'
+	lineageTag: d975b062-35de-4044-89e8-e3e13505f68a
+
+	column campaign_id
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: eba1281c-c4c3-453c-98ed-d9395dd5edc9
+		summarizeBy: none
+		sourceColumn: campaign_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column portfolio_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 404c9114-86b7-4db7-b675-ca4719d6cac2
+		summarizeBy: none
+		sourceColumn: portfolio_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: c28f41ed-5fb3-48e2-a6d8-658c703c2629
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column tactic
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 8012ef0d-b2e2-4cc1-969e-b9d2cd1fa015
+		summarizeBy: none
+		sourceColumn: tactic
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_date
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 4cc8fa6f-6b27-443a-bf71-13214d5b59e6
+		summarizeBy: none
+		sourceColumn: start_date
+
+		variation Variation
+			isDefault
+			relationship: 0e0da48f-a269-4a8b-92fb-2a0b7e11ee4d
+			defaultHierarchy: LocalDateTable_bae4c8e4-5bed-4a6b-a3c2-8a48efc6491b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column state
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: fbe2ee62-2551-4c9c-897b-0895fad6a0fc
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost_type
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 7b05800f-c9b8-400a-81c9-706e5d0ea466
+		summarizeBy: none
+		sourceColumn: cost_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget
+		dataType: double
+		sourceProviderType: decimal
+		lineageTag: 61493b4f-f426-43f0-9039-6ea9a7ff40bb
+		summarizeBy: sum
+		sourceColumn: budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column budget_type
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: b9b034b5-6ffa-4a86-a21d-bd151ab6bee8
+		summarizeBy: none
+		sourceColumn: budget_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_profile
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: a4c6c7b4-bcf1-4116-b987-85afdf6e1ac7
+		summarizeBy: none
+		sourceColumn: delivery_profile
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: ffcb8df0-e176-457d-b87a-b3c25ae73ec0
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: cd80b724-46cc-47b3-ac3a-d539123bf752
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 54a263db-8880-4670-aee6-9917e2b10871
+			defaultHierarchy: LocalDateTable_b951c3b7-c579-48bc-963f-3203015933d3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 8deeed69-fe20-491d-ae2a-1abceeabcd04
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 7e7ab068-fe19-498c-aefe-68eed3a98be2
+			defaultHierarchy: LocalDateTable_e643996a-71a7-4435-a8f5-3200a00efdc6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim SD campaigns' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    sponsored_display = Source{[Schema="sponsored_display"]}[Data],
+				    campaigns1 = sponsored_display{[Name="campaigns"]}[Data]
+				in
+				    campaigns1
+
+	annotation PBI_ResultType = Table
+

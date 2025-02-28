@@ -1,0 +1,551 @@
+table search_query_performance_brand_view
+	lineageTag: 70d3fa63-b112-4d84-950b-acf668155561
+
+	measure 'impressions_brand_count divided by impressions_total_count' =
+			
+			DIVIDE(
+				SUM('search_query_performance_brand_view'[impressions_brand_count]),
+				SUM('search_query_performance_brand_view'[impressions_total_count])
+			)
+		formatString: 0
+		lineageTag: 91697e09-b9ee-4443-be77-54be59ff1516
+
+		extendedProperty MeasureTemplate =
+				{
+				  "daxTemplateName": "MathematicalDivision",
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+	measure 'impressions_brand_count divided by impressions_total_count 2' =
+			
+			DIVIDE(
+				SUM('search_query_performance_brand_view'[impressions_brand_count]),
+				SUM('search_query_performance_brand_view'[impressions_total_count])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8b4d062f-3e83-49eb-8e83-33321a61e67d
+
+		extendedProperty MeasureTemplate =
+				{
+				  "daxTemplateName": "MathematicalDivision",
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+	measure 'Last Year Search Query Volume' = CALCULATE(SUM('search_query_performance_brand_view'[search_query_volume]), SAMEPERIODLASTYEAR('Dim Date'[Date]))
+		formatString: #,0
+		lineageTag: c54bd0b6-35de-4cfd-ab7b-ffaf4baafa28
+
+	measure 'Prev search_query_volume' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Dim Previous Date Interval'[Date Interval]),
+			    "Same Period", CALCULATE(SUM('search_query_performance_brand_view'[search_query_volume]), DATEADD('Dim Date'[Date], -[Days Diff], DAY)),
+			    "Week", CALCULATE(SUM('search_query_performance_brand_view'[search_query_volume]), DATEADD('Dim Date'[Date], -7, DAY)),
+			    "Month", CALCULATE(SUM('search_query_performance_brand_view'[search_query_volume]), DATEADD('Dim Date'[Date], -1, MONTH)),
+			    "Quarter", CALCULATE(SUM('search_query_performance_brand_view'[search_query_volume]), DATEADD('Dim Date'[Date], -1, QUARTER)),
+			    "Year", CALCULATE(SUM('search_query_performance_brand_view'[search_query_volume]), DATEADD('Dim Date'[Date], -1, YEAR))
+			)
+		formatString: #,0
+		lineageTag: ccc66d2f-7c94-4d53-960f-7b1adef19b71
+
+	measure 'Keyword Relevancy' = DIVIDE(SUM(search_query_performance_brand_view[purchases_brand_count]), CALCULATE(SUM(search_query_performance_brand_view[purchases_brand_count]), ALLSELECTED(search_query_performance_brand_view)))
+		lineageTag: ef76391a-c999-49cb-9210-f067a38e9a79
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reporting_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 05689f3e-5ab4-4d23-93f1-391b338a9b70
+		summarizeBy: none
+		sourceColumn: reporting_date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column reporting_range
+		dataType: string
+		lineageTag: bd14fc07-8c34-4c6c-88fd-c7b9f542cca0
+		summarizeBy: none
+		sourceColumn: reporting_range
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		lineageTag: a389abd3-ba9c-4ef1-9cd5-5a0e866787d8
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column search_query
+		dataType: string
+		lineageTag: 3fccc8f4-b8f7-4335-9ad2-3e994c3f6142
+		summarizeBy: none
+		sourceColumn: search_query
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column search_query_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 3117d340-90d9-464d-a97c-6d98db4fd234
+		summarizeBy: sum
+		sourceColumn: search_query_score
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column search_query_volume
+		dataType: int64
+		formatString: #,0
+		lineageTag: 17b4d4a8-db3f-4f46-aa87-deaf1b5dbe57
+		summarizeBy: sum
+		sourceColumn: search_query_volume
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions_total_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f3e69dd-7980-4456-a075-1fbf7f0af291
+		summarizeBy: sum
+		sourceColumn: impressions_total_count
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions_brand_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 52584ffc-25ee-49d7-aef6-1f848832a552
+		summarizeBy: sum
+		sourceColumn: impressions_brand_count
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions_brand_share
+		dataType: double
+		lineageTag: c39166ce-ddbc-45ae-b070-431653d2b250
+		summarizeBy: sum
+		sourceColumn: impressions_brand_share
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks_total_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 83c5d923-4cb4-4bd1-b9d9-7e53c3e371ac
+		summarizeBy: sum
+		sourceColumn: clicks_total_count
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks_click_rate
+		dataType: double
+		lineageTag: d9f1e4c1-aba1-43ae-a1e5-40dd31795e5e
+		summarizeBy: sum
+		sourceColumn: clicks_click_rate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks_brand_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 86f11680-6a97-4846-b2d8-6de90b73a06d
+		summarizeBy: sum
+		sourceColumn: clicks_brand_count
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks_brand_share
+		dataType: double
+		lineageTag: 1cc89519-adfe-4646-ac6d-805db57fffb1
+		summarizeBy: sum
+		sourceColumn: clicks_brand_share
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks_price
+		dataType: double
+		lineageTag: 1cffe33b-4689-4dd1-8d82-12a7012a227b
+		summarizeBy: sum
+		sourceColumn: clicks_price
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks_brand_price
+		dataType: double
+		lineageTag: 3c5a3d2d-fd92-4a3c-8807-1768ddb6ad35
+		summarizeBy: sum
+		sourceColumn: clicks_brand_price
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks_same_day_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f89797b-1bf1-47c3-8301-9f6ca59af94e
+		summarizeBy: sum
+		sourceColumn: clicks_same_day_shipping_speed
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks_1d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: cc20744a-1dde-420f-8c90-66046547f7f8
+		summarizeBy: sum
+		sourceColumn: clicks_1d_shipping_speed
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks_2d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: f6945b15-b942-4fa7-92a3-80e9538e8af2
+		summarizeBy: sum
+		sourceColumn: clicks_2d_shipping_speed
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cart_adds_total_count
+		dataType: int64
+		formatString: 0
+		lineageTag: cbbbf892-49e5-480d-972f-03e292c824a1
+		summarizeBy: sum
+		sourceColumn: cart_adds_total_count
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cart_adds_cart_add_rate
+		dataType: double
+		lineageTag: c5e4e992-ccfe-4d52-8a95-58727619d2e3
+		summarizeBy: sum
+		sourceColumn: cart_adds_cart_add_rate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cart_adds_brand_count
+		dataType: int64
+		formatString: 0
+		lineageTag: a2dfcff2-1ec7-4d4e-9adf-b93df4332f82
+		summarizeBy: sum
+		sourceColumn: cart_adds_brand_count
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cart_adds_brand_share
+		dataType: double
+		lineageTag: bf77c676-b113-4a97-be1c-41dc7bdcefcb
+		summarizeBy: sum
+		sourceColumn: cart_adds_brand_share
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cart_adds_price
+		dataType: double
+		lineageTag: ffb2af4b-8083-4bfc-8796-a508e7fe15b8
+		summarizeBy: sum
+		sourceColumn: cart_adds_price
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cart_adds_brand_price
+		dataType: double
+		lineageTag: c6859aca-1272-4674-a85c-01de311008b0
+		summarizeBy: sum
+		sourceColumn: cart_adds_brand_price
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cart_adds_same_day_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: de08f88b-309a-4d68-be16-076b211d0969
+		summarizeBy: sum
+		sourceColumn: cart_adds_same_day_shipping_speed
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cart_adds_1d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b7fa725-da9a-40b4-b6cd-5d5c08f1f5d6
+		summarizeBy: sum
+		sourceColumn: cart_adds_1d_shipping_speed
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cart_adds_2d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: a6d0bf8e-4045-4516-8470-9018ca2cd340
+		summarizeBy: sum
+		sourceColumn: cart_adds_2d_shipping_speed
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_total_count
+		dataType: int64
+		formatString: 0
+		lineageTag: d36e1eed-4f47-494b-9970-9f7c674d4d71
+		summarizeBy: sum
+		sourceColumn: purchases_total_count
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_purchase_rate
+		dataType: double
+		lineageTag: 167a84d9-3ee7-4729-89a1-db255795a9aa
+		summarizeBy: sum
+		sourceColumn: purchases_purchase_rate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_brand_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 88b585a1-03ca-439c-beaa-1b48f5bcafde
+		summarizeBy: sum
+		sourceColumn: purchases_brand_count
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_brand_share
+		dataType: double
+		lineageTag: 7d54ba5d-25eb-47e3-8606-52c0793d40f5
+		summarizeBy: sum
+		sourceColumn: purchases_brand_share
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_price
+		dataType: double
+		lineageTag: 702350d6-3fca-4e8d-a7f7-2cc4772bbdfe
+		summarizeBy: sum
+		sourceColumn: purchases_price
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_brand_price
+		dataType: double
+		lineageTag: 339397a4-2ecb-4ded-af39-65381e4543ff
+		summarizeBy: sum
+		sourceColumn: purchases_brand_price
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_same_day_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 72884b21-525c-4758-b658-672167f2bd0a
+		summarizeBy: sum
+		sourceColumn: purchases_same_day_shipping_speed
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_1d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ddc9018-a82d-4ada-951e-57e11d8e26f6
+		summarizeBy: sum
+		sourceColumn: purchases_1d_shipping_speed
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_2d_shipping_speed
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f4f83d1-ca35-4acd-9235-8ebcc527e4cf
+		summarizeBy: sum
+		sourceColumn: purchases_2d_shipping_speed
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 949464d4-ad41-46f9-95c9-b7faeffb9af8
+		summarizeBy: none
+		sourceColumn: end_date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column start_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b8ee3c37-4c12-4eb2-89a0-871464cb8938
+		summarizeBy: none
+		sourceColumn: start_date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column week
+		dataType: string
+		lineageTag: 13066e10-013a-4ee6-bbd0-490926491a4e
+		summarizeBy: none
+		sourceColumn: week
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: eae554e8-05c1-4d62-9b9e-ae3d58e3a54a
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: aff19e64-8d20-4e14-a893-dd636efaceb1
+			defaultHierarchy: LocalDateTable_35cdbef6-2f14-4c3b-b810-d4339fd1cbf6.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 045a85e6-ff01-43b5-adcf-86832ffaeccb
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 580d4bbc-39c5-4fd0-b4f5-577eac2a1001
+			defaultHierarchy: LocalDateTable_0aa1069d-8e96-456b-ac09-6bbe7fa3d5ec.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition search_query_performance_brand_view = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    brand_analytics = Source{[Schema="brand_analytics"]}[Data],
+				    search_query_performance_brand_view1 = brand_analytics{[Name="search_query_performance_brand_view"]}[Data]
+				in
+				    search_query_performance_brand_view1
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

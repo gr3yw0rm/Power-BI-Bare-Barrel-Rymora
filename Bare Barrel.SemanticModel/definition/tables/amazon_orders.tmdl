@@ -1,0 +1,373 @@
+table amazon_orders
+	lineageTag: 431daf47-1944-49f3-829c-0290eab39702
+
+	column amazon_order_id
+		dataType: string
+		lineageTag: a9fe9510-beca-4abf-a7f4-5e61781fd6c1
+		summarizeBy: none
+		sourceColumn: amazon_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column earliest_ship_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b43e52ae-25f7-43a1-85ff-e6c8959b4ba1
+		summarizeBy: none
+		sourceColumn: earliest_ship_date
+
+		variation Variation
+			isDefault
+			relationship: 5a0bcf5c-9950-4ff0-82e9-7dd5fd141c21
+			defaultHierarchy: LocalDateTable_a5f4f180-b983-4993-bfc5-705779dbff7e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_channel
+		dataType: string
+		lineageTag: 5b5d2014-bb8c-483c-ae99-de12c22ccb75
+		summarizeBy: none
+		sourceColumn: sales_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: 2e0cea29-f6b7-45d4-bb06-e85a9c3de8b6
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column number_of_items_shipped
+		dataType: int64
+		formatString: 0
+		lineageTag: a6db61d1-4180-4481-b4b2-8fdc7de84100
+		summarizeBy: sum
+		sourceColumn: number_of_items_shipped
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_type
+		dataType: string
+		lineageTag: 807f8258-8a88-4582-b033-a385398faa4a
+		summarizeBy: none
+		sourceColumn: order_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_premium_order
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ea9e1518-4f30-42da-a5ad-97b3cc9be33f
+		summarizeBy: none
+		sourceColumn: is_premium_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_prime
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a6ca7aab-f3e1-425c-afa9-bf204a469f22
+		summarizeBy: none
+		sourceColumn: is_prime
+
+		annotation SummarizationSetBy = Automatic
+
+	column fulfillment_channel
+		dataType: string
+		lineageTag: ac94b920-c94f-4871-b2fb-c23f717a4de9
+		summarizeBy: none
+		sourceColumn: fulfillment_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column number_of_items_unshipped
+		dataType: int64
+		formatString: 0
+		lineageTag: 67530fd6-b237-4ee1-82cb-51f327ac001a
+		summarizeBy: sum
+		sourceColumn: number_of_items_unshipped
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_regulated_items
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9476ec86-4cd9-4cf3-a90c-3a3a9fbf6874
+		summarizeBy: none
+		sourceColumn: has_regulated_items
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_replacement_order
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e6cc2688-ba50-4025-87f1-0e94d30b7795
+		summarizeBy: none
+		sourceColumn: is_replacement_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_sold_by_ab
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f28b93b5-3a13-4d5d-bc0f-d16d7bf73612
+		summarizeBy: none
+		sourceColumn: is_sold_by_ab
+
+		annotation SummarizationSetBy = Automatic
+
+	column latest_ship_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26320259-4fff-4c1a-b563-e0dead7fc85e
+		summarizeBy: none
+		sourceColumn: latest_ship_date
+
+		variation Variation
+			isDefault
+			relationship: 75b236d0-2070-445a-a1d1-d02f399344d0
+			defaultHierarchy: LocalDateTable_036a4c4d-3956-4527-9d21-80956b82dcb3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_service_level
+		dataType: string
+		lineageTag: f22924f1-d1ac-4ff5-916f-145406413b44
+		summarizeBy: none
+		sourceColumn: ship_service_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_ispu
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 503a942a-c23c-442b-8923-ae949b023ac3
+		summarizeBy: none
+		sourceColumn: is_ispu
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace_id
+		dataType: string
+		lineageTag: 34fd7836-2474-4782-9d94-4a470c4b9f5e
+		summarizeBy: none
+		sourceColumn: marketplace_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchase_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 08430f59-a4da-4765-8bc4-754c796f41ab
+		summarizeBy: none
+		sourceColumn: purchase_date
+
+		variation Variation
+			isDefault
+			relationship: b4e98158-5644-423f-a6c7-cc18108645ae
+			defaultHierarchy: LocalDateTable_788590da-be40-4d89-a043-c9392ef4b16e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_access_point_order
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9d240d45-e788-40fc-be0f-bb00f97f5132
+		summarizeBy: none
+		sourceColumn: is_access_point_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_order_id
+		dataType: string
+		lineageTag: 42cf70d0-82ed-4134-b69c-6c84665dc48c
+		summarizeBy: none
+		sourceColumn: seller_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: 8b37fe4f-9b6d-405e-a327-67fcc9efbbe3
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_business_order
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9edb9e25-9450-4350-ba05-fc652316e293
+		summarizeBy: none
+		sourceColumn: is_business_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_global_express_enabled
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 786ee98a-d00f-44ce-baf0-8fb7e775fe71
+		summarizeBy: none
+		sourceColumn: is_global_express_enabled
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_update_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: dabbb05e-ce4c-4083-82b7-37833d5aa9e9
+		summarizeBy: none
+		sourceColumn: last_update_date
+
+		variation Variation
+			isDefault
+			relationship: 57d945bd-11e4-46b0-8f6c-063f8bcb08c4
+			defaultHierarchy: LocalDateTable_f167fee6-7e9c-4457-972e-2a0fec00c066.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipment_service_level_category
+		dataType: string
+		lineageTag: 84c82b1f-162e-46a5-af24-5fed69428bc3
+		summarizeBy: none
+		sourceColumn: shipment_service_level_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_address_state_or_region
+		dataType: string
+		lineageTag: 42483fc4-b987-43a4-976e-254fccabfded
+		summarizeBy: none
+		sourceColumn: shipping_address_state_or_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_address_postal_code
+		dataType: string
+		lineageTag: cf479674-1e3e-45d8-a979-ac30faa9d049
+		summarizeBy: none
+		sourceColumn: shipping_address_postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_address_city
+		dataType: string
+		lineageTag: 58e5c639-8aa7-48a1-ad8f-f6e882ace21c
+		summarizeBy: none
+		sourceColumn: shipping_address_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_address_country_code
+		dataType: string
+		lineageTag: fa984597-41c2-4b70-b41b-a7fb951770cd
+		summarizeBy: none
+		sourceColumn: shipping_address_country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method_details
+		dataType: string
+		lineageTag: 7454406a-89bf-4a45-bb66-5cfbf2dc6240
+		summarizeBy: none
+		sourceColumn: payment_method_details
+
+		annotation SummarizationSetBy = Automatic
+
+	column buyer_info_buyer_email
+		dataType: string
+		lineageTag: d7285efc-cd01-41e7-ac77-4205086020e0
+		summarizeBy: none
+		sourceColumn: buyer_info_buyer_email
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_total_currency_code
+		dataType: string
+		lineageTag: e6af31ca-155d-4dbd-8aea-b15fa2ca1ab2
+		summarizeBy: none
+		sourceColumn: order_total_currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_total_amount
+		dataType: double
+		lineageTag: bb29f8ac-800c-46f5-ba1e-f2c56577b09b
+		summarizeBy: sum
+		sourceColumn: order_total_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column replaced_order_id
+		dataType: string
+		lineageTag: 5e32f904-d837-4b1b-a869-5b8aebc122e8
+		summarizeBy: none
+		sourceColumn: replaced_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7ca7dce9-ac49-40f6-adac-2994823e99ba
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 5c377460-e3f5-4ce6-b579-03a2957f2b31
+			defaultHierarchy: LocalDateTable_c2fa9080-e267-42e1-ad85-70ec21cc37e3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: bc0015d3-9ec9-4172-9cde-02cf52e6a5d9
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 5e9c9cce-9f93-4ce9-87e2-3acb0cf82687
+			defaultHierarchy: LocalDateTable_6d169281-a95b-4530-b6ab-568fb4c54dd3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		lineageTag: 67f3da55-83c6-499a-8ead-1767178b2163
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchase_date_local_tz
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: faeac5b4-1527-4286-abd3-84a7ecd0a16a
+		summarizeBy: none
+		sourceColumn: purchase_date_local_tz
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition amazon_orders = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]), "SELECT *,#(lf)       CASE#(lf)           WHEN marketplace IN ('US', 'CA', 'MX') THEN purchase_date AT TIME ZONE 'America/Los_Angeles'#(lf)           WHEN marketplace IN ('UK') THEN purchase_date AT TIME ZONE 'Europe/London'#(lf)           ELSE NULL#(lf)       END AS purchase_date_local_tz#(lf)FROM orders.amazon_orders", null, [EnableFolding=true]),
+				    #"Reordered Columns" = Table.ReorderColumns(Source,{"amazon_order_id", "earliest_ship_date", "sales_channel", "order_status", "number_of_items_shipped", "order_type", "is_premium_order", "is_prime", "fulfillment_channel", "number_of_items_unshipped", "has_regulated_items", "is_replacement_order", "is_sold_by_ab", "latest_ship_date", "ship_service_level", "is_ispu", "marketplace_id", "is_access_point_order", "seller_order_id", "payment_method", "is_business_order", "is_global_express_enabled", "last_update_date", "shipment_service_level_category", "shipping_address_state_or_region", "shipping_address_postal_code", "shipping_address_city", "shipping_address_country_code", "payment_method_details", "buyer_info_buyer_email", "order_total_currency_code", "order_total_amount", "replaced_order_id", "created_at", "updated_at", "marketplace", "purchase_date", "purchase_date_local_tz"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Reordered Columns",{{"purchase_date_local_tz", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

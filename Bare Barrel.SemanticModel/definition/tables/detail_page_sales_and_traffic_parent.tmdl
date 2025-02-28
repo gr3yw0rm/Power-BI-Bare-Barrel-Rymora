@@ -1,0 +1,496 @@
+table detail_page_sales_and_traffic_parent
+	lineageTag: 99527b15-cf02-4395-a77c-7a655b11bcbf
+
+	column parent_asin
+		dataType: string
+		lineageTag: ac37eaaf-15a0-4683-9278-683c4bf70487
+		summarizeBy: none
+		sourceColumn: parent_asin
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_by_asin_units_ordered
+		dataType: int64
+		formatString: 0
+		lineageTag: 4539ed88-9825-484f-b480-ba1ed6c1e5d1
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_units_ordered
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_by_asin_units_ordered_b2b
+		dataType: int64
+		formatString: 0
+		lineageTag: 60829bd4-5b84-41ab-8e64-4e6b1243606a
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_units_ordered_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_by_asin_ordered_product_sales_amount
+		dataType: double
+		lineageTag: ea86089d-edfb-4dec-b00a-459f2347f8e4
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_ordered_product_sales_amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_by_asin_ordered_product_sales_currency_code
+		dataType: string
+		lineageTag: 89d2c88e-baf1-47d9-b77e-f936fb919e32
+		summarizeBy: none
+		sourceColumn: sales_by_asin_ordered_product_sales_currency_code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_by_asin_ordered_product_sales_b2b_amount
+		dataType: double
+		lineageTag: a7edfc3d-1b85-4444-a375-5c1f10c7084a
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_ordered_product_sales_b2b_amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_by_asin_ordered_product_sales_b2b_currency_code
+		dataType: string
+		lineageTag: b7439504-f1f4-456a-8159-b5764b1c0046
+		summarizeBy: none
+		sourceColumn: sales_by_asin_ordered_product_sales_b2b_currency_code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_by_asin_total_order_items
+		dataType: int64
+		formatString: 0
+		lineageTag: 6359eb05-5498-448d-ac66-cf7aa8f356b0
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_total_order_items
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_by_asin_total_order_items_b2b
+		dataType: int64
+		formatString: 0
+		lineageTag: d92c8f41-3591-4a9c-8b36-05c25901d84c
+		summarizeBy: sum
+		sourceColumn: sales_by_asin_total_order_items_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_browser_sessions
+		dataType: int64
+		formatString: 0
+		lineageTag: fd12614d-18eb-4944-8f6b-1dca0c67d15c
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_sessions
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_browser_sessions_b2b
+		dataType: int64
+		formatString: 0
+		lineageTag: 77662b29-cfc6-456e-9862-9e69648b5cb1
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_sessions_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_mobile_app_sessions
+		dataType: int64
+		formatString: 0
+		lineageTag: ee71f3bd-6511-4581-b307-3bea1cf02ed4
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_sessions
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_mobile_app_sessions_b2b
+		dataType: int64
+		formatString: 0
+		lineageTag: 6fa33aa9-5918-4caf-b8ce-19320b581d98
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_sessions_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_sessions
+		dataType: int64
+		formatString: 0
+		lineageTag: 392c1ec1-333b-49d2-9ce5-69264c84e152
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_sessions
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_sessions_b2b
+		dataType: int64
+		formatString: 0
+		lineageTag: bffdd94a-4299-49e8-824d-c03f15b6fe46
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_sessions_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_browser_session_percentage
+		dataType: double
+		lineageTag: a469a5a7-6f4a-4475-8d17-0bf1b1249a87
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_session_percentage
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_session_percentage_b2b
+		dataType: double
+		lineageTag: abbd818e-2c9a-4be6-ba70-410160db19fe
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_session_percentage_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_session_percentage
+		dataType: double
+		lineageTag: c9be5053-8f63-47d7-baac-5c68712e4958
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_session_percentage
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_session_percentage_b2b
+		dataType: double
+		lineageTag: 5b97b4b7-d941-40cc-9eec-2407ea3ccdb6
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_session_percentage_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_session_percentage
+		dataType: double
+		lineageTag: 1f93bdae-2d5f-4f2f-8bfd-101891361e34
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_session_percentage
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_session_percentage_b2b
+		dataType: double
+		lineageTag: dce7a3b1-49fc-4019-96c3-907b382ce6ea
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_session_percentage_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_page_views
+		dataType: int64
+		formatString: 0
+		lineageTag: 18eda2ea-9146-44fa-a369-49ddae131039
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_page_views
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_browser_page_views_b2b
+		dataType: int64
+		formatString: 0
+		lineageTag: 5eba22bc-ca5c-4094-851f-3591575438f6
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_page_views_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_mobile_app_page_views
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f347d0f-2ff6-4411-a6fe-68db848c384a
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_page_views
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_mobile_app_page_views_b2b
+		dataType: int64
+		formatString: 0
+		lineageTag: de8bcba0-5545-41f8-9cca-d30196c77d49
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_page_views_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_page_views
+		dataType: int64
+		formatString: 0
+		lineageTag: 188f01ac-0bae-4451-9540-711fedbf9ca2
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_page_views
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_page_views_b2b
+		dataType: int64
+		formatString: 0
+		lineageTag: 8b7350df-4716-4a25-bccc-e11ad0537832
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_page_views_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column traffic_by_asin_browser_page_views_percentage
+		dataType: double
+		lineageTag: 2db37645-75ac-475d-bb28-faf904229412
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_page_views_percentage
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_browser_page_views_percentage_b2b
+		dataType: double
+		lineageTag: 84e4d56c-83ea-433c-b409-d50cecf6b526
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_browser_page_views_percentage_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_page_views_percentage
+		dataType: double
+		lineageTag: 28218de4-31ba-4e03-8e4f-d4d53fb1da1b
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_page_views_percentage
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_mobile_app_page_views_percentage_b2b
+		dataType: double
+		lineageTag: 726c3f9c-583a-455a-b80c-630796e1a2c0
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_mobile_app_page_views_percentage_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_page_views_percentage
+		dataType: double
+		lineageTag: f108d8e2-c5e9-45d5-9356-6a7d67916d33
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_page_views_percentage
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_page_views_percentage_b2b
+		dataType: double
+		lineageTag: 969333f4-7ff5-403c-898d-acc635ddd79b
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_page_views_percentage_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_buy_box_percentage
+		dataType: double
+		lineageTag: af1bf9fb-3d0c-409d-b5c1-4639f864c5e2
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_buy_box_percentage
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_buy_box_percentage_b2b
+		dataType: double
+		lineageTag: 447e98f6-3e2b-4206-b89f-9bea165f3e69
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_buy_box_percentage_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_unit_session_percentage
+		dataType: double
+		lineageTag: 9a25cad7-1fb2-4d6f-948b-abf33f7d4b94
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_unit_session_percentage
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column traffic_by_asin_unit_session_percentage_b2b
+		dataType: double
+		lineageTag: 6c75ce91-b2ad-4d8e-891e-0932d025fde5
+		summarizeBy: sum
+		sourceColumn: traffic_by_asin_unit_session_percentage_b2b
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5a781f7c-6030-4b1b-9542-0cd07e7a7a53
+		summarizeBy: none
+		sourceColumn: date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column marketplace
+		dataType: string
+		lineageTag: 42435a5d-f94e-4eda-9b56-fc1406b4c5e8
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 80c8bba0-b73c-48c9-92df-a11cd5ce742e
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: e72f37b3-04ff-4eae-b531-a73ac4201a7f
+			defaultHierarchy: LocalDateTable_25a1022f-b668-4f0e-b0db-72382fe28940.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a55b6477-93ac-4576-ad0d-278a8508a37b
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 5a5d811d-26c7-43bc-921a-90fc5769de8e
+			defaultHierarchy: LocalDateTable_052c020e-77dd-40ae-9021-9d7f0579fc16.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition detail_page_sales_and_traffic_parent = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    business_reports = Source{[Schema="business_reports"]}[Data],
+				    detail_page_sales_and_traffic_parent1 = business_reports{[Name="detail_page_sales_and_traffic_parent"]}[Data]
+				in
+				    detail_page_sales_and_traffic_parent1
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

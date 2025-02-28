@@ -1,0 +1,69 @@
+table SelectedDate
+	lineageTag: ff8303c1-d117-4dbe-b112-fda8c0b326e7
+
+	measure DateToHighlight = ```
+			
+			VAR _selecteddates = 
+			    VALUES ( SelectedDate[Short Date] )
+			
+			VAR _datestohighlight = 
+			    SELECTEDVALUE ( 'Dim Date'[Short Date] )
+			
+			VAR _filtered =
+			    ISFILTERED ( SelectedDate[Short Date] )
+			    
+			VAR _result = 
+			    SWITCH (
+			        TRUE,
+			        NOT ( _filtered ), "#0079EB",
+			        _datestohighlight IN _selecteddates && _filtered, "#0079EB",
+			        "#99C9F7"
+			        )
+			
+			RETURN _result
+			```
+		lineageTag: 81929b35-4030-465c-a273-accfae37b834
+
+	measure 'Profit Margin Slicer' =
+			
+			CALCULATE (
+			    [Profit Margin (CM3)],
+			    INTERSECT ( VALUES ( 'Dim Date'[Date] ), VALUES ( SelectedDate[Date] ) )
+			)
+		lineageTag: fc65e021-ffd2-42ef-b2cc-e54374e0d0c9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		formatString: General Date
+		lineageTag: f5d8ef58-b1db-46c8-a851-6504fdf8b210
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Date[Date]
+
+		variation Variation
+			isDefault
+			relationship: 0a08a018-47b7-4453-8582-e0b476b5bad2
+			defaultHierarchy: LocalDateTable_f5b4e1b9-0680-413d-8875-1ae46128688a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Short Date'
+		lineageTag: b275d4de-0495-464d-9f92-0850f3f03cc9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Date[Short Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SelectedDate = calculated
+		mode: import
+		source =
+				
+				ALL(
+				    'Dim Date'[Date],
+				    'Dim Date'[Short Date]
+				    )
+
+	annotation PBI_Id = 4f277fd4d2dd48c1a2a5d5ae3862ebd1
+

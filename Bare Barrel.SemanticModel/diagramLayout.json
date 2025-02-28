@@ -659,7 +659,7 @@
       "ordinal": 1,
       "scrollPosition": {
         "x": 0,
-        "y": 87.5
+        "y": 0
       },
       "nodes": [
         {
@@ -894,7 +894,7 @@
     {
       "ordinal": 3,
       "scrollPosition": {
-        "x": 0,
+        "x": 50.735993300600256,
         "y": 0
       },
       "nodes": [
@@ -922,12 +922,12 @@
             "height": 300,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 2
         },
         {
           "location": {
-            "x": 1008.3333320617676,
-            "y": 399.5
+            "x": 1087.2559883071458,
+            "y": 410.77466517791112
           },
           "nodeIndex": "search_query_performance_brand_view",
           "nodeLineageTag": "70d3fa63-b112-4d84-950b-acf668155561",
@@ -935,7 +935,7 @@
             "height": 305,
             "width": 347
           },
-          "zIndex": 6
+          "zIndex": 5
         },
         {
           "location": {
@@ -948,7 +948,7 @@
             "height": 104,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 4
         },
         {
           "location": {
@@ -973,7 +973,7 @@
             "height": 200,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 6
         },
         {
           "location": {
@@ -986,7 +986,7 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 3
         }
       ],
       "name": "Search Query Performance Report",
@@ -1466,6 +1466,6 @@
       "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Sponsored Products",
+  "selectedDiagram": "Search Query Performance Report",
   "defaultDiagram": "All tables"
 }

@@ -1,0 +1,237 @@
+table 'Dim SB campaigns'
+	isHidden
+	lineageTag: 0e8b54bd-65f8-4f6a-b86f-6735c452bd45
+
+	column budget
+		dataType: double
+		isHidden
+		sourceProviderType: decimal
+		lineageTag: d4fd9af0-7f01-4851-ac44-044fd59c12bb
+		summarizeBy: sum
+		sourceColumn: budget
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column budget_type
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: a785aaeb-0890-4aae-b6bf-dc4e11961e1e
+		summarizeBy: none
+		sourceColumn: budget_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_id
+		dataType: int64
+		isHidden
+		isNullable: false
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 1f0dcc14-c966-49da-a4c3-91587b93a44b
+		summarizeBy: none
+		sourceColumn: campaign_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost_type
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: 63dd6a5f-addf-4e05-a463-46a307dc7625
+		summarizeBy: none
+		sourceColumn: cost_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_multi_ad_groups_enabled
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 17b06220-fac3-4114-9a3f-c4b237a64c1c
+		summarizeBy: none
+		sourceColumn: is_multi_ad_groups_enabled
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: 395d9d17-90d0-46d7-956b-6dfaa658513c
+		summarizeBy: none
+		sourceColumn: name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column outcome
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: 6f122879-20dd-493d-b1bd-2f6d020b4dce
+		summarizeBy: none
+		sourceColumn: outcome
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column portfolio_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 9d5b95c8-bf90-434f-a421-331320763d4e
+		summarizeBy: none
+		sourceColumn: portfolio_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: f890ede7-68cf-4091-9d03-516660ad5a71
+		summarizeBy: none
+		sourceColumn: start_date
+
+		variation Variation
+			isDefault
+			relationship: 1fd6df84-d457-459e-94e5-e0148ad8e965
+			defaultHierarchy: LocalDateTable_cb219796-0035-4cc9-8c87-d652cf427928.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column state
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: aab079a0-2610-45da-95c7-9a7ebe625bdf
+		summarizeBy: none
+		sourceColumn: state
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column bidding_bid_optimization
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 186fe69e-94c1-4389-925e-c75fd7d867ef
+		summarizeBy: none
+		sourceColumn: bidding_bid_optimization
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column bidding_bid_optimization_strategy
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: 1ac923b5-194e-4536-a7bd-0f327b944180
+		summarizeBy: none
+		sourceColumn: bidding_bid_optimization_strategy
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: 04cc9147-c412-4393-90b7-ea16c0ee44a8
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand_entity_id
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: 437619ac-4246-4137-89aa-f1c237805e77
+		summarizeBy: none
+		sourceColumn: brand_entity_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 8cddf082-7d2f-4178-b669-394bda885195
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 220141c2-8b07-4973-a7fb-871ea16b8060
+			defaultHierarchy: LocalDateTable_4f58b252-52d9-45af-b511-4303641a80be.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: a6366886-ceed-48a3-b64e-02c40640f64a
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 17663875-4ffa-4a11-a9a2-54ba8c650750
+			defaultHierarchy: LocalDateTable_7800b94e-2294-451b-a704-51ab1622d834.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim SB campaigns' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    sponsored_brands = Source{[Schema="sponsored_brands"]}[Data],
+				    campaigns1 = sponsored_brands{[Name="campaigns"]}[Data]
+				in
+				    campaigns1
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

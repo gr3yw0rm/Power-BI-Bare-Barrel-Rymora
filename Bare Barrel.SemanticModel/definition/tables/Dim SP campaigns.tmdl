@@ -1,0 +1,160 @@
+table 'Dim SP campaigns'
+	lineageTag: 0a422856-9140-45d5-b4bc-a0d72136cd9d
+
+	column campaign_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c0773d80-ebe2-4c56-8cf2-6f18d3de11a8
+		summarizeBy: none
+		sourceColumn: campaign_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 5441ac7a-c504-4757-99aa-f2acde908f43
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column portfolio_id
+		dataType: double
+		lineageTag: e2705be8-8b7d-4380-a690-840a22fa79da
+		summarizeBy: none
+		sourceColumn: portfolio_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column start_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8021f50f-ab2a-495b-9d8a-9bc7f66efced
+		summarizeBy: none
+		sourceColumn: start_date
+
+		variation Variation
+			isDefault
+			relationship: 36b53113-f2c1-4f58-bdda-55f681fcbfe2
+			defaultHierarchy: LocalDateTable_edfbd957-939e-41e4-870b-9ac84d15c391.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column state
+		dataType: string
+		lineageTag: 81728e18-2216-45b8-b73e-f851f3e5a47f
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column targeting_type
+		dataType: string
+		lineageTag: b55763fb-e7f6-47f0-b8ac-137948b3226a
+		summarizeBy: none
+		sourceColumn: targeting_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget_budget
+		dataType: double
+		lineageTag: 525f060c-0b71-4070-b5f5-a37e70fa9211
+		summarizeBy: sum
+		sourceColumn: budget_budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column budget_budget_type
+		dataType: string
+		lineageTag: fc99d61f-f56a-4292-8827-410a08471c6a
+		summarizeBy: none
+		sourceColumn: budget_budget_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column dynamic_bidding_placement_bidding
+		dataType: string
+		lineageTag: e4d3e615-65c9-402c-9c69-586281d3a9c2
+		summarizeBy: none
+		sourceColumn: dynamic_bidding_placement_bidding
+
+		annotation SummarizationSetBy = Automatic
+
+	column dynamic_bidding_strategy
+		dataType: string
+		lineageTag: 6a05a8dd-803e-4df1-9310-97784a8d23f3
+		summarizeBy: none
+		sourceColumn: dynamic_bidding_strategy
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 45ba781d-bac4-4f2d-a774-9e42254fb3c7
+		summarizeBy: none
+		sourceColumn: end_date
+
+		variation Variation
+			isDefault
+			relationship: 2832a66f-43c4-4740-b8c3-446e19cbdb2d
+			defaultHierarchy: LocalDateTable_dcd80188-c542-440c-ae0a-69583f4c0b5e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column marketplace
+		dataType: string
+		lineageTag: 29c4f28e-aab3-4b8c-8f38-15f287948041
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: efc35549-73ce-480a-a889-9194dc87f28a
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 82ae8233-641a-438f-b1f2-3eb1dace9f77
+			defaultHierarchy: LocalDateTable_4cd9ea56-48a6-4721-a30f-a42cc57828b6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e423bf1d-a663-45e5-8af1-ecae47ecd65e
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 137ad601-ab7b-497e-b1ab-ddcb5816e9e5
+			defaultHierarchy: LocalDateTable_3c38d572-914d-4aae-9a04-d9245ec93ee9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim SP campaigns' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
+				    sponsored_products = Source{[Schema="sponsored_products"]}[Data],
+				    campaigns1 = sponsored_products{[Name="campaigns"]}[Data]
+				in
+				    campaigns1
+
+	annotation PBI_ResultType = Table
+

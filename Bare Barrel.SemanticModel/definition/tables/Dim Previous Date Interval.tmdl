@@ -1,0 +1,68 @@
+table 'Dim Previous Date Interval'
+	lineageTag: 4df7690f-598e-48fd-8d58-ad7dcd4b6e50
+
+	column 'Date Interval'
+		dataType: string
+		lineageTag: d97ed141-2f7f-4f6f-b703-cfcf964ae0f6
+		summarizeBy: none
+		sourceColumn: Date Interval
+		sortByColumn: Index
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a2654f4-eece-4c85-b427-e7231b05cf2c
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Previous Days Interval' =
+			
+			SWITCH(
+			    TRUE(),
+			    [Date Interval] = "Same Period", -[Days Diff],
+			    [Date Interval] = "Week", -7,
+			    [Date Interval] = "Month", -30,
+			    [Date Interval] = "Quarter", -90,
+			    [Date Interval] = "Year", -365,
+			    0)
+		formatString: 0
+		lineageTag: 8e15636b-f7f8-4b1f-a841-3ddd48fb328f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Previous Weeks Interval' =
+			
+			SWITCH(
+			    TRUE(),
+			    [Date Interval] = "Same Period", -[Days Diff] / 7,
+			    [Date Interval] = "Week", -1,
+			    [Date Interval] = "Month", -30/7,
+			    [Date Interval] = "Quarter", -90/7,
+			    [Date Interval] = "Year", -365/7,
+			    0)
+		formatString: 0
+		lineageTag: 0624c4eb-3899-423f-85e9-4790573c93fa
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Previous Date Interval' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCk7MTVUISC3KzE9R0lEyUIrViVYKT03NBnIMwRzf/LySDCDPCMwLLE0sKkktAvKNwfzI1EQQxwTM8cvPSwVyTJViYwE=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Date Interval" = _t, Index = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Date Interval", type text}, {"Index", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,44 @@
+table DatePeriods
+	lineageTag: 927e5f4d-150b-41d2-b21d-eeeda8df9d1e
+
+	column Period
+		lineageTag: adb3acda-1ea4-4868-af85-c68977a275d4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Period]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Days
+		formatString: 0
+		lineageTag: 9dbcbd5e-7502-4a15-abae-3300f9634a94
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Days]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DatePeriods = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "Period", STRING,
+				    "Days", INTEGER,
+				    {
+				        {"Last 7 Days", 7},
+				        {"Last 14 Days", 14},
+				        {"Last 30 Days", 30},
+				        {"Last 60 Days", 60},
+				        {"Last 90 Days", 90},
+				        {"Last 180 Days", 180},
+				        {"Last 365 Days", 365},
+				        {"Year to Date", -1},   -- Add this line for YTD
+				        {"All Time", 9999}
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = d3c2c93fce554ec5bd79f6c9ab63a321
+
