@@ -478,6 +478,15 @@ table detail_page_sales_and_traffic_parent
 
 		annotation SummarizationSetBy = Automatic
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ebba89f-0cc0-4f88-9671-31ecf43eb2b3
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition detail_page_sales_and_traffic_parent = m
 		mode: import
 		source =

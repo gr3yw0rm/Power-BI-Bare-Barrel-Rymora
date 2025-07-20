@@ -28,14 +28,19 @@ table 'KPI Tracker Measures'
 
 	measure 'COGS per Order Item' =
 			
+			VAR currentSKU      = SELECTEDVALUE( amazon_order_items[seller_sku] )
+			VAR purchaseDate    = SELECTEDVALUE( amazon_orders[purchase_date] )
+			RETURN
 			CALCULATE(
-			    SELECTEDVALUE('COGS (WW)'[COGS]),
-			    KEEPFILTERS(
-			        FILTER(
-			        'COGS (WW)',
-			        'COGS (WW)'[SKU] = SELECTEDVALUE(amazon_order_items[seller_sku]) &&
-			        SELECTEDVALUE(amazon_orders[purchase_date]) >= 'COGS (WW)'[Date Start] &&
-			        SELECTEDVALUE(amazon_orders[purchase_date]) <= 'COGS (WW)'[Date End] || ISBLANK('COGS (WW)'[Date End]))
+			    MAX( 'COGS (WW)'[COGS] ),
+			    FILTER(
+			        ALL( 'COGS (WW)' ),
+			        'COGS (WW)'[SKU] = currentSKU
+			         && 'COGS (WW)'[Date Start] <= purchaseDate
+			         && (
+			              ISBLANK( 'COGS (WW)'[Date End] )
+			              || 'COGS (WW)'[Date End] >= purchaseDate
+			            )
 			    )
 			)
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
@@ -1080,12 +1085,31 @@ table 'KPI Tracker Measures'
 			    VALUES('Dim Date'[Date]),
 			    [Traffic Sessions]
 			)
-		formatString: 0
+		formatString: #,0
 		lineageTag: cdc3da6b-34d1-427b-a072-ae29266cc267
 
 	measure MinROIMA = MIN(MINX('Dim Date', [ROI 7D MA]), MINX('Dim Date', [TACOS 7D MA]))
 		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: ce88bac5-75ef-4388-a1b2-983710c6c996
+
+	measure 'Total COGS ($) 7D MA' = ```
+			
+			CALCULATE(
+			    AVERAGEX(
+			        DATESINPERIOD(
+			            'Dim Date'[Date], 
+			            LASTDATE('Dim Date'[Date]), 
+			            -7, 
+			            DAY
+			        ),
+			        [Total COGS ($)]
+			    )
+			)
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: f2f872e0-475a-4e4c-9d14-134c825c2a65
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	column Column
 		isHidden

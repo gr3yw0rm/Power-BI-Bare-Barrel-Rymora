@@ -92,6 +92,15 @@ table h10_keyword_tracker
 
 		annotation SummarizationSetBy = Automatic
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: eced9059-402f-4a3a-aa4f-33d40597b863
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition h10_keyword_tracker = m
 		mode: import
 		source =
@@ -103,7 +112,7 @@ table h10_keyword_tracker
 				in
 				    #"Inserted Date"
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 
 	annotation PBI_NavigationStepName = Navigation
 

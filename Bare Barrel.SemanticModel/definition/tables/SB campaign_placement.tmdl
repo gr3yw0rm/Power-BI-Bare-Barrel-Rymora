@@ -519,6 +519,15 @@ table 'SB campaign_placement'
 
 		annotation SummarizationSetBy = Automatic
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3575b55d-880a-485d-8eab-81332ea8744d
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'SB campaign_placement' = m
 		mode: import
 		source =

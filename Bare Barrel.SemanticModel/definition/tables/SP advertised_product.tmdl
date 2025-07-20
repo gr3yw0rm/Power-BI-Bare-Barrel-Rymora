@@ -510,6 +510,15 @@ table 'SP advertised_product'
 
 		annotation SummarizationSetBy = Automatic
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d5bc499-8cc9-4835-bb09-7834fbddc232
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'SP advertised_product' = m
 		mode: import
 		source =

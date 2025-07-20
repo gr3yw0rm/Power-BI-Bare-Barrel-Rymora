@@ -309,14 +309,12 @@ table 'SP campaign_placement'
 		annotation SummarizationSetBy = Automatic
 
 	column campaign_applicable_budget_rule_name
-		dataType: double
+		dataType: string
 		lineageTag: f3f12fff-592b-4197-9204-1f93cbd13e7c
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: campaign_applicable_budget_rule_name
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column purchases_same_sku_30d
 		dataType: int64
@@ -363,14 +361,12 @@ table 'SP campaign_placement'
 		annotation SummarizationSetBy = Automatic
 
 	column campaign_applicable_budget_rule_id
-		dataType: double
+		dataType: string
 		lineageTag: c0b57114-874c-4cba-8e7d-28411679fa78
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: campaign_applicable_budget_rule_id
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column clicks
 		dataType: int64
@@ -448,6 +444,15 @@ table 'SP campaign_placement'
 		lineageTag: eca6f70c-7e26-4a7f-96be-105157b1321c
 		summarizeBy: none
 		sourceColumn: advertised_asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5cb40844-f13f-4a10-ad16-d5e7e97e1ea1
+		summarizeBy: sum
+		sourceColumn: tenant_id
 
 		annotation SummarizationSetBy = Automatic
 

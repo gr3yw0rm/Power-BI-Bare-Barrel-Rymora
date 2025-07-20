@@ -611,7 +611,7 @@ table 'KPI Tracker Variance Measures'
 			    "Quarter", CALCULATE('KPI Tracker Measures'[Total COGS ($)], DATEADD('Dim Date'[Date], -1, QUARTER)),
 			    "Year", CALCULATE('KPI Tracker Measures'[Total COGS ($)], DATEADD('Dim Date'[Date], -1, YEAR))
 			    )
-		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: e40caede-eb6b-40a8-ae63-541b519b4edf
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
@@ -773,6 +773,30 @@ table 'KPI Tracker Variance Measures'
 		lineageTag: 76b65e67-a6b7-478b-959e-c4c081b9ab91
 
 		formatStringDefinition = "▲ \$#,0.00;▼ \$#,0.00;\$#,0.00"
+
+	measure 'Measure 4'
+		lineageTag: f0fef0c8-20a0-434a-ac4e-6d450c800821
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Prev Total COGS ($) 7D MA' = ```
+			
+			CALCULATE(
+			    AVERAGEX(
+			        DATESINPERIOD(
+			            'Dim Date'[Date], 
+			            LASTDATE('Dim Date'[Date]), 
+			            -7, 
+			            DAY
+			        ),
+			        [Prev Total COGS ($)]
+			    )
+			)
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 7a537489-ba80-491d-a79d-a8bec98462f8
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	column Column
 		isHidden

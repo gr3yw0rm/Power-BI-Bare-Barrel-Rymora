@@ -83,7 +83,7 @@ table 'SB Historical Campaign Cost'
 		dataType: int64
 		formatString: 0
 		lineageTag: cc878325-25bf-4232-ad99-2f206a2a14e2
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: portfolio_id
 
 		changedProperty = IsHidden
@@ -106,11 +106,20 @@ table 'SB Historical Campaign Cost'
 
 		annotation SummarizationSetBy = Automatic
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 98843540-7b79-4caf-b7e2-88a3c4805adc
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'SB Historical Campaign Cost' = m
 		mode: import
 		source =
 				let
-				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [CommandTimeout=#duration(0, 0, 5, 0)]), "-- API Data source v2 (2023-06-11 - present)#(lf)select t1.date, t1.marketplace, t2.portfolio_id, t1.currency,#(lf)    sum(t1.cost) total_cost,#(lf)    sum(t1.attributed_units_ordered_new_to_brand_14d) attributed_units_ordered_new_to_brand_14d,#(lf)    sum(t1.clicks) total_clicks,#(lf)    sum(t1.impressions) total_impressions,#(lf)    sum(attributed_sales_14d) attributed_sales_14d#(lf)from sponsored_brands.campaign_v2 t1#(lf)left join sponsored_brands.campaigns t2 on t1.campaign_id = t2.campaign_id#(lf)where t1.campaign_status in ('enabled', 'paused')#(lf)group by t1.date, t2.portfolio_id, t1.marketplace, t1.currency#(lf)#(lf)UNION#(lf)#(lf)-- Advertising reports from advertising console (2022-07-10 - 2023-06-10)#(lf)select t1.date, t1.marketplace, t2.portfolio_id, t1.currency,#(lf)    sum(t1.spend) total_cost,#(lf)    sum(t1.""14_day_total_units"") attributed_units_ordered_new_to_brand_14d,#(lf)    sum(t1.clicks) total_clicks,#(lf)    sum(t1.impressions) total_impressions,#(lf)    sum(t1.""14_day_total_sales"") attributed_sales_14d#(lf)from sponsored_brands.campaign_console t1#(lf)left join amazon_advertising_portfolios t2#(lf)    on t1.portfolio_name = t2.name and t1.marketplace = t2.marketplace#(lf)where t1.date <= '2023-06-10'#(lf)group by t1.date, t2.portfolio_id, t1.marketplace, t1.currency#(lf)order by date, marketplace, portfolio_id", null, [EnableFolding=true])
+				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [CommandTimeout=#duration(0, 0, 5, 0)]), "-- API Data source v2 (2023-06-11 - present)#(lf)select t1.date, t1.marketplace, t2.portfolio_id, t1.currency, t1.tenant_id,#(lf)    sum(t1.cost) total_cost,#(lf)    sum(t1.attributed_units_ordered_new_to_brand_14d) attributed_units_ordered_new_to_brand_14d,#(lf)    sum(t1.clicks) total_clicks,#(lf)    sum(t1.impressions) total_impressions,#(lf)    sum(attributed_sales_14d) attributed_sales_14d#(lf)from sponsored_brands.campaign_v2 t1#(lf)left join sponsored_brands.campaigns t2 on t1.campaign_id = t2.campaign_id#(lf)where t1.campaign_status in ('enabled', 'paused')#(lf)group by t1.date, t2.portfolio_id, t1.marketplace, t1.currency, t1.tenant_id#(lf)#(lf)UNION#(lf)#(lf)-- Advertising reports from advertising console (2022-07-10 - 2023-06-10)#(lf)select t1.date, t1.marketplace, t2.portfolio_id, t1.currency, t1.tenant_id,#(lf)    sum(t1.spend) total_cost,#(lf)    sum(t1.""14_day_total_units"") attributed_units_ordered_new_to_brand_14d,#(lf)    sum(t1.clicks) total_clicks,#(lf)    sum(t1.impressions) total_impressions,#(lf)    sum(t1.""14_day_total_sales"") attributed_sales_14d#(lf)from sponsored_brands.campaign_console t1#(lf)left join amazon_advertising_portfolios t2#(lf)    on t1.portfolio_name = t2.name and t1.marketplace = t2.marketplace#(lf)where t1.date <= '2023-06-10'#(lf)group by t1.date, t2.portfolio_id, t1.marketplace, t1.currency, t1.tenant_id#(lf)order by date, marketplace, portfolio_id", null, [EnableFolding=true])
 				in
 				    Source
 

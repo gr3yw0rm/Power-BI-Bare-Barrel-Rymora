@@ -1,0 +1,60 @@
+table tenants
+	lineageTag: 71a65d7a-f2e2-4f4a-969e-41145dc47e71
+
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 6457e01c-f114-4cfc-90fb-72619bfdb690
+		summarizeBy: none
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column company
+		dataType: string
+		lineageTag: 7db2b555-7737-41bb-a88d-9bdc488888b4
+		summarizeBy: none
+		sourceColumn: company
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a3a28152-3f89-45bf-a5fd-8311fd9b1865
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 8e8b6486-868a-480c-913b-fe5bf456e7f5
+			defaultHierarchy: LocalDateTable_78bf700a-3353-4729-be24-31d22e6adfe7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 79950c9a-0781-4676-9723-ab20213bb9a6
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 97f7fee6-531e-4f13-90a1-acb1c87d4b6a
+			defaultHierarchy: LocalDateTable_fc51aa47-c142-4b40-b4e1-a6801d207b17.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tenants = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce"), "SELECT * FROM tenants", null, [EnableFolding=true])
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

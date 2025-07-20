@@ -105,11 +105,20 @@ table 'SP Historical Campaign Cost'
 
 		annotation SummarizationSetBy = Automatic
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c7f037ec-4ab2-461a-beec-c2705fcaf57a
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'SP Historical Campaign Cost' = m
 		mode: import
 		source =
 				let
-				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [CommandTimeout=#duration(0, 0, 5, 0)]), "-- API data source. (04-02-2023 to present)#(lf)select#(lf)    t1.date,#(lf)    t1.marketplace,#(lf)    t2.portfolio_id,#(lf)    t3.name portfolio_name,#(lf)    t1.campaign_budget_currency_code currency,#(lf)    sum(t1.cost) total_cost,#(lf)    sum(t1.units_sold_clicks_7d) total_units_sold_clicks_7d,#(lf)    sum(t1.clicks) total_clicks,#(lf)    sum(t1.impressions) total_impressions,#(lf)    sum(t1.sales_7d) sales_7d#(lf)from sponsored_products.campaign t1#(lf)left join (select distinct on (campaign_id)#(lf)            campaign_id,#(lf)            portfolio_id#(lf)        from sponsored_products.targeting#(lf)        order by campaign_id, date desc) as t2#(lf)    on t1.campaign_id = t2.campaign_id#(lf)left join amazon_advertising_portfolios t3#(lf)    on t2.portfolio_id = t3.portfolio_id#(lf)group by t1.date, t1.marketplace, t2.portfolio_id, t3.name, t1.campaign_budget_currency_code#(lf)having sum(t1.impressions) > 0#(lf)#(lf)UNION#(lf)#(lf)-- Advertising reports data source. (06-27-2022 to 2023-04-01)#(lf)select#(lf)    t1.date,#(lf)    t1.marketplace,#(lf)    t2.portfolio_id,#(lf)    t3.name portfolio_name,#(lf)    t1.currency,#(lf)    sum(t1.spend) total_cost,#(lf)    sum(t1.""7_day_total_orders"") total_units_sold_clicks_7d,#(lf)    sum(t1.clicks) total_clicks,#(lf)    sum(t1.impressions) total_impressions,#(lf)    sum(t1.""7_day_total_sales"") sales_7d#(lf)from sponsored_products.campaign_console t1#(lf)left join amazon_advertising_portfolios t2#(lf)    on t1.portfolio_name = t2.name and t1.marketplace = t2.marketplace#(lf)left join amazon_advertising_portfolios t3#(lf)    on t2.portfolio_id = t3.portfolio_id#(lf)where t1.date < '04-02-2023'#(lf)group by t1.date, t1.marketplace, t2.portfolio_id, t3.name, t1.currency#(lf)order by date asc, marketplace desc", null, [EnableFolding=true]),
+				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [CommandTimeout=#duration(0, 0, 5, 0)]), "-- API data source. (04-02-2023 to present)#(lf)select#(lf)    t1.date,#(lf)    t1.marketplace,#(lf)    t2.portfolio_id,#(lf)    t3.name portfolio_name,#(lf)    t1.campaign_budget_currency_code currency,#(lf)    t1.tenant_id,#(lf)    sum(t1.cost) total_cost,#(lf)    sum(t1.units_sold_clicks_7d) total_units_sold_clicks_7d,#(lf)    sum(t1.clicks) total_clicks,#(lf)    sum(t1.impressions) total_impressions,#(lf)    sum(t1.sales_7d) sales_7d#(lf)from sponsored_products.campaign t1#(lf)left join (select distinct on (campaign_id)#(lf)            campaign_id,#(lf)            portfolio_id#(lf)        from sponsored_products.targeting#(lf)        order by campaign_id, date desc) as t2#(lf)    on t1.campaign_id = t2.campaign_id#(lf)left join amazon_advertising_portfolios t3#(lf)    on t2.portfolio_id = t3.portfolio_id#(lf)group by t1.date, t1.marketplace, t2.portfolio_id, t3.name, t1.campaign_budget_currency_code, t1.tenant_id#(lf)having sum(t1.impressions) > 0#(lf)#(lf)UNION#(lf)#(lf)-- Advertising reports data source. (06-27-2022 to 2023-04-01)#(lf)select#(lf)    t1.date,#(lf)    t1.marketplace,#(lf)    t2.portfolio_id,#(lf)    t3.name portfolio_name,#(lf)    t1.currency,#(lf)    t1.tenant_id,#(lf)    sum(t1.spend) total_cost,#(lf)    sum(t1.""7_day_total_orders"") total_units_sold_clicks_7d,#(lf)    sum(t1.clicks) total_clicks,#(lf)    sum(t1.impressions) total_impressions,#(lf)    sum(t1.""7_day_total_sales"") sales_7d#(lf)from sponsored_products.campaign_console t1#(lf)left join amazon_advertising_portfolios t2#(lf)    on t1.portfolio_name = t2.name and t1.marketplace = t2.marketplace#(lf)left join amazon_advertising_portfolios t3#(lf)    on t2.portfolio_id = t3.portfolio_id#(lf)where t1.date < '04-02-2023'#(lf)group by t1.date, t1.marketplace, t2.portfolio_id, t3.name, t1.currency, t1.tenant_id#(lf)order by date asc, marketplace desc", null, [EnableFolding=true]),
 				    #"Inserted Text Before Delimiter" = Table.AddColumn(Source, "Text Before Delimiter", each Text.BeforeDelimiter([portfolio_name], "-", 1), type text),
 				    #"Renamed Columns" = Table.RenameColumns(#"Inserted Text Before Delimiter",{{"Text Before Delimiter", "parent_code"}})
 				in
@@ -117,5 +126,5 @@ table 'SP Historical Campaign Cost'
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 

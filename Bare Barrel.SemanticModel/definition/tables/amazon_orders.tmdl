@@ -357,6 +357,15 @@ table amazon_orders
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: dcabbc7b-3479-410a-8dbb-91f983082d31
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition amazon_orders = m
 		mode: import
 		source =

@@ -379,16 +379,14 @@ table 'SP campaign'
 		annotation SummarizationSetBy = Automatic
 
 	column campaign_applicable_budget_rule_name
-		dataType: double
+		dataType: string
 		lineageTag: 8746ac70-5dfa-465d-8280-6aefa57b9881
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: campaign_applicable_budget_rule_name
 
 		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column purchases_same_sku_30d
 		dataType: int64
@@ -445,16 +443,14 @@ table 'SP campaign'
 		annotation SummarizationSetBy = Automatic
 
 	column campaign_applicable_budget_rule_id
-		dataType: double
+		dataType: string
 		lineageTag: deda7c70-c94c-45cb-90e2-b5f1f83d7e81
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: campaign_applicable_budget_rule_id
 
 		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column clicks
 		dataType: int64
@@ -538,6 +534,15 @@ table 'SP campaign'
 		sourceColumn: marketplace
 
 		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f611f91-864a-4493-af38-b8a04055f598
+		summarizeBy: sum
+		sourceColumn: tenant_id
 
 		annotation SummarizationSetBy = Automatic
 

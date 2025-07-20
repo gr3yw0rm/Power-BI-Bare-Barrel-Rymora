@@ -86,11 +86,20 @@ table 'SD Historical Campaign Cost'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 63666ae0-6af1-4095-820d-975293187c8e
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'SD Historical Campaign Cost' = m
 		mode: import
 		source =
 				let
-				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [CommandTimeout=#duration(0, 0, 5, 0)]), "-- API console (2023-06-11 - present)#(lf)select date,#(lf)       marketplace,#(lf)       campaign_id,#(lf)       currency,#(lf)       sum(cost) total_cost,#(lf)       sum(attributed_units_ordered_7d) as attributed_units_ordered_7d,#(lf)       sum(clicks) total_clicks,#(lf)       sum(impressions) total_impressions,#(lf)       sum(attributed_sales_14d) total_sales#(lf)from sponsored_display.campaign_v2#(lf)group by date, campaign_id, marketplace, currency#(lf)#(lf)UNION#(lf)#(lf)-- Advertising reports from console (2023-03-13 - 2023-06-10)#(lf)select date,#(lf)       t1.marketplace,#(lf)       t2.campaign_id,#(lf)       currency, sum(spend) total_cost,#(lf)       sum(""14_day_total_units"") attributed_units_ordered_7d,#(lf)       sum(clicks) total_clicks,#(lf)       sum(impressions) total_impressions,#(lf)       sum(""14_day_total_sales"") total_sales#(lf)from sponsored_display.campaign_console t1#(lf)left join sponsored_display.campaigns as t2 on t1.campaign_name = t2.name#(lf)                                            and t1.marketplace = t2.marketplace#(lf)where date <= '2023-06-10'#(lf)group by date, t2.campaign_id, t1.marketplace, currency#(lf)order by date, campaign_id, marketplace", null, [EnableFolding=true])
+				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [CommandTimeout=#duration(0, 0, 5, 0)]), "-- API console (2023-06-11 - present)#(lf)select date,#(lf)       marketplace,#(lf)       campaign_id,#(lf)       currency,#(lf)       tenant_id,#(lf)       sum(cost) total_cost,#(lf)       sum(attributed_units_ordered_7d) as attributed_units_ordered_7d,#(lf)       sum(clicks) total_clicks,#(lf)       sum(impressions) total_impressions,#(lf)       sum(attributed_sales_14d) total_sales#(lf)from sponsored_display.campaign_v2#(lf)group by date, campaign_id, marketplace, currency, tenant_id#(lf)#(lf)UNION#(lf)#(lf)-- Advertising reports from console (2023-03-13 - 2023-06-10)#(lf)select date,#(lf)       t1.marketplace,#(lf)       t2.campaign_id,#(lf)       currency, #(lf)       t1.tenant_id,#(lf)       sum(spend) total_cost,#(lf)       sum(""14_day_total_units"") attributed_units_ordered_7d,#(lf)       sum(clicks) total_clicks,#(lf)       sum(impressions) total_impressions,#(lf)       sum(""14_day_total_sales"") total_sales#(lf)from sponsored_display.campaign_console t1#(lf)left join sponsored_display.campaigns as t2 on t1.campaign_name = t2.name#(lf)                                            and t1.marketplace = t2.marketplace#(lf)where date <= '2023-06-10'#(lf)group by date, t2.campaign_id, t1.marketplace, currency, t1.tenant_id#(lf)order by date, campaign_id, marketplace", null, [EnableFolding=true])
 				in
 				    Source
 

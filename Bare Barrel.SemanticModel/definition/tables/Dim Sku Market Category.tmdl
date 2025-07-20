@@ -225,6 +225,15 @@ table 'Dim Sku Market Category'
 
 		annotation SummarizationSetBy = Automatic
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 560db931-9178-436a-ab8e-625112b22b0d
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Dim Sku Market Category' = m
 		mode: import
 		source =
@@ -232,7 +241,8 @@ table 'Dim Sku Market Category'
 				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
 				    listings_items = Source{[Schema="listings_items"]}[Data],
 				    summaries1 = listings_items{[Name="summaries"]}[Data],
-				    #"Sorted Rows" = Table.Sort(summaries1,{{"date", Order.Descending}, {"sku", Order.Ascending}}),
+				    #"Filtered Rows" = Table.SelectRows(summaries1, each true),
+				    #"Sorted Rows" = Table.Sort(#"Filtered Rows",{{"date", Order.Descending}, {"sku", Order.Ascending}}),
 				    #"Removed Duplicates" = Table.Distinct(#"Sorted Rows", {"sku", "asin", "marketplace_id"})
 				in
 				    #"Removed Duplicates"

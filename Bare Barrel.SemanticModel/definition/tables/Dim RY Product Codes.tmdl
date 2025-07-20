@@ -1,0 +1,88 @@
+table 'Dim RY Product Codes'
+	lineageTag: c7d60877-b479-4c7d-a56e-648af6b3ac1b
+
+	column sku
+		dataType: string
+		lineageTag: 8232d0b1-1b1e-418b-824e-835c632a2356
+		summarizeBy: none
+		sourceColumn: sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column asin
+		dataType: string
+		lineageTag: 71b1d3ad-1b7e-4a7c-a4a6-5388298a2868
+		summarizeBy: none
+		sourceColumn: asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_type
+		dataType: string
+		lineageTag: 3f40d0ba-7750-4bb9-b256-58a2c4cc32ca
+		summarizeBy: none
+		sourceColumn: product_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column parent_code
+		dataType: string
+		lineageTag: 3a6f5af2-c8db-43ef-98e8-8ba6f590f64f
+		summarizeBy: none
+		sourceColumn: parent_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_code
+		dataType: string
+		lineageTag: a24898ef-fc46-401e-83ea-26523a2338ea
+		summarizeBy: none
+		sourceColumn: product_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 54c18eef-18a1-4b89-a491-cfd489acc987
+		summarizeBy: none
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column parent_shaker_code
+		dataType: string
+		lineageTag: 265827da-18cf-41ad-b543-fc1f00626ebd
+		summarizeBy: none
+		sourceColumn: parent_shaker_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column shaker_code
+		dataType: string
+		lineageTag: ea171009-41e3-49f4-a917-e73ffba8853e
+		summarizeBy: none
+		sourceColumn: shaker_code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim RY Product Codes' = m
+		mode: import
+		source =
+				let
+				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]), "SELECT DISTINCT sku,#(lf)                asin,#(lf)                product_type,#(lf)                tenant_id#(lf)FROM listings_items.summaries#(lf)WHERE tenant_id = 2#(lf)    AND date = (SELECT MAX(date) FROM listings_items.summaries#(lf)                    WHERE tenant_id = 2)", null, [EnableFolding=true]),
+				    #"Filtered Rows" = Table.SelectRows(Source, each Text.StartsWith([sku], "R_")),
+				    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Filtered Rows", "Text Before Delimiter", each Text.BeforeDelimiter([sku], "_", 1), type text),
+				    #"Inserted Text Before Delimiter1" = Table.AddColumn(#"Inserted Text Before Delimiter", "parent_code", each Text.BeforeDelimiter([Text Before Delimiter], "-", 1), type text),
+				    #"Removed Columns" = Table.RemoveColumns(#"Inserted Text Before Delimiter1",{"Text Before Delimiter"}),
+				    #"Inserted Text Between Delimiters" = Table.AddColumn(#"Removed Columns", "shaker_code", each Text.BetweenDelimiters([sku], "_", "_", 1, 1), type text),
+				    #"Duplicated Column" = Table.AddColumn(#"Inserted Text Between Delimiters", "parent_shaker_code", each [parent_code], type text),
+				    #"Inserted Text After Delimiter" = Table.AddColumn(#"Duplicated Column", "product_code", each Text.AfterDelimiter([sku], "_", {0, RelativePosition.FromEnd}), type text),
+				    #"Removed Duplicates" = Table.Distinct(#"Inserted Text After Delimiter", {"asin"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

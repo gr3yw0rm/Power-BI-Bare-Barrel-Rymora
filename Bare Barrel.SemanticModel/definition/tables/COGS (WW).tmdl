@@ -119,36 +119,21 @@ table 'COGS (WW)'
 
 		annotation SummarizationSetBy = Automatic
 
+	column tenant_id
+		dataType: string
+		lineageTag: 88e5919b-8305-4236-9261-9c9c77e9ad7d
+		summarizeBy: none
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'COGS (WW)' = m
 		mode: import
-		source = ```
+		source =
 				let
-				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1-DKSsS0yA8tFDHBeOawVQp4nczCjmNPNJrsqyjgR4bc/edit?gid=1736232776#gid=1736232776"),
-				    #"COGS (WW)_Table" = Source{[name="COGS (WW)",ItemKind="Table"]}[Data],
-				    #"Removed Columns" = Table.RemoveColumns(#"COGS (WW)_Table",{"Column1", "Column2"}),
-				    #"Removed Top Rows" = Table.Skip(#"Removed Columns",4),
-				    #"Removed Blank Rows" = Table.SelectRows(#"Removed Top Rows", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
-				    #"Promoted Headers" = Table.PromoteHeaders(#"Removed Blank Rows", [PromoteAllScalars=true]),
-				    #"Renamed Columns" = Table.RenameColumns(#"Promoted Headers",{{"Local", "US COGS"}, {"Local_1", "US FBA Fee"}, {"Storage", "US Storage"}, {"Returns", "US Returns"}, {"Local_2", "CA Local COGS"}, {"Local_3", "CA Local FBA Fee"}, {"Storage_4", "CA Local Storage"}, {"Returns_5", "CA Local Returns"}, {"NARF", "NARF COGS"}, {"NARF_9", "NARF FBA Fee"}, {"Storage_10", "NARF Storage"}, {"Returns_11", "NARF Returns"}, {"Local_16", "UK COGS"}, {"Local_17", "UK FBA Fee"}, {"Storage_18", "UK Storage"}, {"Returns_19", "UK Returns"}}),
-				    #"Added Conditional Column" = Table.AddColumn(#"Renamed Columns", "CA COGS", each if [Fulfilment Type] = "LOCAL" then [CA Local COGS] else if [Fulfilment Type] = "NARF" then [NARF COGS] else null),
-				    #"Added Conditional Column1" = Table.AddColumn(#"Added Conditional Column", "CA FBA Fee", each if [Fulfilment Type] = "LOCAL" then [CA Local FBA Fee] else if [Fulfilment Type] = "NARF" then [NARF FBA Fee] else null),
-				    #"Added Conditional Column2" = Table.AddColumn(#"Added Conditional Column1", "CA Storage", each if [Fulfilment Type] = "LOCAL" then [CA Local Storage] else if [Fulfilment Type] = "NARF" then [NARF Storage] else null),
-				    #"Added Conditional Column3" = Table.AddColumn(#"Added Conditional Column2", "CA Returns", each if [Fulfilment Type] = "LOCAL" then [CA Local Returns] else if [Fulfilment Type] = "NARF" then [NARF Returns] else null),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Added Conditional Column3",{"Date Start", "Date End", "Parent Product", "Product Code", "SKU", "ASIN", 
-				                                                        "US COGS", "US FBA Fee", "US Storage", "US Returns", 
-				                                                        "CA COGS", "CA FBA Fee", "CA Storage", "CA Returns", 
-				                                                        "UK COGS", "UK FBA Fee", "UK Storage", "UK Returns"}),
-				    #"Unpivoted Columns1" = Table.UnpivotOtherColumns(#"Removed Other Columns", {"Date Start", "Date End", "Parent Product", "Product Code", "SKU", "ASIN"}, "Attribute", "Value"),
-				    #"Split Column by Delimiter" = Table.SplitColumn(#"Unpivoted Columns1", "Attribute", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.None, false), {"Marketplace", "Fee Name"}),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Value", Currency.Type}, {"Date Start", type date}, {"Date End", type date}}),
-				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Changed Type", {"Value"}),
-				    #"Filtered Rows" = Table.SelectRows(#"Removed Errors", each [Value] <> null and [Value] <> ""),
-				    #"Pivoted Column" = Table.Pivot(#"Filtered Rows", List.Distinct(#"Filtered Rows"[#"Fee Name"]), "Fee Name", "Value"),
-				    #"Added Conditional Column4" = Table.AddColumn(#"Pivoted Column", "Currency", each if [Marketplace] = "US" then "USD" else if [Marketplace] = "CA" then "CAD" else if [Marketplace] = "UK" then "GBP" else null),
-				    #"Reordered Columns" = Table.ReorderColumns(#"Added Conditional Column4",{"Date Start", "Date End", "Parent Product", "Product Code", "SKU", "ASIN", "Marketplace", "Currency", "COGS", "FBA Fee", "Storage", "Returns"})
+				    Source = Table.Combine({#"BB COGS (WW)", #"RY COGS (WW)"})
 				in
-				    #"Reordered Columns"
-				```
+				    Source
 
 	annotation PBI_NavigationStepName = Navigation
 

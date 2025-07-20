@@ -789,6 +789,15 @@ table DimFBAPlanningInventory
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 73654a71-f2af-4f81-ae0b-a3122b537ad2
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition DimFBAPlanningInventory = m
 		mode: import
 		source =

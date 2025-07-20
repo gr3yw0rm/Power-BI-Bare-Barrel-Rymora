@@ -301,14 +301,12 @@ table 'SPk-sEX Campaign Placement'
 		annotation SummarizationSetBy = Automatic
 
 	column campaign_applicable_budget_rule_name
-		dataType: double
+		dataType: string
 		lineageTag: df78aafb-b778-475f-827a-b6de2c173a4a
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: campaign_applicable_budget_rule_name
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column purchases_same_sku_30d
 		dataType: int64
@@ -355,14 +353,12 @@ table 'SPk-sEX Campaign Placement'
 		annotation SummarizationSetBy = Automatic
 
 	column campaign_applicable_budget_rule_id
-		dataType: double
+		dataType: string
 		lineageTag: fe02ea05-3f66-4bc4-96fc-6097fd31d420
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: campaign_applicable_budget_rule_id
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column clicks
 		dataType: int64
@@ -510,6 +506,15 @@ table 'SPk-sEX Campaign Placement'
 
 		annotation SummarizationSetBy = Automatic
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a71deb7f-6ecf-41af-8f32-f52aba875f52
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'SPk-sEX Campaign Placement' = m
 		mode: import
 		source =
@@ -522,5 +527,5 @@ table 'SPk-sEX Campaign Placement'
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 

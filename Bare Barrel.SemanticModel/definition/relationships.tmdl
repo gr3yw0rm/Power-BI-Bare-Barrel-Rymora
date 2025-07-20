@@ -639,18 +639,6 @@ relationship fed18c1f-8721-5b79-8d4f-e177ffd48dce
 	fromColumn: 'SQP Rankings'.marketplace
 	toColumn: 'Dim Marketplace'.marketplace
 
-relationship b1a9cf08-b564-3638-e63a-bf131ec07191
-	fromColumn: 'Dim Product Codes'.parent_shaker_code
-	toColumn: 'Dim Parent Product Codes'.parent_shaker_code
-
-relationship 68e51f0f-13a2-a835-fc97-02d896ab7e96
-	fromColumn: 'SP Historical Campaign Cost'.'portfolio name'
-	toColumn: 'Dim Parent Product Codes'.parent_shaker_code
-
-relationship 452424b9-3822-804c-8a05-e47a48d07a4f
-	fromColumn: 'SB Historical Campaign Cost'.'portfolio name'
-	toColumn: 'Dim Parent Product Codes'.parent_shaker_code
-
 relationship 9e97d257-a7e7-4b49-88a3-42065eced1d3
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 'SPk-sEX Campaign Placement'.created_at
@@ -690,4 +678,218 @@ relationship b4e98158-5644-423f-a6c7-cc18108645ae
 relationship 0bacba40-1f18-16e6-219e-3e6258cf1148
 	fromColumn: amazon_orders.purchase_date_local_tz
 	toColumn: 'Dim Date'.Date
+
+relationship 83b987ed-897e-4517-9a45-e1aaa95564f3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'brand_analytics search_query_performance_weekly_asin'.created_at
+	toColumn: LocalDateTable_7277eb76-4a89-48dc-9ca9-bd733120ac7c.Date
+
+relationship 28d793f9-ee56-43f3-a8f1-a507e629ab3c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'brand_analytics search_query_performance_weekly_asin'.updated_at
+	toColumn: LocalDateTable_e0a40fb1-eef2-4b98-83a7-27c8f87d29d7.Date
+
+relationship 5aef139d-1260-01bc-2b52-4ac71c39e844
+	fromColumn: 'brand_analytics search_query_performance_weekly_asin'.start_date
+	toColumn: 'Dim Date'.Date
+
+relationship 134cac3b-13f2-09b6-8cd8-7f314ec6abda
+	isActive: false
+	fromColumn: 'brand_analytics search_query_performance_weekly_asin'.end_date
+	toColumn: 'Dim Date'.Date
+
+relationship 82e2acd2-b24c-fb5f-7e81-b2786674fee6
+	fromColumn: 'brand_analytics search_query_performance_weekly_asin'.search_query
+	toColumn: 'Dim Customer Search Term'.search_term
+
+relationship a91fe4a6-f7d9-455f-50eb-c19dafa20e63
+	isActive: false
+	fromColumn: 'brand_analytics search_query_performance_weekly_asin'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 14ef4063-ec0e-eee9-4590-2af60cef7535
+	fromColumn: 'brand_analytics search_query_performance_weekly_asin'.asin
+	toColumn: 'Dim Product Codes'.asin
+
+relationship 8e8b6486-868a-480c-913b-fe5bf456e7f5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tenants.created_at
+	toColumn: LocalDateTable_78bf700a-3353-4729-be24-31d22e6adfe7.Date
+
+relationship 97f7fee6-531e-4f13-90a1-acb1c87d4b6a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tenants.updated_at
+	toColumn: LocalDateTable_fc51aa47-c142-4b40-b4e1-a6801d207b17.Date
+
+relationship 4331dd56-4079-86a8-54d1-7b1d0087eb4b
+	fromColumn: detail_page_sales_and_traffic_parent.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship e53f3aef-7186-3f93-4faf-c6b0d490dc4c
+	isActive: false
+	fromColumn: 'SP campaign'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 225411ed-1077-3bc3-2a13-fa508072d829
+	isActive: false
+	fromColumn: 'SP search_term'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 1a97b4f4-8aff-41ad-ed5c-8cac5f8ce28c
+	isActive: false
+	fromColumn: amazon_order_items.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 3b5f2476-d387-b80c-5df9-e6ae67fb25ea
+	fromColumn: summaries.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship aff126eb-9b61-0aea-9370-8945a2c49b06
+	fromColumn: 'Dim Sku Market Category'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship abf6012f-3d77-1e51-68b2-d4dc28d9d759
+	fromColumn: DimFBAPlanningInventory.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship b2c9c633-1d86-6a8b-b3a3-268fffc1b03d
+	isActive: false
+	fromColumn: 'SP advertised_product'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 993bfb71-a56c-4f14-c4a8-8d099b9b433c
+	fromColumn: 'SP campaign_adgroup'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship dc9ab644-7c07-c247-8b51-d97fd4db2153
+	isActive: false
+	fromColumn: 'SP campaign_placement'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 03deb72b-ed35-1a82-df26-41b0cdfc8f58
+	isActive: false
+	fromColumn: 'SP purchased_product'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship a0c725e3-e591-f750-72d6-0769e8e845dd
+	isActive: false
+	fromColumn: 'Dim Amazon Portfolios'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 9ea07648-fe33-3224-c0e2-8322ca4b2a3e
+	isActive: false
+	fromColumn: 'SB campaign'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 4711e462-891c-e990-efc7-f520e427606a
+	isActive: false
+	fromColumn: 'SB campaign_placement'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship a0ddbd33-6e7e-4dfa-664f-7ff64d1fb398
+	isActive: false
+	fromColumn: 'SB purchased_product'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship f95d300b-9f92-1b25-f9c2-5cc67202888d
+	isActive: false
+	fromColumn: 'SB search_term'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 1920bb1b-8a76-1079-b656-17e2555a5808
+	isActive: false
+	fromColumn: 'SB targeting'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 39dc18a0-f5c8-c19d-411d-0593beb3cf48
+	isActive: false
+	fromColumn: 'SB ad'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 724bfb6c-efe7-5b3d-eb2f-ea306de536db
+	isActive: false
+	fromColumn: 'SD Historical Campaign Cost'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 08718e4b-f0e6-f1a6-9b33-27875c90722d
+	isActive: false
+	fromColumn: 'SPk-sEX Campaign Placement'.marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 17da03b5-43c0-cd87-0722-c1cbeec41e51
+	fromColumn: search_query_performance_asin_view.asin
+	toColumn: 'Dim RY Product Codes'.asin
+
+relationship 883f3585-10cb-81bb-2f6b-906defc79bcc
+	isActive: false
+	fromColumn: 'SP campaign_adgroup'.campaign_id
+	toColumn: 'Dim SP campaigns'.campaign_id
+
+relationship 359fde38-8e56-bc26-cb50-a826f7893d2d
+	fromColumn: DimPrimePrice.marketplace_id
+	toColumn: 'Dim Marketplace'.marketplace_id
+
+relationship 201f1cc9-39f1-1663-1ff2-1df583ce85f9
+	isActive: false
+	fromColumn: 'SP purchased_product'.portfolio_id
+	toColumn: 'Dim Amazon Portfolios'.portfolio_id
+
+relationship 37ae7173-e872-eace-bc8e-501fec0d003d
+	fromColumn: 'SB Historical Campaign Cost'.portfolio_id
+	toColumn: 'Dim Amazon Portfolios'.portfolio_id
+
+relationship 30726bcf-222f-de15-7509-9d1144ec6310
+	fromColumn: 'SB Historical Campaign Cost'.'portfolio name'
+	toColumn: 'Dim Parent Portfolio Code'.portfolio_code
+
+relationship 899cc1e4-767f-0328-a20d-4a356ae1f454
+	fromColumn: 'SP Historical Campaign Cost'.'portfolio name'
+	toColumn: 'Dim Parent Portfolio Code'.portfolio_code
+
+relationship 18d68881-5543-6fe9-83d0-e1e27baf5918
+	fromColumn: 'Dim Product Codes'.portfolio_code
+	toColumn: 'Dim Parent Portfolio Code'.portfolio_code
+
+relationship 56e01db8-ef21-40d2-b452-4053ea1d8ee3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'BB COGS (WW)'.'Date Start'
+	toColumn: LocalDateTable_b4e9f85e-5440-4fd8-b27d-2cfa54911bad.Date
+
+relationship 2a578e5a-731e-4a0c-8362-8c5d30431ab4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'BB COGS (WW)'.'Date End'
+	toColumn: LocalDateTable_8a8745bf-4cbb-42c3-ab22-9e96168b131c.Date
+
+relationship 9e54cd19-3cce-498c-958a-ef650dbcd1af
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'RY COGS (WW)'.'Date Start'
+	toColumn: LocalDateTable_5e6adc3e-51fd-404a-96b1-4c3cb1c24c46.Date
+
+relationship 5e14a60e-a773-46d3-8bf6-e270b41109fc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'RY COGS (WW)'.'Date End'
+	toColumn: LocalDateTable_8a313a11-34f4-4e63-9c6d-e580c0943634.Date
+
+relationship 66225f3c-427a-d2d5-5885-7d64ead96f0a
+	fromColumn: 'BB COGS (WW)'.Marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship fced95cf-6f8a-8645-b01d-d26459efdc0c
+	fromColumn: 'RY COGS (WW)'.Marketplace
+	toColumn: 'Dim Marketplace'.marketplace
+
+relationship 5d0b2ec2-447b-d2da-865f-af3d4f425b1b
+	fromColumn: DimPrimePrice.asin
+	toColumn: 'Dim Product Codes'.asin
+
+relationship 50f38f2e-0f02-f28e-bcfa-da88526fc0e9
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Dim RY Product Codes'.asin
+	toColumn: 'Dim Product Codes'.asin
+
+relationship 0bef5bcb-7cc2-8ad2-f1cb-caca5dada864
+	fromColumn: 'Dim Parent Portfolio Code'.tenant_id
+	toColumn: tenants.tenant_id
 

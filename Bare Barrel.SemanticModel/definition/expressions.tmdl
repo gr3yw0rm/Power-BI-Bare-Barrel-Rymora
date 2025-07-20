@@ -95,3 +95,26 @@ expression 'Exchange Rates' =
 
 	annotation PBI_ResultType = Exception
 
+expression 'Dim BB Product Codes' =
+		let
+		    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]), "SELECT DISTINCT sku,#(lf)                asin,#(lf)                product_type,#(lf)                tenant_id#(lf)FROM listings_items.summaries#(lf)WHERE tenant_id = 1#(lf)    AND date = (SELECT MAX(date) FROM listings_items.summaries#(lf)                    WHERE tenant_id = 1)", null, [EnableFolding=true]),
+		    #"Removed Duplicates" = Table.Distinct(Source, {"asin"}),
+		    #"Inserted Text Between Delimiters" = Table.AddColumn(#"Removed Duplicates", "Text Between Delimiters", each Text.BetweenDelimiters([sku], "_", "-"), type text),
+		    #"Renamed Columns" = Table.RenameColumns(#"Inserted Text Between Delimiters",{{"Text Between Delimiters", "parent_code"}}),
+		    #"Inserted Text Between Delimiters1" = Table.AddColumn(#"Renamed Columns", "Text Between Delimiters", each Text.BetweenDelimiters([sku], "-", "-"), type text),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Inserted Text Between Delimiters1",{{"Text Between Delimiters", "shaker_code"}}),
+		    #"Inserted Merged Column" = Table.AddColumn(#"Renamed Columns1", "parent_shaker_code", each Text.Combine({[parent_code], "-", [shaker_code]}), type text),
+		    #"Inserted Text After Delimiter" = Table.AddColumn(#"Inserted Merged Column", "Text After Delimiter", each Text.AfterDelimiter([sku], "SL_"), type text),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Inserted Text After Delimiter",{{"Text After Delimiter", "long_product_code"}}),
+		    #"Inserted First Characters" = Table.AddColumn(#"Renamed Columns2", "First Characters", each Text.Start([long_product_code], 3), type text),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Inserted First Characters",{{"First Characters", "product_code"}}),
+		    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns3",{"long_product_code"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Columns", each ([shaker_code] <> ""))
+		in
+		    #"Filtered Rows"
+	lineageTag: 3a43642f-025f-4a5a-8555-6cf9d6255ea4
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
