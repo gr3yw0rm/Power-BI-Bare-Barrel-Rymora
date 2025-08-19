@@ -10,7 +10,7 @@ table CompareDatePeriods
 
 		variation Variation
 			isDefault
-			relationship: 26ba3e42-3487-490f-86a2-92bf5452e707
+			relationship: 93b6cdbb-e7bd-48b2-be80-9031a3c7345f
 			defaultHierarchy: LocalDateTable_2bd0774f-3a5e-47e3-95bd-75552430b055.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic

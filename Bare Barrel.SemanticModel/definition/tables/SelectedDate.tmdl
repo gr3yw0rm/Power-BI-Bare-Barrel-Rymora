@@ -43,7 +43,7 @@ table SelectedDate
 
 		variation Variation
 			isDefault
-			relationship: 0a08a018-47b7-4453-8582-e0b476b5bad2
+			relationship: ee355030-7991-471e-a982-9482be309bb3
 			defaultHierarchy: LocalDateTable_f5b4e1b9-0680-413d-8875-1ae46128688a.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic

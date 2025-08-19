@@ -420,11 +420,13 @@ table search_query_performance_asin_view
 		mode: import
 		source =
 				let
-				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
-				    brand_analytics = Source{[Schema="brand_analytics"]}[Data],
-				    search_query_performance_asin_view1 = brand_analytics{[Name="search_query_performance_asin_view"]}[Data]
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    brand_analytics_Schema = #"modern-sublime-383117"{[Name="brand_analytics",Kind="Schema"]}[Data],
+				    search_query_performance_asin_view = brand_analytics_Schema{[Name="search_query_performance_asin_view",Kind="Table"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(search_query_performance_asin_view,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"})
 				in
-				    search_query_performance_asin_view1
+				    #"Removed Columns"
 
 	annotation PBI_ResultType = Table
 

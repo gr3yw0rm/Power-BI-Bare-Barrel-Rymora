@@ -38,10 +38,11 @@ table DimPrimePrice
 		mode: import
 		source =
 				let
-				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
-				    product_pricing = Source{[Schema="product_pricing"]}[Data],
-				    competitive_pricing1 = product_pricing{[Name="competitive_pricing"]}[Data],
-				    #"Sorted Rows" = Table.Sort(competitive_pricing1,{{"date", Order.Descending}, {"asin", Order.Ascending}, {"marketplace", Order.Ascending}}),
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    product_pricing_Schema = #"modern-sublime-383117"{[Name="product_pricing",Kind="Schema"]}[Data],
+				    competitive_pricing = product_pricing_Schema{[Name="competitive_pricing",Kind="Table"]}[Data],
+				    #"Sorted Rows" = Table.Sort(competitive_pricing,{{"date", Order.Descending}, {"asin", Order.Ascending}, {"marketplace", Order.Ascending}}),
 				    #"Filtered Rows" = Table.SelectRows(#"Sorted Rows", each ([customer_type] = "Business") and ([product_competitive_pricing_competitive_prices] <> "[]") and ([product_competitive_pricing_competitive_prices] <> null)),
 				    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"asin", "product_identifiers_marketplace_asin_marketplace_id"}),
 				    #"Removed Other Columns" = Table.SelectColumns(#"Removed Duplicates",{"asin", "product_competitive_pricing_competitive_prices", "product_identifiers_marketplace_asin_marketplace_id"}),

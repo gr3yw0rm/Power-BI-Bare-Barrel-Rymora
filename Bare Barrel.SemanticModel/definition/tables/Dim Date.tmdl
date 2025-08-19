@@ -55,7 +55,7 @@ table 'Dim Date'
 
 		variation Variation
 			isDefault
-			relationship: bd915eae-6264-434b-af2c-5299439032a8
+			relationship: 2634a19c-beaa-40cb-8375-0a036909bbbc
 			defaultHierarchy: LocalDateTable_4420d496-a5f5-4a2e-8427-2c3770302ee7.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
@@ -159,7 +159,7 @@ table 'Dim Date'
 		source = ```
 				
 				ADDCOLUMNS (
-				    CALENDAR( MIN(amazon_orders[purchase_date]), MAX(amazon_orders[purchase_date]) ),
+				    CALENDAR( MIN(amazon_orders_summary_view[purchase_date]), MAX(amazon_orders_summary_view[purchase_date]) ),
 				    "Short Date", FORMAT([Date], "YYYY-MM-DD"),
 				    "Year", YEAR([Date]),
 				    "Month", MONTH([Date]),

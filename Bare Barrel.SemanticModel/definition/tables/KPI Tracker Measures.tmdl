@@ -19,8 +19,8 @@ table 'KPI Tracker Measures'
 
 	measure 'Total COGS' = ```
 			SUMX(
-			    amazon_order_items, 
-			    [COGS per Order Item] * amazon_order_items[quantity_ordered]
+			    amazon_orders_summary_view, 
+			    [COGS per Order Item] * amazon_orders_summary_view[quantity_ordered]
 			    )
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
@@ -28,28 +28,17 @@ table 'KPI Tracker Measures'
 
 	measure 'COGS per Order Item' =
 			
-			VAR currentSKU      = SELECTEDVALUE( amazon_order_items[seller_sku] )
-			VAR purchaseDate    = SELECTEDVALUE( amazon_orders[purchase_date] )
-			RETURN
-			CALCULATE(
-			    MAX( 'COGS (WW)'[COGS] ),
-			    FILTER(
-			        ALL( 'COGS (WW)' ),
-			        'COGS (WW)'[SKU] = currentSKU
-			         && 'COGS (WW)'[Date Start] <= purchaseDate
-			         && (
-			              ISBLANK( 'COGS (WW)'[Date End] )
-			              || 'COGS (WW)'[Date End] >= purchaseDate
-			            )
-			    )
+			LOOKUPVALUE(
+			    'COGS (WW)'[COGS],
+			    'amazon_orders_summary_view'[purchase_date], 'COGS (WW)'[date],
+			    'amazon_orders_summary_view'[asin], 'COGS (WW)'[ASIN]
 			)
-		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 21fe9dce-5135-412e-b74a-31bb5cd91637
 
 	measure 'Returns Cost' = ```
 			SUMX(
-			    amazon_order_items, 
-			    [Returns per Order Item] * amazon_order_items[quantity_ordered]
+			    amazon_orders_summary_view, 
+			    [Returns per Order Item] * amazon_orders_summary_view[quantity_ordered]
 			    )
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
@@ -60,8 +49,8 @@ table 'KPI Tracker Measures'
 	measure 'Returns Cost ($)' =
 			
 			SUMX (
-			    'amazon_order_items',
-			     var _exchangerate = LOOKUPVALUE( 'Exchange Rates Average'[Exchange Rate], 'Exchange Rates Average'[Foreign Currency], 'amazon_order_items'[item_price_currency_code])
+			    'amazon_orders_summary_view',
+			     var _exchangerate = LOOKUPVALUE( 'Exchange Rates Average'[Exchange Rate], 'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code])
 			    RETURN DIVIDE([Returns Cost], _exchangerate)
 			)
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
@@ -75,7 +64,7 @@ table 'KPI Tracker Measures'
 			    SUM('COGS (WW)'[Returns]),
 			    FILTER(
 			        'COGS (WW)',
-			        'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_order_items[asin]) &&
+			        'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
 			        SELECTEDVALUE(amazon_orders[purchase_date]) >= 'COGS (WW)'[Date Start] &&
 			        SELECTEDVALUE(amazon_orders[purchase_date]) <= 'COGS (WW)'[Date End] || ISBLANK('COGS (WW)'[Date End]))
 			    )
@@ -90,7 +79,7 @@ table 'KPI Tracker Measures'
 			    SUM('COGS (WW)'[Storage]),
 			    FILTER(
 			        'COGS (WW)',
-			        'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_order_items[asin]) &&
+			        'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
 			        SELECTEDVALUE(amazon_orders[purchase_date]) >= 'COGS (WW)'[Date Start] &&
 			        SELECTEDVALUE(amazon_orders[purchase_date]) <= 'COGS (WW)'[Date End] || ISBLANK('COGS (WW)'[Date End]))
 			    )
@@ -101,8 +90,8 @@ table 'KPI Tracker Measures'
 
 	measure 'Storage Fees' = ```
 			SUMX(
-			    amazon_order_items, 
-			    [Storage Fee per Order Item] * amazon_order_items[quantity_ordered]
+			    amazon_orders_summary_view, 
+			    [Storage Fee per Order Item] * amazon_orders_summary_view[quantity_ordered]
 			    )
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
@@ -126,7 +115,7 @@ table 'KPI Tracker Measures'
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'FBA Fees' = SUMX(amazon_order_items, [FBA Fee per Order Item] * amazon_order_items[quantity_ordered])
+	measure 'FBA Fees' = SUMX(amazon_orders_summary_view, [FBA Fee per Order Item] * amazon_orders_summary_view[quantity_ordered])
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: c23d2550-b82b-4e89-9753-548ae2e4cd3f
 
@@ -135,10 +124,10 @@ table 'KPI Tracker Measures'
 	measure 'FBA Fees ($)' = ```
 			
 			SUMX (
-			    'amazon_order_items',
+			    'amazon_orders_summary_view',
 			     var _exchangerate = LOOKUPVALUE(
 			                                    'Exchange Rates Average'[Exchange Rate], 
-			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_order_items'[item_price_currency_code]
+			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
 			    )
 			    RETURN DIVIDE([FBA Fees], _exchangerate)
 			)
@@ -198,10 +187,10 @@ table 'KPI Tracker Measures'
 	measure 'Sales Revenue ($)' = ```
 			
 			SUMX (
-			    'amazon_order_items',
+			    'amazon_orders_summary_view',
 			     var _exchangerate = LOOKUPVALUE(
 			                                    'Exchange Rates Average'[Exchange Rate], 
-			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_order_items'[item_price_currency_code]
+			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
 			    )
 			    RETURN DIVIDE([Sales Revenue], _exchangerate)
 			)
@@ -214,11 +203,11 @@ table 'KPI Tracker Measures'
 	measure 'Sales Revenue' =
 			
 			SUMX(
-			    amazon_order_items,
+			    amazon_orders_summary_view,
 			    SWITCH(
 			        TRUE(), // UK Sales have 20% VAT included
-			        'amazon_order_items'[marketplace] = "UK", ( 'amazon_order_items'[item_price_amount] - 'amazon_order_items'[promotion_discount_amount] - 'amazon_order_items'[item_tax_amount] ),
-			        'amazon_order_items'[item_price_amount] - 'amazon_order_items'[promotion_discount_amount]
+			        'amazon_orders_summary_view'[marketplace] = "UK", ( 'amazon_orders_summary_view'[item_price_amount] - 'amazon_orders_summary_view'[promotion_discount_amount] - 'amazon_orders_summary_view'[item_tax_amount] ),
+			        'amazon_orders_summary_view'[item_price_amount] - 'amazon_orders_summary_view'[promotion_discount_amount]
 			    )
 			)
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
@@ -264,21 +253,21 @@ table 'KPI Tracker Measures'
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 642a9967-c011-4bac-9176-344bd32fe03e
 
-	measure 'Revenue p.u. ($)' = [Sales Revenue ($)] / SUM(amazon_order_items[quantity_ordered])
+	measure 'Revenue p.u. ($)' = [Sales Revenue ($)] / SUM(amazon_orders_summary_view[quantity_ordered])
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 6375e9f3-c150-4166-b255-6201f5da5e77
 
-	measure 'Revenue p.u.' = [Sales Revenue] / SUM(amazon_order_items[quantity_ordered])
+	measure 'Revenue p.u.' = [Sales Revenue] / SUM(amazon_orders_summary_view[quantity_ordered])
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 939a15bd-514c-4066-84e6-41b2f9277927
 
 	measure 'Referral Fee ($)' = ```
 			
 			SUMX (
-			    'amazon_order_items',
+			    'amazon_orders_summary_view',
 			     var _exchangerate = LOOKUPVALUE(
 			                                    'Exchange Rates Average'[Exchange Rate], 
-			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_order_items'[item_price_currency_code]
+			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
 			    )
 			    RETURN DIVIDE([Referral Fee], _exchangerate)
 			)
@@ -290,7 +279,7 @@ table 'KPI Tracker Measures'
 	measure 'Referral Fee' = ```
 			
 			SUMX(
-			    amazon_order_items, 
+			    amazon_orders_summary_view, 
 			    MAX([Sales Revenue] * 0.15, 0.30)
 			)
 			```
@@ -344,10 +333,10 @@ table 'KPI Tracker Measures'
 	measure 'VAT UK ($)' = ```
 			
 			SUMX (
-			    'amazon_order_items',
+			    'amazon_orders_summary_view',
 			    var _exchangerate = LOOKUPVALUE( 
 			                                    'Exchange Rates Average'[Exchange Rate], 
-			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_order_items'[item_price_currency_code]
+			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
 			    )
 			    RETURN DIVIDE([VAT UK], _exchangerate)
 			)
@@ -359,9 +348,9 @@ table 'KPI Tracker Measures'
 	measure 'VAT UK' =
 			
 			SUMX(
-			    amazon_order_items,
+			    amazon_orders_summary_view,
 			    IF(
-			        'amazon_order_items'[marketplace] = "UK",
+			        'amazon_orders_summary_view'[marketplace] = "UK",
 			        [Sales Revenue] * 0.20,
 			        0
 			        )
@@ -444,12 +433,12 @@ table 'KPI Tracker Measures'
 	measure 'Coupon Fee ($)' = ```
 			
 			SUMX (
-			    'amazon_order_items',
+			    'amazon_orders_summary_view',
 			     var _exchangerate = LOOKUPVALUE(
 			                                    'Exchange Rates Average'[Exchange Rate], 
-			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_order_items'[item_price_currency_code]
+			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
 			    )
-			    RETURN DIVIDE('amazon_order_items'[Coupon Fee], _exchangerate)
+			    RETURN DIVIDE('amazon_orders_summary_view'[Coupon Fee], _exchangerate)
 			)
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
@@ -467,7 +456,7 @@ table 'KPI Tracker Measures'
 			        SUM('COGS (WW)'[FBA Fee]),
 			        FILTER(
 			            'COGS (WW)',
-			            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_order_items[asin]) &&
+			            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
 			            SELECTEDVALUE(amazon_orders[purchase_date]) >= 'COGS (WW)'[Date Start] &&
 			            SELECTEDVALUE(amazon_orders[purchase_date]) <= 'COGS (WW)'[Date End] || ISBLANK('COGS (WW)'[Date End]))
 			        )
@@ -589,7 +578,7 @@ table 'KPI Tracker Measures'
 		formatString: 0
 		lineageTag: c2e7da83-10ae-4958-a8e0-07af2586d7cc
 
-	measure 'Total Orders' = SUM(amazon_order_items[quantity_ordered])
+	measure 'Total Orders' = SUM(amazon_orders_summary_view[quantity_ordered])
 		formatString: #,0
 		lineageTag: c13155e3-1c06-4f82-bbce-e79528cf6e95
 

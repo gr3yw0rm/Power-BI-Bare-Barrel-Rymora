@@ -1,389 +1,10 @@
 table 'SP advertised_product'
-	lineageTag: d6d38265-fca4-4aaa-b0e8-5a1aba466f26
-
-	column date
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 5fd9fffd-1fb8-42f4-bdb6-e7a488095a08
-		summarizeBy: none
-		sourceColumn: date
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column attributed_sales_same_sku_1d
-		dataType: double
-		lineageTag: e79901ad-b572-4de3-aea8-bfbef3c83427
-		summarizeBy: sum
-		sourceColumn: attributed_sales_same_sku_1d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column roas_clicks_14d
-		dataType: double
-		lineageTag: 0fb985e7-a1d4-4faf-9599-41d1e53d2a8f
-		summarizeBy: sum
-		sourceColumn: roas_clicks_14d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column units_sold_clicks_1d
-		dataType: int64
-		formatString: 0
-		lineageTag: 8110fd61-4d17-4cc5-b14d-ab3aa15f445c
-		summarizeBy: sum
-		sourceColumn: units_sold_clicks_1d
-
-		annotation SummarizationSetBy = Automatic
-
-	column attributed_sales_same_sku_14d
-		dataType: double
-		lineageTag: f76699ca-ab18-4514-8194-90ea9ff89d7e
-		summarizeBy: sum
-		sourceColumn: attributed_sales_same_sku_14d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column sales_7d
-		dataType: double
-		lineageTag: f09297a7-ebe4-40c6-90e0-57f0a9972737
-		summarizeBy: sum
-		sourceColumn: sales_7d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column attributed_sales_same_sku_30d
-		dataType: double
-		lineageTag: 5e7a6ff0-1fb3-4651-9498-a217c8336927
-		summarizeBy: sum
-		sourceColumn: attributed_sales_same_sku_30d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column kindle_edition_normalized_pages_royalties_14d
-		dataType: int64
-		formatString: 0
-		lineageTag: bd1e262e-1453-4eac-8dd2-c0156826e15c
-		summarizeBy: sum
-		sourceColumn: kindle_edition_normalized_pages_royalties_14d
-
-		annotation SummarizationSetBy = Automatic
-
-	column units_sold_same_sku_1d
-		dataType: int64
-		formatString: 0
-		lineageTag: 2a43ae94-4620-4d67-8383-c921e4550f1b
-		summarizeBy: sum
-		sourceColumn: units_sold_same_sku_1d
-
-		annotation SummarizationSetBy = Automatic
-
-	column campaign_status
-		dataType: string
-		lineageTag: b3c86a4e-74c4-4600-ba9c-1686c70482ee
-		summarizeBy: none
-		sourceColumn: campaign_status
-
-		annotation SummarizationSetBy = Automatic
-
-	column advertised_sku
-		dataType: string
-		lineageTag: 1ca8e83b-a2f3-49a1-a07c-6323410fa627
-		summarizeBy: none
-		sourceColumn: advertised_sku
-
-		annotation SummarizationSetBy = Automatic
-
-	column sales_other_sku_7d
-		dataType: double
-		lineageTag: a0ed9fe2-d090-4f5b-bb5b-3ef454396a0d
-		summarizeBy: sum
-		sourceColumn: sales_other_sku_7d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column purchases_same_sku_7d
-		dataType: int64
-		formatString: 0
-		lineageTag: 4888c929-6d98-4dd9-bda5-bbf7e8caf6be
-		summarizeBy: sum
-		sourceColumn: purchases_same_sku_7d
-
-		annotation SummarizationSetBy = Automatic
-
-	column campaign_budget_amount
-		dataType: double
-		lineageTag: fbc4e1e4-6d22-4b91-b154-88904c8edf7c
-		summarizeBy: sum
-		sourceColumn: campaign_budget_amount
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column purchases_7d
-		dataType: int64
-		formatString: 0
-		lineageTag: b0a95520-7894-485e-af32-12da7561cf25
-		summarizeBy: sum
-		sourceColumn: purchases_7d
-
-		annotation SummarizationSetBy = Automatic
-
-	column units_sold_same_sku_30d
-		dataType: int64
-		formatString: 0
-		lineageTag: 7ef4d991-eb9a-4fa9-bc2f-bc1de85c7ba7
-		summarizeBy: sum
-		sourceColumn: units_sold_same_sku_30d
-
-		annotation SummarizationSetBy = Automatic
-
-	column cost_per_click
-		dataType: double
-		lineageTag: 8717065e-653b-40ee-afb6-9d9d8aee7e85
-		summarizeBy: sum
-		sourceColumn: cost_per_click
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column units_sold_clicks_14d
-		dataType: int64
-		formatString: 0
-		lineageTag: ec864c11-0e15-4fee-b4be-b30650530bac
-		summarizeBy: sum
-		sourceColumn: units_sold_clicks_14d
-
-		annotation SummarizationSetBy = Automatic
-
-	column ad_group_name
-		dataType: string
-		lineageTag: 484f8102-3143-4b59-a3fb-171a037a0df7
-		summarizeBy: none
-		sourceColumn: ad_group_name
-
-		annotation SummarizationSetBy = Automatic
-
-	column campaign_id
-		dataType: int64
-		formatString: 0
-		lineageTag: 392a086c-332b-497f-a1ea-fb5b60f4c048
-		summarizeBy: none
-		sourceColumn: campaign_id
-
-		annotation SummarizationSetBy = Automatic
-
-	column click_through_rate
-		dataType: double
-		lineageTag: 0e5b0e2c-d677-402f-b415-ada2bd710eb7
-		summarizeBy: sum
-		sourceColumn: click_through_rate
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column kindle_edition_normalized_pages_read_14d
-		dataType: int64
-		formatString: 0
-		lineageTag: 549e5f8f-8790-4a91-8940-814f2796f617
-		summarizeBy: sum
-		sourceColumn: kindle_edition_normalized_pages_read_14d
-
-		annotation SummarizationSetBy = Automatic
-
-	column acos_clicks_14d
-		dataType: double
-		lineageTag: 365d1e2f-f49b-49f0-a8ec-949f7ee7afca
-		summarizeBy: sum
-		sourceColumn: acos_clicks_14d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column units_sold_clicks_30d
-		dataType: int64
-		formatString: 0
-		lineageTag: 64799930-f31b-472a-a769-4251ae145dcd
-		summarizeBy: sum
-		sourceColumn: units_sold_clicks_30d
-
-		annotation SummarizationSetBy = Automatic
-
-	column portfolio_id
-		dataType: double
-		lineageTag: b69473ab-93c3-4a45-b02e-933900852847
-		summarizeBy: sum
-		sourceColumn: portfolio_id
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column ad_id
-		dataType: int64
-		formatString: 0
-		lineageTag: a9764e34-bb50-442e-af93-fc612c0a80f1
-		summarizeBy: sum
-		sourceColumn: ad_id
-
-		annotation SummarizationSetBy = Automatic
-
-	column campaign_budget_currency_code
-		dataType: string
-		lineageTag: f1570ca1-5dcb-4f65-bf02-56e71e089871
-		summarizeBy: none
-		sourceColumn: campaign_budget_currency_code
-
-		annotation SummarizationSetBy = Automatic
-
-	column roas_clicks_7d
-		dataType: double
-		lineageTag: 888d0b90-58a9-4729-9b41-0ce816e1e0c2
-		summarizeBy: sum
-		sourceColumn: roas_clicks_7d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column units_sold_same_sku_14d
-		dataType: int64
-		formatString: 0
-		lineageTag: c1a9c539-12b4-46a9-8809-09de400a2ecb
-		summarizeBy: sum
-		sourceColumn: units_sold_same_sku_14d
-
-		annotation SummarizationSetBy = Automatic
-
-	column units_sold_clicks_7d
-		dataType: int64
-		formatString: 0
-		lineageTag: eb6c32fe-424a-49d6-a1e4-261ccf2106ec
-		summarizeBy: sum
-		sourceColumn: units_sold_clicks_7d
-
-		annotation SummarizationSetBy = Automatic
-
-	column attributed_sales_same_sku_7d
-		dataType: double
-		lineageTag: 8b629bf3-91bf-48b4-bb6f-21bd906cef5a
-		summarizeBy: sum
-		sourceColumn: attributed_sales_same_sku_7d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column sales_1d
-		dataType: double
-		lineageTag: b583c3cd-bf14-4805-b7bd-6aede9c67239
-		summarizeBy: sum
-		sourceColumn: sales_1d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column ad_group_id
-		dataType: int64
-		formatString: 0
-		lineageTag: e5d927d3-dedb-49da-8d6b-7b5929677029
-		summarizeBy: sum
-		sourceColumn: ad_group_id
-
-		annotation SummarizationSetBy = Automatic
-
-	column purchases_same_sku_14d
-		dataType: int64
-		formatString: 0
-		lineageTag: 4ad2d321-7452-4a86-b22f-47e3ad2b1e8a
-		summarizeBy: sum
-		sourceColumn: purchases_same_sku_14d
-
-		annotation SummarizationSetBy = Automatic
-
-	column units_sold_other_sku_7d
-		dataType: int64
-		formatString: 0
-		lineageTag: 0fc38d24-4803-4db2-a6ce-0c47d4739f5e
-		summarizeBy: sum
-		sourceColumn: units_sold_other_sku_7d
-
-		annotation SummarizationSetBy = Automatic
-
-	column spend
-		dataType: double
-		lineageTag: c49101f6-f8fb-4c7e-8091-dc3f0f152f11
-		summarizeBy: sum
-		sourceColumn: spend
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column purchases_same_sku_1d
-		dataType: int64
-		formatString: 0
-		lineageTag: 8de0f0e8-b1ce-418b-b012-2f3612db62e4
-		summarizeBy: sum
-		sourceColumn: purchases_same_sku_1d
-
-		annotation SummarizationSetBy = Automatic
-
-	column campaign_budget_type
-		dataType: string
-		lineageTag: c079788d-3c3d-4caf-9f33-b933f3a50229
-		summarizeBy: none
-		sourceColumn: campaign_budget_type
-
-		annotation SummarizationSetBy = Automatic
-
-	column advertised_asin
-		dataType: string
-		lineageTag: e43a46f9-741a-4263-97ac-7fd17461a9df
-		summarizeBy: none
-		sourceColumn: advertised_asin
-
-		annotation SummarizationSetBy = Automatic
-
-	column purchases_1d
-		dataType: int64
-		formatString: 0
-		lineageTag: f683c459-a159-47ae-9a71-f14730e4a8ee
-		summarizeBy: sum
-		sourceColumn: purchases_1d
-
-		annotation SummarizationSetBy = Automatic
-
-	column units_sold_same_sku_7d
-		dataType: int64
-		formatString: 0
-		lineageTag: 964186cb-2701-487b-a4f2-d2f5ca5ff7e9
-		summarizeBy: sum
-		sourceColumn: units_sold_same_sku_7d
-
-		annotation SummarizationSetBy = Automatic
+	lineageTag: b58aab4c-61ed-4e38-a928-b8a1355f8317
 
 	column cost
 		dataType: double
-		lineageTag: 5440d8d1-08b9-4e03-8c33-731864e2c899
+		sourceProviderType: double
+		lineageTag: 0d23e09a-c718-450b-9678-8f579152e85e
 		summarizeBy: sum
 		sourceColumn: cost
 
@@ -391,9 +12,75 @@ table 'SP advertised_product'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: bef8c999-8882-470f-8bae-035f86f799f6
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ad_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: d8b17d11-b358-413e-8a68-5c58eb196dc5
+		summarizeBy: sum
+		sourceColumn: ad_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column spend
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 740ed727-1d18-44bc-aa0d-4277438ceaf2
+		summarizeBy: sum
+		sourceColumn: spend
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: bb27deb1-87c9-4ceb-b8f3-5bdb46ac6b4f
+		summarizeBy: sum
+		sourceColumn: clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_1d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 84259919-f392-4798-a1b6-47cbfbf9ce66
+		summarizeBy: sum
+		sourceColumn: sales_1d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_7d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 8b9697b5-6fc0-4ddc-be2e-68b0589ac32e
+		summarizeBy: sum
+		sourceColumn: sales_7d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column sales_14d
 		dataType: double
-		lineageTag: ad766e20-5822-43c5-b34f-72d463184115
+		sourceProviderType: double
+		lineageTag: 6fe14bbe-dd6a-4e89-acc9-9ee5e0ae1e73
 		summarizeBy: sum
 		sourceColumn: sales_14d
 
@@ -401,19 +88,10 @@ table 'SP advertised_product'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column acos_clicks_7d
-		dataType: double
-		lineageTag: 1534925f-4d79-454f-b653-8d8b4abaa0fd
-		summarizeBy: sum
-		sourceColumn: acos_clicks_7d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column sales_30d
 		dataType: double
-		lineageTag: dba791c8-1d8b-4d4d-95ba-5b1363dfc365
+		sourceProviderType: double
+		lineageTag: d576218a-205f-49f6-8e19-6a7f5da16d6c
 		summarizeBy: sum
 		sourceColumn: sales_30d
 
@@ -421,28 +99,129 @@ table 'SP advertised_product'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 3d124118-87d7-4c8e-9519-89687d712ed3
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 0585892c-fee5-40f4-92cb-b94b746721da
+		summarizeBy: none
+		sourceColumn: created_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: 05cff794-3497-4ba9-9252-cef0362747e8
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column ad_group_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: c3c61f05-ccdc-4cba-a4eb-211268fd8b1b
+		summarizeBy: sum
+		sourceColumn: ad_group_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: fc54a1ae-e564-4f2a-a97e-653c5829cc82
+		summarizeBy: sum
+		sourceColumn: campaign_id
+
+		annotation SummarizationSetBy = Automatic
+
 	column impressions
 		dataType: int64
 		formatString: 0
-		lineageTag: 9755d476-6d90-4415-9b06-64459ae35cf9
+		sourceProviderType: bigint
+		lineageTag: 9517691c-810d-42fd-aa9f-b74a9dbfa9dc
 		summarizeBy: sum
 		sourceColumn: impressions
 
 		annotation SummarizationSetBy = Automatic
 
-	column purchases_same_sku_30d
+	column marketplace
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: 24099196-af9e-4594-a2da-c4aa2026b302
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	column portfolio_id
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 04fb203e-134b-4ee7-8cd3-b9eb892cc14d
+		summarizeBy: sum
+		sourceColumn: portfolio_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_1d
 		dataType: int64
 		formatString: 0
-		lineageTag: 9837ef67-1cdd-4f92-91af-19ba0960a1de
+		sourceProviderType: bigint
+		lineageTag: 5008d653-cda8-4689-a4fd-76c4ad243b59
 		summarizeBy: sum
-		sourceColumn: purchases_same_sku_30d
+		sourceColumn: purchases_1d
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_7d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: f5a27bd1-32f7-400f-acd2-96e29118d955
+		summarizeBy: sum
+		sourceColumn: purchases_7d
+
+		annotation SummarizationSetBy = Automatic
+
+	column ad_group_name
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: adb6bd16-fcce-42ce-8f57-cccbdeac58bd
+		summarizeBy: none
+		sourceColumn: ad_group_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_name
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: 973246d2-1056-44db-bc8c-dda9391e975b
+		summarizeBy: none
+		sourceColumn: campaign_name
 
 		annotation SummarizationSetBy = Automatic
 
 	column purchases_14d
 		dataType: int64
 		formatString: 0
-		lineageTag: c6057d49-8527-44af-95fd-54ad2f4ab389
+		sourceProviderType: bigint
+		lineageTag: 895b5a76-19cf-4e93-bed9-c1654e8f7139
 		summarizeBy: sum
 		sourceColumn: purchases_14d
 
@@ -451,83 +230,353 @@ table 'SP advertised_product'
 	column purchases_30d
 		dataType: int64
 		formatString: 0
-		lineageTag: 37c8bcb2-9cd4-4ef5-b942-66ad9ceaf999
+		sourceProviderType: bigint
+		lineageTag: bf156304-713c-43c2-919c-babd1060ae55
 		summarizeBy: sum
 		sourceColumn: purchases_30d
 
 		annotation SummarizationSetBy = Automatic
 
-	column clicks
+	column acos_clicks_7d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: dab4b5ec-c0c4-4b57-8414-8277edec9b7b
+		summarizeBy: sum
+		sourceColumn: acos_clicks_7d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column advertised_sku
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: c8fc09dd-8119-4d51-bbb6-73b252a7dbe1
+		summarizeBy: none
+		sourceColumn: advertised_sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost_per_click
+		dataType: double
+		sourceProviderType: double
+		lineageTag: e1ed0fcf-2904-4173-95c4-8817bb1f287a
+		summarizeBy: sum
+		sourceColumn: cost_per_click
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column roas_clicks_7d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: ececfca5-8dbc-4b1a-9041-877ac4933798
+		summarizeBy: sum
+		sourceColumn: roas_clicks_7d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column acos_clicks_14d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: b106d65a-e9d0-4f22-8b80-6696795b8499
+		summarizeBy: sum
+		sourceColumn: acos_clicks_14d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column advertised_asin
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: c4cd06ef-10b4-4359-ac05-cf7b62857e05
+		summarizeBy: none
+		sourceColumn: advertised_asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_status
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: 9b8b2842-e84c-440c-9d43-c0a0c95c9a70
+		summarizeBy: none
+		sourceColumn: campaign_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column roas_clicks_14d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: e41c09e1-830f-4227-8051-cdf9abf28a74
+		summarizeBy: sum
+		sourceColumn: roas_clicks_14d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column click_through_rate
+		dataType: double
+		sourceProviderType: double
+		lineageTag: eb0dd20a-77e3-4cb6-83e7-bad7b5eca673
+		summarizeBy: sum
+		sourceColumn: click_through_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sales_other_sku_7d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: e9c01458-f49c-453a-9576-297959e755af
+		summarizeBy: sum
+		sourceColumn: sales_other_sku_7d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column campaign_budget_type
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: 072caac9-82d2-4198-9fbd-6366ec27cbb3
+		summarizeBy: none
+		sourceColumn: campaign_budget_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_clicks_1d
 		dataType: int64
 		formatString: 0
-		lineageTag: 186d8e8a-106a-4e49-882c-c840d96da68b
+		sourceProviderType: bigint
+		lineageTag: 3a603247-4895-4584-9176-6d0c922fb884
 		summarizeBy: sum
-		sourceColumn: clicks
+		sourceColumn: units_sold_clicks_1d
 
 		annotation SummarizationSetBy = Automatic
 
-	column campaign_name
-		dataType: string
-		lineageTag: 9ea3789e-39fd-4c32-ad64-237952778b66
-		summarizeBy: none
-		sourceColumn: campaign_name
-
-		annotation SummarizationSetBy = Automatic
-
-	column created_at
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: 0b9005b7-af30-4bcf-88db-7092909ce1a9
-		summarizeBy: none
-		sourceColumn: created_at
-
-		variation Variation
-			isDefault
-			relationship: 9509a56c-6d07-4f08-bfaf-8172c41b4ce4
-			defaultHierarchy: LocalDateTable_dcc8ced1-e19a-4f2c-984a-59689d810a0a.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-	column updated_at
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: 3529d9b1-b3f9-4b06-8bf3-47427e99f18e
-		summarizeBy: none
-		sourceColumn: updated_at
-
-		variation Variation
-			isDefault
-			relationship: 8f4203fd-acc9-4dbb-b763-671ec00692d8
-			defaultHierarchy: LocalDateTable_3ef10329-06d0-4ab7-b473-68275570711d.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-	column marketplace
-		dataType: string
-		lineageTag: ffd6e3ec-c67a-4b95-92b5-7ac501e95329
-		summarizeBy: none
-		sourceColumn: marketplace
-
-		annotation SummarizationSetBy = Automatic
-
-	column tenant_id
+	column units_sold_clicks_7d
 		dataType: int64
 		formatString: 0
-		lineageTag: 1d5bc499-8cc9-4835-bb09-7834fbddc232
+		sourceProviderType: bigint
+		lineageTag: eea7081c-041a-47d4-a145-7cfa3b7db3cf
 		summarizeBy: sum
-		sourceColumn: tenant_id
+		sourceColumn: units_sold_clicks_7d
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_same_sku_1d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: e25f7014-5c20-46e0-9cb7-de2f47f764fa
+		summarizeBy: sum
+		sourceColumn: purchases_same_sku_1d
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_same_sku_7d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 0b020e87-2113-4620-a8e6-8a8c03bf979a
+		summarizeBy: sum
+		sourceColumn: purchases_same_sku_7d
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_clicks_14d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: a768a7ab-3a77-4532-bb3a-7c00374e8ba3
+		summarizeBy: sum
+		sourceColumn: units_sold_clicks_14d
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_clicks_30d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 51f56df6-7dc5-4804-80b6-e7eb15bb8ffb
+		summarizeBy: sum
+		sourceColumn: units_sold_clicks_30d
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_budget_amount
+		dataType: double
+		sourceProviderType: double
+		lineageTag: b8b5dffb-3a9e-46c1-93a7-d39fa54d2475
+		summarizeBy: sum
+		sourceColumn: campaign_budget_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column purchases_same_sku_14d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: dde7f6ce-66c5-42a2-9b62-2359ece88def
+		summarizeBy: sum
+		sourceColumn: purchases_same_sku_14d
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchases_same_sku_30d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: ad56d53a-4f28-44d0-b6f8-31a7ae52e9d1
+		summarizeBy: sum
+		sourceColumn: purchases_same_sku_30d
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_same_sku_1d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 2b548552-3248-47b4-a382-3b13aa72b921
+		summarizeBy: sum
+		sourceColumn: units_sold_same_sku_1d
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_same_sku_7d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: d67d39e1-a0db-4fcd-aaa0-b95588d69c87
+		summarizeBy: sum
+		sourceColumn: units_sold_same_sku_7d
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_other_sku_7d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 41926fe7-9185-4209-bed7-ff5e742f14af
+		summarizeBy: sum
+		sourceColumn: units_sold_other_sku_7d
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_same_sku_14d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 90787775-e8ab-46f0-b7b2-133337890bd9
+		summarizeBy: sum
+		sourceColumn: units_sold_same_sku_14d
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold_same_sku_30d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: dbc17968-c56a-4cf0-aeac-a7cd7eef65a9
+		summarizeBy: sum
+		sourceColumn: units_sold_same_sku_30d
+
+		annotation SummarizationSetBy = Automatic
+
+	column attributed_sales_same_sku_1d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: be1386f0-8681-4e86-b6cf-06b6934ee126
+		summarizeBy: sum
+		sourceColumn: attributed_sales_same_sku_1d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column attributed_sales_same_sku_7d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: b45da9f7-da5a-47cd-ba97-8d87a327fd2d
+		summarizeBy: sum
+		sourceColumn: attributed_sales_same_sku_7d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column attributed_sales_same_sku_14d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 96bfe0f7-0205-4fb2-804a-e47818a42cf1
+		summarizeBy: sum
+		sourceColumn: attributed_sales_same_sku_14d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column attributed_sales_same_sku_30d
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 46ed22b1-cd23-45aa-adbc-af12173dba59
+		summarizeBy: sum
+		sourceColumn: attributed_sales_same_sku_30d
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column campaign_budget_currency_code
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: 0614ff37-6c60-4989-867c-866f389647cc
+		summarizeBy: none
+		sourceColumn: campaign_budget_currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column kindle_edition_normalized_pages_read_14d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 7c71df56-ea7e-49c1-a9f8-3b00a95d8afd
+		summarizeBy: sum
+		sourceColumn: kindle_edition_normalized_pages_read_14d
+
+		annotation SummarizationSetBy = Automatic
+
+	column kindle_edition_normalized_pages_royalties_14d
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: a05537e5-1569-4945-9a7f-b1f19d962f68
+		summarizeBy: sum
+		sourceColumn: kindle_edition_normalized_pages_royalties_14d
 
 		annotation SummarizationSetBy = Automatic
 
 	partition 'SP advertised_product' = m
-		mode: import
+		mode: directQuery
 		source =
 				let
-				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
-				    sponsored_products = Source{[Schema="sponsored_products"]}[Data],
-				    advertised_product1 = sponsored_products{[Name="advertised_product"]}[Data]
+				    Source = GoogleBigQuery.Database([Implementation="2.0"]),
+				    #"modern-sublime-383117_Database" = Source{[Name="modern-sublime-383117",Kind="Database"]}[Data],
+				    sponsored_products_Schema = #"modern-sublime-383117_Database"{[Name="sponsored_products",Kind="Schema"]}[Data],
+				    advertised_product_Table = sponsored_products_Schema{[Name="advertised_product",Kind="Table"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(advertised_product_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"})
 				in
-				    advertised_product1
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Table
 

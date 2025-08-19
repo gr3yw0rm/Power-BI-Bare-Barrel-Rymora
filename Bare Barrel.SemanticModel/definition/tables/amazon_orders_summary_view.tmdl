@@ -1,0 +1,190 @@
+table amazon_orders_summary_view
+	lineageTag: 69a83461-0a16-4fe3-8b55-578f52f3d74e
+
+	column purchase_date
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 83b712ff-b2bf-4172-a965-141572e5193d
+		summarizeBy: none
+		sourceColumn: purchase_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column marketplace
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: fdcdb1ee-2916-44aa-bcad-8e8edef018f4
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	column asin
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: 4231160c-b173-425a-bfc9-eb3a211919c4
+		summarizeBy: none
+		sourceColumn: asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_sku
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: da9a153e-aee0-429d-9978-e77595fda46f
+		summarizeBy: none
+		sourceColumn: seller_sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_code
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: 83f72665-d8cc-445f-a8fa-c58ec85ac8c5
+		summarizeBy: none
+		sourceColumn: product_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_ordered
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: b098706e-d4f3-4fac-a5d0-5b0f0d3a14fa
+		summarizeBy: sum
+		sourceColumn: quantity_ordered
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_vine
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: fc804e1e-32f2-41a8-8ef7-72c2c47cb2f9
+		summarizeBy: none
+		sourceColumn: is_vine
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_replacement_order
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: a300ba69-ff1a-4714-b977-50e673019908
+		summarizeBy: none
+		sourceColumn: is_replacement_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: f5942f29-0587-4ee3-939d-e11944f66c7e
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_item_price_amount
+		dataType: double
+		sourceProviderType: decimal(38, 9)
+		lineageTag: a7f55bb4-8186-4c9c-8539-4c2d45f9d2e9
+		summarizeBy: sum
+		sourceColumn: net_item_price_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column item_price_currency_code
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: 7ded2125-5edb-49b4-be3f-33b25cd8c46a
+		summarizeBy: none
+		sourceColumn: item_price_currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		sourceProviderType: nvarchar(16384)
+		lineageTag: 8a08608d-7e3f-4ab4-ab29-8932057586ee
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_item_price_per_unit
+		dataType: double
+		sourceProviderType: decimal(38, 9)
+		lineageTag: 648e34ad-4bbe-4a25-ac49-25d6f16eafc7
+		summarizeBy: sum
+		sourceColumn: net_item_price_per_unit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column item_price_amount
+		dataType: double
+		sourceProviderType: decimal(38, 9)
+		lineageTag: 81b8044f-d895-4b3d-b8b0-73e5118e5ac1
+		summarizeBy: sum
+		sourceColumn: item_price_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column promotion_discount_amount
+		dataType: double
+		sourceProviderType: decimal(38, 9)
+		lineageTag: 46608c50-1a36-4ecf-924b-f984790bb1eb
+		summarizeBy: sum
+		sourceColumn: promotion_discount_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column item_tax_amount
+		dataType: double
+		sourceProviderType: decimal(38, 9)
+		lineageTag: 513a2a05-242e-4607-9c4e-133ba71e376a
+		summarizeBy: sum
+		sourceColumn: item_tax_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column coupon_fee
+		dataType: double
+		sourceProviderType: decimal(38, 9)
+		lineageTag: 100de740-6c22-4bee-8531-4a00d49e0909
+		summarizeBy: sum
+		sourceColumn: coupon_fee
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition amazon_orders_summary_view = m
+		mode: dual
+		source =
+				let
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    orders_Schema = #"modern-sublime-383117"{[Name="orders",Kind="Schema"]}[Data],
+				    amazon_orders_summary_view_View = orders_Schema{[Name="amazon_orders_summary_view",Kind="View"]}[Data]
+				in
+				    amazon_orders_summary_view_View
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

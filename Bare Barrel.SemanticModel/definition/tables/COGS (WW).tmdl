@@ -1,17 +1,6 @@
 table 'COGS (WW)'
 	lineageTag: c9acc4dc-d449-49f8-895d-8527fc4d9f7b
 
-	column 'Date Start'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 89d53ea7-84f9-4b53-aade-7baf690cabfc
-		summarizeBy: none
-		sourceColumn: Date Start
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
 	column 'Parent Product'
 		dataType: string
 		lineageTag: 1868ba64-aaaa-4ddd-8aef-ec76b091162a
@@ -62,22 +51,6 @@ table 'COGS (WW)'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'Date End'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 4fd3e670-6308-44e3-8d52-545266d56d33
-		summarizeBy: none
-		sourceColumn: Date End
-
-		variation Variation
-			isDefault
-			relationship: 16dfc51c-e387-49b4-97c1-0ae02d87c66d
-			defaultHierarchy: LocalDateTable_523bff25-9311-4f67-a70b-e674bb3b098e.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
 	column 'FBA Fee'
 		dataType: decimal
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
@@ -127,13 +100,28 @@ table 'COGS (WW)'
 
 		annotation SummarizationSetBy = Automatic
 
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0ed41201-3cc5-430e-bc6d-e1e8ff2b8a68
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	partition 'COGS (WW)' = m
 		mode: import
 		source =
 				let
-				    Source = Table.Combine({#"BB COGS (WW)", #"RY COGS (WW)"})
+				    Source = Table.Combine({#"BB COGS (WW)", #"RY COGS (WW)"}),
+				    #"Added Custom" = Table.AddColumn(Source, "Date", each List.Dates( [Date Start], Duration.Days( [Date End] - [Date Start] ) + 1, #duration(1, 0, 0, 0) ), type {date} ),
+				    #"Expanded Date" = Table.ExpandListColumn(#"Added Custom", "Date"),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Expanded Date",{"Date", "Date Start", "Date End", "Parent Product", "Product Code", "SKU", "ASIN", "Marketplace", "Currency", "COGS", "FBA Fee", "Storage", "Returns", "tenant_id"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Reordered Columns",{"Date Start", "Date End"})
 				in
-				    Source
+				    #"Removed Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

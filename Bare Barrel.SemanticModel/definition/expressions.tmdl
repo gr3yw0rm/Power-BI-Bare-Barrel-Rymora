@@ -97,7 +97,7 @@ expression 'Exchange Rates' =
 
 expression 'Dim BB Product Codes' =
 		let
-		    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]), "SELECT DISTINCT sku,#(lf)                asin,#(lf)                product_type,#(lf)                tenant_id#(lf)FROM listings_items.summaries#(lf)WHERE tenant_id = 1#(lf)    AND date = (SELECT MAX(date) FROM listings_items.summaries#(lf)                    WHERE tenant_id = 1)", null, [EnableFolding=true]),
+		    Source = Value.NativeQuery(GoogleBigQuery.Database([Implementation="2.0"]){[Name="modern-sublime-383117"]}[Data], "SELECT DISTINCT sku,#(lf)                asin,#(lf)                product_type,#(lf)                tenant_id#(lf)FROM listings_items.summaries#(lf)WHERE tenant_id = 1#(lf)    AND date = (SELECT MAX(date) #(lf)                    FROM listings_items.summaries#(lf)                    WHERE tenant_id = 1)", null, [EnableFolding=true]),
 		    #"Removed Duplicates" = Table.Distinct(Source, {"asin"}),
 		    #"Inserted Text Between Delimiters" = Table.AddColumn(#"Removed Duplicates", "Text Between Delimiters", each Text.BetweenDelimiters([sku], "_", "-"), type text),
 		    #"Renamed Columns" = Table.RenameColumns(#"Inserted Text Between Delimiters",{{"Text Between Delimiters", "parent_code"}}),
@@ -113,6 +113,29 @@ expression 'Dim BB Product Codes' =
 		in
 		    #"Filtered Rows"
 	lineageTag: 3a43642f-025f-4a5a-8555-6cf9d6255ea4
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Errors in h10_keyword_tracker' =
+		let
+		Source = h10_keyword_tracker,
+		  #"Detected Type Mismatches" = let
+		    tableWithOnlyPrimitiveTypes = Table.SelectColumns(Source, Table.ColumnsOfType(Source, {type nullable number, type nullable text, type nullable logical, type nullable date, type nullable datetime, type nullable datetimezone, type nullable time, type nullable duration})),
+		    recordTypeFields = Type.RecordFields(Type.TableRow(Value.Type(tableWithOnlyPrimitiveTypes))),
+		    fieldNames = Record.FieldNames(recordTypeFields),
+		    fieldTypes = List.Transform(Record.ToList(recordTypeFields), each [Type]),
+		    pairs = List.Transform(List.Positions(fieldNames), (i) => {fieldNames{i}, (v) => if v = null or Value.Is(v, fieldTypes{i}) then v else error [Message = "The type of the value does not match the type of the column.", Detail = v], fieldTypes{i}})
+		in
+		    Table.TransformColumns(Source, pairs),
+		  #"Added Index" = Table.AddIndexColumn(#"Detected Type Mismatches", "Row Number" ,1),
+		  #"Kept Errors" = Table.SelectRowsWithErrors(#"Added Index", {"asin", "title", "keyword", "tenant_id", "date_added", "organic_rank", "search_volume", "marketplace_id", "sponsored_position", "Date"}),
+		  #"Reordered Columns" = Table.ReorderColumns(#"Kept Errors", {"Row Number", "asin", "title", "keyword", "tenant_id", "date_added", "organic_rank", "search_volume", "marketplace_id", "sponsored_position", "Date"})
+		in
+		  #"Reordered Columns"
+	lineageTag: 6cdc609c-c838-483d-8e0d-929551c176bc
+	queryGroup: 'Query Errors - 8/16/2025 11:58:07 PM'
 
 	annotation PBI_NavigationStepName = Navigation
 

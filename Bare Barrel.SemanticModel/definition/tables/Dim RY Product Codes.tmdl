@@ -70,7 +70,7 @@ table 'Dim RY Product Codes'
 		mode: import
 		source =
 				let
-				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]), "SELECT DISTINCT sku,#(lf)                asin,#(lf)                product_type,#(lf)                tenant_id#(lf)FROM listings_items.summaries#(lf)WHERE tenant_id = 2#(lf)    AND date = (SELECT MAX(date) FROM listings_items.summaries#(lf)                    WHERE tenant_id = 2)", null, [EnableFolding=true]),
+				    Source = Value.NativeQuery(GoogleBigQuery.Database([Implementation="2.0"]){[Name="modern-sublime-383117"]}[Data], "SELECT DISTINCT sku,#(lf)                asin,#(lf)                product_type,#(lf)                tenant_id#(lf)FROM listings_items.summaries#(lf)WHERE tenant_id = 2#(lf)    AND date = (SELECT MAX(date) #(lf)                    FROM listings_items.summaries#(lf)                    WHERE tenant_id = 2)", null, [EnableFolding=true]),
 				    #"Filtered Rows" = Table.SelectRows(Source, each Text.StartsWith([sku], "R_")),
 				    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Filtered Rows", "Text Before Delimiter", each Text.BeforeDelimiter([sku], "_", 1), type text),
 				    #"Inserted Text Before Delimiter1" = Table.AddColumn(#"Inserted Text Before Delimiter", "parent_code", each Text.BeforeDelimiter([Text Before Delimiter], "-", 1), type text),

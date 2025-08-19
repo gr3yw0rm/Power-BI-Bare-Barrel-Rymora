@@ -238,14 +238,16 @@ table 'Dim Sku Market Category'
 		mode: import
 		source =
 				let
-				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
-				    listings_items = Source{[Schema="listings_items"]}[Data],
-				    summaries1 = listings_items{[Name="summaries"]}[Data],
-				    #"Filtered Rows" = Table.SelectRows(summaries1, each true),
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    listings_items_Schema = #"modern-sublime-383117"{[Name="listings_items",Kind="Schema"]}[Data],
+				    summaries = listings_items_Schema{[Name="summaries",Kind="Table"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(summaries, each true),
 				    #"Sorted Rows" = Table.Sort(#"Filtered Rows",{{"date", Order.Descending}, {"sku", Order.Ascending}}),
-				    #"Removed Duplicates" = Table.Distinct(#"Sorted Rows", {"sku", "asin", "marketplace_id"})
+				    #"Removed Duplicates" = Table.Distinct(#"Sorted Rows", {"sku", "asin", "marketplace_id"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Removed Duplicates",{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"})
 				in
-				    #"Removed Duplicates"
+				    #"Removed Columns"
 
 	changedProperty = IsHidden
 

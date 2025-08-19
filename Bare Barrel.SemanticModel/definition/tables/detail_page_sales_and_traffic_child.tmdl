@@ -432,11 +432,13 @@ table detail_page_sales_and_traffic_child
 		mode: import
 		source =
 				let
-				    Source = PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]),
-				    business_reports = Source{[Schema="business_reports"]}[Data],
-				    detail_page_sales_and_traffic_child1 = business_reports{[Name="detail_page_sales_and_traffic_child"]}[Data]
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    business_reports_Schema = #"modern-sublime-383117"{[Name="business_reports",Kind="Schema"]}[Data],
+				    detail_page_sales_and_traffic_child = business_reports_Schema{[Name="detail_page_sales_and_traffic_child",Kind="Table"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(detail_page_sales_and_traffic_child,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"})
 				in
-				    detail_page_sales_and_traffic_child1
+				    #"Removed Columns"
 
 	annotation PBI_ResultType = Table
 
