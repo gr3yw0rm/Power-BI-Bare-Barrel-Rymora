@@ -1,5 +1,24 @@
-table 'brand_analytics search_query_performance_weekly_asin'
+table search_query_performance_weekly_asin
 	lineageTag: cff03e17-3a25-4111-8be1-641e8b4a1d3e
+
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 5
+		incrementalGranularity: year
+		incrementalPeriods: 2
+		pollingExpression = let Maxupdated_at = List.Max(search_query_performance_weekly_asin[updated_at]), accountForNull = if Maxupdated_at = null then #datetime(1901, 01, 01, 00, 00, 00) else Maxupdated_at in accountForNull
+		sourceExpression =
+			let
+			    Source = GoogleBigQuery.Database(),
+			    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+			    brand_analytics_Schema = #"modern-sublime-383117"{[Name="brand_analytics",Kind="Schema"]}[Data],
+			    search_query_performance_weekly_asin_Table = brand_analytics_Schema{[Name="search_query_performance_weekly_asin",Kind="Table"]}[Data],
+			    #"Removed Columns" = Table.RemoveColumns(search_query_performance_weekly_asin_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"start_date", type datetime}, {"end_date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [start_date] >= RangeStart and [start_date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
 
 	column tenant_id
 		dataType: int64
@@ -27,8 +46,6 @@ table 'brand_analytics search_query_performance_weekly_asin'
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column end_date
 		dataType: dateTime
 		formatString: Long Date
@@ -37,8 +54,6 @@ table 'brand_analytics search_query_performance_weekly_asin'
 		sourceColumn: end_date
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column asin
 		dataType: string
@@ -502,16 +517,23 @@ table 'brand_analytics search_query_performance_weekly_asin'
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 'brand_analytics search_query_performance_weekly_asin' = m
+	partition search_query_performance_weekly_asin = m
 		mode: import
 		source =
 				let
-				    Source = PostgreSQL.Database("edgepify.app", "ecommerce"),
-				    brand_analytics_search_query_performance_weekly_asin = Source{[Schema="brand_analytics",Item="search_query_performance_weekly_asin"]}[Data]
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    brand_analytics_Schema = #"modern-sublime-383117"{[Name="brand_analytics",Kind="Schema"]}[Data],
+				    search_query_performance_weekly_asin_Table = brand_analytics_Schema{[Name="search_query_performance_weekly_asin",Kind="Table"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(search_query_performance_weekly_asin_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"start_date", type datetime}, {"end_date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [start_date] >= RangeStart and [start_date] <= RangeEnd)
 				in
-				    brand_analytics_search_query_performance_weekly_asin
+				    #"Filtered Rows"
 
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_IsMQueryFoldable = True
 

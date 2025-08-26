@@ -1,0 +1,172 @@
+table 'SP Historical Campaign Cost'
+	isHidden
+	lineageTag: 9e2521b3-b40f-47d7-9f94-87d11f37f77a
+
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 5
+		incrementalGranularity: month
+		incrementalPeriods: 2
+		sourceExpression =
+			let
+			    Source = GoogleBigQuery.Database(),
+			    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+			    sponsored_products_Schema = #"modern-sublime-383117"{[Name="sponsored_products",Kind="Schema"]}[Data],
+			    portfolio_performance_summary_view_View = sponsored_products_Schema{[Name="portfolio_performance_summary_view",Kind="View"]}[Data],
+			    #"Changed Type" = Table.TransformColumnTypes(portfolio_performance_summary_view_View,{{"date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
+	column date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 194d33e8-2e52-4014-9cf0-0f217bb784ab
+		summarizeBy: none
+		sourceColumn: date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		isHidden
+		lineageTag: 2ae350a2-2637-4cf7-a662-472b18307cb7
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column portfolio_name
+		dataType: string
+		isHidden
+		lineageTag: 04d91345-cf6f-40b5-a10c-c2d3bf8d3d1e
+		summarizeBy: none
+		sourceColumn: portfolio_name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_code
+		dataType: string
+		isHidden
+		lineageTag: d82b064c-679e-4643-8c61-184011dfae96
+		summarizeBy: none
+		sourceColumn: product_code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		isHidden
+		lineageTag: 0152a9c3-1a66-4754-be7c-2a1c6c461cef
+		summarizeBy: none
+		sourceColumn: currency
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_cost
+		dataType: double
+		isHidden
+		lineageTag: 7ef5b6d9-1cb2-473f-abb8-5e36d9b02e0a
+		summarizeBy: sum
+		sourceColumn: total_cost
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_units_sold_clicks_7d
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eb0a2114-c4fd-479b-a303-50f01e6fb605
+		summarizeBy: sum
+		sourceColumn: total_units_sold_clicks_7d
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_clicks
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ff41428e-c217-4812-a201-2521250f24ad
+		summarizeBy: sum
+		sourceColumn: total_clicks
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_impressions
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 378f3f82-7e1d-49a0-97f8-d07154623866
+		summarizeBy: sum
+		sourceColumn: total_impressions
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_7d
+		dataType: double
+		isHidden
+		lineageTag: 34e1b1d7-a750-48b4-8ce8-915fd105ebfe
+		summarizeBy: sum
+		sourceColumn: sales_7d
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tenant_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 22971673-45ea-41e4-a502-7c363c6c5b80
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'SP Historical Campaign Cost' = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    sponsored_products_Schema = #"modern-sublime-383117"{[Name="sponsored_products",Kind="Schema"]}[Data],
+				    portfolio_performance_summary_view_View = sponsored_products_Schema{[Name="portfolio_performance_summary_view",Kind="View"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(portfolio_performance_summary_view_View,{{"date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
+				in
+				    #"Filtered Rows"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_IsMQueryFoldable = True
+

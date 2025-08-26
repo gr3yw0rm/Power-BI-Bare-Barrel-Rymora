@@ -105,7 +105,7 @@ table LocalDateTable_7277eb76-4a89-48dc-9ca9-bd733120ac7c
 
 	partition LocalDateTable_7277eb76-4a89-48dc-9ca9-bd733120ac7c = calculated
 		mode: import
-		source = Calendar(Date(Year(MIN('brand_analytics search_query_performance_weekly_asin'[created_at])), 1, 1), Date(Year(MAX('brand_analytics search_query_performance_weekly_asin'[created_at])), 12, 31))
+		source = Calendar(Date(Year(MIN('search_query_performance_weekly_asin'[created_at])), 1, 1), Date(Year(MAX('search_query_performance_weekly_asin'[created_at])), 12, 31))
 
 	annotation __PBI_LocalDateTable = true
 

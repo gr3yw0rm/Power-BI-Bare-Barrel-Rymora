@@ -1,4 +1,4 @@
-table tenants
+table 'Dim tenants'
 	lineageTag: 71a65d7a-f2e2-4f4a-969e-41145dc47e71
 
 	column tenant_id
@@ -46,13 +46,18 @@ table tenants
 
 		annotation SummarizationSetBy = Automatic
 
-	partition tenants = m
+	partition 'Dim tenants' = m
 		mode: import
 		source =
 				let
-				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce"), "SELECT * FROM tenants", null, [EnableFolding=true])
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    public_Schema = #"modern-sublime-383117"{[Name="public",Kind="Schema"]}[Data],
+				    tenants_Table = public_Schema{[Name="tenants",Kind="Table"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(tenants_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+				    #"Sorted Rows" = Table.Sort(#"Removed Columns",{{"tenant_id", Order.Ascending}})
 				in
-				    Source
+				    #"Sorted Rows"
 
 	annotation PBI_ResultType = Table
 

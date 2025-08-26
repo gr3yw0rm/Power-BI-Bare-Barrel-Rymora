@@ -1,6 +1,25 @@
 table detail_page_sales_and_traffic_parent
 	lineageTag: 99527b15-cf02-4395-a77c-7a655b11bcbf
 
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 5
+		incrementalGranularity: month
+		incrementalPeriods: 2
+		pollingExpression = let Maxupdated_at = List.Max(detail_page_sales_and_traffic_parent[updated_at]), accountForNull = if Maxupdated_at = null then #datetime(1901, 01, 01, 00, 00, 00) else Maxupdated_at in accountForNull
+		sourceExpression =
+			let
+			    Source = GoogleBigQuery.Database(),
+			    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+			    business_reports_Schema = #"modern-sublime-383117"{[Name="business_reports",Kind="Schema"]}[Data],
+			    detail_page_sales_and_traffic_parent = business_reports_Schema{[Name="detail_page_sales_and_traffic_parent",Kind="Table"]}[Data],
+			    #"Removed Columns" = Table.RemoveColumns(detail_page_sales_and_traffic_parent,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
 	column parent_asin
 		dataType: string
 		lineageTag: ac37eaaf-15a0-4683-9278-683c4bf70487
@@ -434,8 +453,6 @@ table detail_page_sales_and_traffic_parent
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column marketplace
 		dataType: string
 		lineageTag: 42435a5d-f94e-4eda-9b56-fc1406b4c5e8
@@ -495,13 +512,17 @@ table detail_page_sales_and_traffic_parent
 				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
 				    business_reports_Schema = #"modern-sublime-383117"{[Name="business_reports",Kind="Schema"]}[Data],
 				    detail_page_sales_and_traffic_parent = business_reports_Schema{[Name="detail_page_sales_and_traffic_parent",Kind="Table"]}[Data],
-				    #"Removed Columns" = Table.RemoveColumns(detail_page_sales_and_traffic_parent,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"})
+				    #"Removed Columns" = Table.RemoveColumns(detail_page_sales_and_traffic_parent,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
 				in
-				    #"Removed Columns"
+				    #"Filtered Rows"
 
 	changedProperty = IsHidden
 
 	annotation PBI_ResultType = Table
 
 	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_IsMQueryFoldable = True
 

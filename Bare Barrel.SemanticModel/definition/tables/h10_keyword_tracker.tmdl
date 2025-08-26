@@ -1,6 +1,25 @@
 table h10_keyword_tracker
 	lineageTag: cc1f61f6-ddec-4a51-a21b-3848c47173df
 
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 5
+		incrementalGranularity: year
+		incrementalPeriods: 2
+		pollingExpression = let Maxupdated_at = List.Max(h10_keyword_tracker[updated_at]), accountForNull = if Maxupdated_at = null then #datetime(1901, 01, 01, 00, 00, 00) else Maxupdated_at in accountForNull
+		sourceExpression =
+			let
+			    Source = GoogleBigQuery.Database(),
+			    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+			    rankings_Schema = #"modern-sublime-383117"{[Name="rankings",Kind="Schema"]}[Data],
+			    h10_keyword_tracker = rankings_Schema{[Name="h10_keyword_tracker",Kind="Table"]}[Data],
+			    #"Removed Columns" = Table.RemoveColumns(h10_keyword_tracker,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id", "marketplace"}),
+			    #"Replaced Value" = Table.ReplaceValue(#"Removed Columns",306,null,Replacer.ReplaceValue,{"organic_rank"}),
+			    #"Filtered Rows" = Table.SelectRows(#"Replaced Value", each [date_added] >= RangeStart and [date_added] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
 	column asin
 		dataType: string
 		lineageTag: 37d76f77-288c-4680-b193-2ff0e3f81e05
@@ -52,11 +71,6 @@ table h10_keyword_tracker
 		summarizeBy: none
 		sourceColumn: date_added
 
-		variation Variation
-			isDefault
-			relationship: 4b7563c7-426b-47c6-9221-33380f827aae
-			defaultHierarchy: LocalDateTable_cd75c65d-db27-4a06-9a7e-dd3313daef48.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 	column marketplace_id
@@ -64,26 +78,6 @@ table h10_keyword_tracker
 		lineageTag: e88db623-bd6c-4354-b39a-daa06612f19a
 		summarizeBy: none
 		sourceColumn: marketplace_id
-
-		annotation SummarizationSetBy = Automatic
-
-	column Date
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 37b22aa5-40db-4a23-9021-f5c2e6ce679e
-		summarizeBy: none
-		sourceColumn: Date
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column tenant_id
-		dataType: int64
-		formatString: 0
-		lineageTag: eced9059-402f-4a3a-aa4f-33d40597b863
-		summarizeBy: sum
-		sourceColumn: tenant_id
 
 		annotation SummarizationSetBy = Automatic
 
@@ -95,6 +89,34 @@ table h10_keyword_tracker
 
 		annotation SummarizationSetBy = Automatic
 
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e97b3c30-f7b0-4729-8e64-bcedccaa5ab3
+		summarizeBy: none
+		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 0a2a5e64-788a-4b12-8b2e-54ef199f29ce
+			defaultHierarchy: LocalDateTable_c1bf0275-2198-4958-87d8-d5f92107f400.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column updated_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a1fd1228-0159-4b22-bd7f-3a76d4630a14
+		summarizeBy: none
+		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 75bf0272-a878-42f7-8a8a-073b1fc280e8
+			defaultHierarchy: LocalDateTable_a8b55f7a-5589-4df7-9953-5272cdb67245.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
 	partition h10_keyword_tracker = m
 		mode: import
 		source =
@@ -103,13 +125,15 @@ table h10_keyword_tracker
 				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
 				    rankings_Schema = #"modern-sublime-383117"{[Name="rankings",Kind="Schema"]}[Data],
 				    h10_keyword_tracker = rankings_Schema{[Name="h10_keyword_tracker",Kind="Table"]}[Data],
-				    #"Removed Columns" = Table.RemoveColumns(h10_keyword_tracker,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id", "created_at", "updated_at", "marketplace"}),
+				    #"Removed Columns" = Table.RemoveColumns(h10_keyword_tracker,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id", "marketplace"}),
 				    #"Replaced Value" = Table.ReplaceValue(#"Removed Columns",306,null,Replacer.ReplaceValue,{"organic_rank"}),
-				    #"Inserted Date" = Table.AddColumn(#"Replaced Value", "Date", each Date.From([date_added_local_tz]), type date)
+				    #"Filtered Rows" = Table.SelectRows(#"Replaced Value", each [date_added] >= RangeStart and [date_added] <= RangeEnd)
 				in
-				    #"Inserted Date"
+				    #"Filtered Rows"
 
 	annotation PBI_ResultType = Table
 
 	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_IsMQueryFoldable = True
 

@@ -1,6 +1,25 @@
 table 'SP advertised_product'
 	lineageTag: b58aab4c-61ed-4e38-a928-b8a1355f8317
 
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 5
+		incrementalGranularity: month
+		incrementalPeriods: 3
+		pollingExpression = let Maxupdated_at = List.Max(#"SP advertised_product"[updated_at]), accountForNull = if Maxupdated_at = null then #datetime(1901, 01, 01, 00, 00, 00) else Maxupdated_at in accountForNull
+		sourceExpression =
+			let
+			    Source = GoogleBigQuery.Database([Implementation="2.0"]),
+			    #"modern-sublime-383117_Database" = Source{[Name="modern-sublime-383117",Kind="Database"]}[Data],
+			    sponsored_products_Schema = #"modern-sublime-383117_Database"{[Name="sponsored_products",Kind="Schema"]}[Data],
+			    advertised_product_Table = sponsored_products_Schema{[Name="advertised_product",Kind="Table"]}[Data],
+			    #"Removed Columns" = Table.RemoveColumns(advertised_product_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
 	column cost
 		dataType: double
 		sourceProviderType: double
@@ -15,14 +34,11 @@ table 'SP advertised_product'
 	column date
 		dataType: dateTime
 		formatString: Long Date
-		sourceProviderType: date
 		lineageTag: bef8c999-8882-470f-8bae-035f86f799f6
 		summarizeBy: none
 		sourceColumn: date
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column ad_id
 		dataType: int64
@@ -117,6 +133,11 @@ table 'SP advertised_product'
 		summarizeBy: none
 		sourceColumn: created_at
 
+		variation Variation
+			isDefault
+			relationship: 99d4cf48-9dce-453a-af1a-9856150ec7f9
+			defaultHierarchy: LocalDateTable_0246d5fb-33b8-4793-981c-fd78e39eacbf.'Date Hierarchy'
+
 		annotation SummarizationSetBy = Automatic
 
 	column updated_at
@@ -126,6 +147,11 @@ table 'SP advertised_product'
 		lineageTag: 05cff794-3497-4ba9-9252-cef0362747e8
 		summarizeBy: none
 		sourceColumn: updated_at
+
+		variation Variation
+			isDefault
+			relationship: 2f97c2aa-7153-4568-ae0c-6ee608d059b1
+			defaultHierarchy: LocalDateTable_0df5734d-1b9d-4868-8c51-2524c2a33a38.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -565,18 +591,22 @@ table 'SP advertised_product'
 		annotation SummarizationSetBy = Automatic
 
 	partition 'SP advertised_product' = m
-		mode: directQuery
+		mode: import
 		source =
 				let
 				    Source = GoogleBigQuery.Database([Implementation="2.0"]),
 				    #"modern-sublime-383117_Database" = Source{[Name="modern-sublime-383117",Kind="Database"]}[Data],
 				    sponsored_products_Schema = #"modern-sublime-383117_Database"{[Name="sponsored_products",Kind="Schema"]}[Data],
 				    advertised_product_Table = sponsored_products_Schema{[Name="advertised_product",Kind="Table"]}[Data],
-				    #"Removed Columns" = Table.RemoveColumns(advertised_product_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"})
+				    #"Removed Columns" = Table.RemoveColumns(advertised_product_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
 				in
-				    #"Removed Columns"
+				    #"Filtered Rows"
 
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_IsMQueryFoldable = True
 

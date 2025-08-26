@@ -1,6 +1,25 @@
 table search_query_performance_brand_view
 	lineageTag: 70d3fa63-b112-4d84-950b-acf668155561
 
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 5
+		incrementalGranularity: year
+		incrementalPeriods: 2
+		pollingExpression = let Maxupdated_at = List.Max(search_query_performance_brand_view[updated_at]), accountForNull = if Maxupdated_at = null then #datetime(1901, 01, 01, 00, 00, 00) else Maxupdated_at in accountForNull
+		sourceExpression =
+			let
+			    Source = GoogleBigQuery.Database(),
+			    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+			    brand_analytics_Schema = #"modern-sublime-383117"{[Name="brand_analytics",Kind="Schema"]}[Data],
+			    search_query_performance_brand_view = brand_analytics_Schema{[Name="search_query_performance_brand_view",Kind="Table"]}[Data],
+			    #"Removed Columns" = Table.RemoveColumns(search_query_performance_brand_view,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"start_date", type datetime}, {"end_date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [start_date] >= RangeStart and [start_date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
 	measure 'impressions_brand_count divided by impressions_total_count' =
 			
 			DIVIDE(
@@ -476,8 +495,6 @@ table search_query_performance_brand_view
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column start_date
 		dataType: dateTime
 		formatString: Long Date
@@ -488,8 +505,6 @@ table search_query_performance_brand_view
 		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column week
 		dataType: string
@@ -550,13 +565,17 @@ table search_query_performance_brand_view
 				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
 				    brand_analytics_Schema = #"modern-sublime-383117"{[Name="brand_analytics",Kind="Schema"]}[Data],
 				    search_query_performance_brand_view = brand_analytics_Schema{[Name="search_query_performance_brand_view",Kind="Table"]}[Data],
-				    #"Removed Columns" = Table.RemoveColumns(search_query_performance_brand_view,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"})
+				    #"Removed Columns" = Table.RemoveColumns(search_query_performance_brand_view,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"start_date", type datetime}, {"end_date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [start_date] >= RangeStart and [start_date] <= RangeEnd)
 				in
-				    #"Removed Columns"
+				    #"Filtered Rows"
 
 	changedProperty = IsHidden
 
 	annotation PBI_ResultType = Table
 
 	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_IsMQueryFoldable = True
 

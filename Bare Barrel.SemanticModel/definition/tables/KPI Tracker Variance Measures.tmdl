@@ -516,7 +516,7 @@ table 'KPI Tracker Variance Measures'
 	measure 'Change PPC Conversion Rate' = [PPC Conversion Rate] - [Prev PPC Conversion Rate]
 		lineageTag: 3fb9b33b-9f54-42a4-84e4-30ee2a896334
 
-		formatStringDefinition = "▲ 0.00%;▲ 0.00%;0.00%"
+		formatStringDefinition = "▲ 0.00%;▼ 0.00%;0.00%"
 
 	measure 'Prev Organic Sales %' =
 			

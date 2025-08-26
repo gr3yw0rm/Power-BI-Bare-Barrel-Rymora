@@ -1,66 +1,9 @@
-DEFINE
-	VAR __DS0FilterTable = 
-		TREATAS({"US"}, 'Dim Marketplace'[marketplace])
-
-	VAR __DS0FilterTable2 = 
-		TREATAS({"ORIG"}, 'Dim Product Codes'[parent_code])
-
-	VAR __DS0FilterTable3 = 
-		FILTER(
-			KEEPFILTERS(VALUES('Dim Date'[Date])),
-			'Dim Date'[Date] >= DATE(2022, 3, 1)
-		)
-
-	// VAR __DS0FilterTable4 = 
-	// 	TREATAS({"Last 30 Days"}, 'SpecialDates'[Period])
-
-	VAR __DS0FilterTable5 = 
-		TREATAS({"Same Period"}, 'Dim Previous Date Interval'[Date Interval])
-
-	VAR __DS0FilterTable6 = 
-		FILTER(KEEPFILTERS(VALUES('SQP Rankings'[rank])), 'SQP Rankings'[rank] <= 10)
-
-EVALUATE
-	SUMMARIZECOLUMNS(
-		__DS0FilterTable,
-		__DS0FilterTable2,
-		__DS0FilterTable3,
-		// __DS0FilterTable4,
-		__DS0FilterTable5,
-		__DS0FilterTable6,
-		"Change___Sales_Revenue____", IGNORE('KPI Tracker Variance Measures'[Change % Sales Revenue ($)]),
-		"v_Change___Sales_Revenue_____FormatString", IGNORE('KPI Tracker Variance Measures'[_Change % Sales Revenue ($) FormatString]),
-		"Change_Revenue_per_Unit____", IGNORE('KPI Tracker Variance Measures'[Change Revenue per Unit ($)]),
-		"v_Change_Revenue_per_Unit_____FormatString", IGNORE('KPI Tracker Variance Measures'[_Change Revenue per Unit ($) FormatString]),
-		"Change___CM3_Net_Profit____", IGNORE('KPI Tracker Variance Measures'[Change % CM3 Net Profit ($)]),
-		"v_Change___CM3_Net_Profit_____FormatString", IGNORE('KPI Tracker Variance Measures'[_Change % CM3 Net Profit ($) FormatString]),
-		"Change_Profit_Margin__CM3_", IGNORE('KPI Tracker Variance Measures'[Change Profit Margin (CM3)]),
-		"v_Change_Profit_Margin__CM3__FormatString", IGNORE('KPI Tracker Variance Measures'[_Change Profit Margin (CM3) FormatString]),
-		"Change___Total_Orders", IGNORE('KPI Tracker Variance Measures'[Change % Total Orders]),
-		"v_Change___Total_Orders_FormatString", IGNORE('KPI Tracker Variance Measures'[_Change % Total Orders FormatString]),
-		"Total_Orders", IGNORE('KPI Tracker Measures'[Total Orders]),
-		"Change___PPC_Cost____", IGNORE('KPI Tracker Variance Measures'[Change % PPC Cost ($)]),
-		"v_Change___PPC_Cost_____FormatString", IGNORE('KPI Tracker Variance Measures'[_Change % PPC Cost ($) FormatString]),
-		"Change_TACOS", IGNORE('KPI Tracker Variance Measures'[Change TACOS]),
-		"v_Change_TACOS_FormatString", IGNORE('KPI Tracker Variance Measures'[_Change TACOS FormatString]),
-		"Change___Traffic_Sessions", IGNORE('KPI Tracker Variance Measures'[Change % Traffic Sessions]),
-		"v_Change___Traffic_Sessions_FormatString", IGNORE('KPI Tracker Variance Measures'[_Change % Traffic Sessions FormatString]),
-		"Change_PPC_Conversion_Rate", IGNORE('KPI Tracker Variance Measures'[Change PPC Conversion Rate]),
-		"v_Change_PPC_Conversion_Rate_FormatString", IGNORE('KPI Tracker Variance Measures'[_Change PPC Conversion Rate FormatString]),
-		"Sales_Revenue____", IGNORE('KPI Tracker Measures'[Sales Revenue ($)]),
-		"Net_Profit____", IGNORE('KPI Tracker Measures'[Net Profit ($)]),
-		"PPC_Cost____", IGNORE('KPI Tracker Measures'[PPC Cost ($)]),
-		"Traffic_Sessions", IGNORE('KPI Tracker Measures'[Traffic Sessions]),
-		"Prev_Sales_Revenue____", IGNORE('KPI Tracker Variance Measures'[Prev Sales Revenue ($)]),
-		"Revenue_per_Unit____", IGNORE('KPI Tracker Measures'[Revenue per Unit ($)]),
-		"Prev_Net_Profit____", IGNORE('KPI Tracker Variance Measures'[Prev Net Profit ($)]),
-		"Profit_Margin__CM3_", IGNORE('KPI Tracker Measures'[Profit Margin (CM3)]),
-		"Prev_Total_Orders", IGNORE('KPI Tracker Variance Measures'[Prev Total Orders]),
-		"Organic_Sales__", IGNORE('KPI Tracker Measures'[Organic Sales %]),
-		"Prev_PPC_Cost____", IGNORE('KPI Tracker Variance Measures'[Prev PPC Cost ($)]),
-		"TACOS", IGNORE('KPI Tracker Measures'[TACOS]),
-		"Prev_Traffic_Sessions", IGNORE('KPI Tracker Variance Measures'[Prev Traffic Sessions]),
-		"PPC_Conversion_Rate", IGNORE('KPI Tracker Measures'[PPC Conversion Rate]),
-		"Change_Organic_Sales__", IGNORE('KPI Tracker Variance Measures'[Change Organic Sales %]),
-		"v_Change_Organic_Sales___FormatString", IGNORE('KPI Tracker Variance Measures'[_Change Organic Sales % FormatString])
-	)
+    CALCULATE(
+        MAX('COGS (WW)'[COGS]),
+        FILTER(
+            'COGS (WW)',
+            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
+            'COGS (WW)'[Date] = SELECTEDVALUE(amazon_orders_summary_view[purchase_date]) &&
+            'COGS (WW)'[Marketplace] = SELECTEDVALUE(amazon_orders_summary_view[marketplace])
+        )
+    )

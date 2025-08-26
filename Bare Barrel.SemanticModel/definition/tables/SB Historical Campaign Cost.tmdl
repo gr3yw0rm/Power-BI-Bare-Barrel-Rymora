@@ -1,0 +1,127 @@
+table 'SB Historical Campaign Cost'
+	lineageTag: 923b01e5-9058-4bc9-a77d-54202c99ce08
+
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 5
+		incrementalGranularity: month
+		incrementalPeriods: 2
+		sourceExpression =
+			let
+			    Source = GoogleBigQuery.Database(),
+			    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+			    sponsored_brands_Schema = #"modern-sublime-383117"{[Name="sponsored_brands",Kind="Schema"]}[Data],
+			    portfolio_performance_summary_view_View = sponsored_brands_Schema{[Name="portfolio_performance_summary_view",Kind="View"]}[Data],
+			    #"Changed Type" = Table.TransformColumnTypes(portfolio_performance_summary_view_View,{{"date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c3922186-e14a-451d-a3de-a7f1e71c89c0
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace
+		dataType: string
+		lineageTag: fff984ca-818a-4b49-8675-cf23b23ef53f
+		summarizeBy: none
+		sourceColumn: marketplace
+
+		annotation SummarizationSetBy = Automatic
+
+	column portfolio_name
+		dataType: string
+		lineageTag: c6303c08-ced9-43d0-bf2c-7f1d12a5f1a4
+		summarizeBy: none
+		sourceColumn: portfolio_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_code
+		dataType: string
+		lineageTag: cc292929-f41b-44a7-b0ae-167a137f5e73
+		summarizeBy: none
+		sourceColumn: product_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		lineageTag: 8a73f7c5-c745-4184-bc84-eaded0257c48
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost
+		dataType: double
+		lineageTag: 1b846487-6243-4f43-a063-1f640e560ed0
+		summarizeBy: sum
+		sourceColumn: cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column units_sold
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d10c617-d87a-41d2-9fa4-ba675a2e8ebb
+		summarizeBy: sum
+		sourceColumn: units_sold
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks
+		dataType: int64
+		formatString: 0
+		lineageTag: 133f1453-f3cf-4da8-9b5e-c8d4b8662bae
+		summarizeBy: sum
+		sourceColumn: clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions
+		dataType: int64
+		formatString: 0
+		lineageTag: 3be3140c-e345-444c-8b6c-54c7ea94078f
+		summarizeBy: sum
+		sourceColumn: impressions
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales
+		dataType: double
+		lineageTag: ff627c04-ad8d-4da4-bbb7-6343442fc5bf
+		summarizeBy: sum
+		sourceColumn: sales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'SB Historical Campaign Cost' = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    sponsored_brands_Schema = #"modern-sublime-383117"{[Name="sponsored_brands",Kind="Schema"]}[Data],
+				    portfolio_performance_summary_view_View = sponsored_brands_Schema{[Name="portfolio_performance_summary_view",Kind="View"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(portfolio_performance_summary_view_View,{{"date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_IsMQueryFoldable = True
+

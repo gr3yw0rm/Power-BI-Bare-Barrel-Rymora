@@ -7,7 +7,7 @@ table 'h10_keyword_tracker Search Volume'
 
 	column date_added
 		dataType: dateTime
-		formatString: General Date
+		formatString: Long Date
 		lineageTag: 96409299-95c4-42a2-b5f0-ffa1b3530731
 		summarizeBy: none
 		sourceColumn: date_added
@@ -15,6 +15,8 @@ table 'h10_keyword_tracker Search Volume'
 		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column marketplace_id
 		dataType: string
@@ -51,9 +53,12 @@ table 'h10_keyword_tracker Search Volume'
 		mode: import
 		source =
 				let
-				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [HierarchicalNavigation=true]), "SELECT#(lf)    date_added::DATE,#(lf)    marketplace_id,#(lf)    keyword,#(lf)    MAX(search_volume) search_volume#(lf)FROM rankings.h10_keyword_tracker#(lf)GROUP BY date_added::DATE, marketplace_id, keyword", null, [EnableFolding=true])
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    rankings_Schema = #"modern-sublime-383117"{[Name="rankings",Kind="Schema"]}[Data],
+				    h10_keyword_search_volume_View = rankings_Schema{[Name="h10_keyword_search_volume",Kind="View"]}[Data]
 				in
-				    Source
+				    h10_keyword_search_volume_View
 
 	changedProperty = IsHidden
 

@@ -1,17 +1,35 @@
 table 'SP purchased_product'
 	lineageTag: 35022c5c-585b-4aee-81ef-9362737c6324
 
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 5
+		incrementalGranularity: month
+		incrementalPeriods: 3
+		pollingExpression = let Maxupdated_at = List.Max(#"SP purchased_product"[updated_at]), accountForNull = if Maxupdated_at = null then #datetime(1901, 01, 01, 00, 00, 00) else Maxupdated_at in accountForNull
+		sourceExpression =
+			let
+			    Source = GoogleBigQuery.Database([Implementation="2.0"]),
+			    #"modern-sublime-383117_Database" = Source{[Name="modern-sublime-383117",Kind="Database"]}[Data],
+			    sponsored_products_Schema = #"modern-sublime-383117_Database"{[Name="sponsored_products",Kind="Schema"]}[Data],
+			    purchased_product_Table = sponsored_products_Schema{[Name="purchased_product",Kind="Table"]}[Data],
+			    #"Removed Columns" = Table.RemoveColumns(purchased_product_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
 	column date
 		dataType: dateTime
 		formatString: Long Date
-		sourceProviderType: date
 		lineageTag: 67db7ecb-ceed-4a53-b7d7-a567a77285e9
 		summarizeBy: none
 		sourceColumn: date
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = IsHidden
 
-		annotation UnderlyingDateTimeDataType = Date
+		annotation SummarizationSetBy = Automatic
 
 	column keyword
 		dataType: string
@@ -19,6 +37,8 @@ table 'SP purchased_product'
 		lineageTag: 1a2c9578-f18f-4564-adea-3ae686848fb5
 		summarizeBy: none
 		sourceColumn: keyword
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -28,6 +48,8 @@ table 'SP purchased_product'
 		lineageTag: 4fd0aea2-7cf6-46c6-8ea3-eb522a50a366
 		summarizeBy: sum
 		sourceColumn: sales_1d
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -40,6 +62,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: sales_7d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -51,6 +75,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: sales_14d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -61,6 +87,8 @@ table 'SP purchased_product'
 		lineageTag: c6796b9c-398f-4ab6-b7e5-78d5faf36732
 		summarizeBy: sum
 		sourceColumn: sales_30d
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -74,6 +102,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: tenant_id
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column created_at
@@ -83,6 +113,13 @@ table 'SP purchased_product'
 		lineageTag: a54600e5-c37d-4671-93f6-ef4739122324
 		summarizeBy: none
 		sourceColumn: created_at
+
+		variation Variation
+			isDefault
+			relationship: 3cd3ffdb-9f9a-4f20-bbad-37e78d91a125
+			defaultHierarchy: LocalDateTable_70d0cd75-92e5-408a-ad90-4b23d52da6b4.'Date Hierarchy'
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -94,6 +131,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: keyword_id
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column match_type
@@ -102,6 +141,8 @@ table 'SP purchased_product'
 		lineageTag: a6da19d2-e8e0-403d-93af-5c4a2b12e752
 		summarizeBy: none
 		sourceColumn: match_type
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -113,6 +154,13 @@ table 'SP purchased_product'
 		summarizeBy: none
 		sourceColumn: updated_at
 
+		variation Variation
+			isDefault
+			relationship: 84def41c-278e-48c9-84b1-a35a96f3fb39
+			defaultHierarchy: LocalDateTable_e832a7c6-497f-4fc6-b9ab-9c2d43a1918e.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column ad_group_id
@@ -122,6 +170,8 @@ table 'SP purchased_product'
 		lineageTag: de09310c-891b-42ea-9ec2-ed6c15598dc2
 		summarizeBy: sum
 		sourceColumn: ad_group_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -133,6 +183,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: campaign_id
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column marketplace
@@ -142,6 +194,8 @@ table 'SP purchased_product'
 		summarizeBy: none
 		sourceColumn: marketplace
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column keyword_type
@@ -150,6 +204,8 @@ table 'SP purchased_product'
 		lineageTag: 972eaa6a-ff0a-4d04-97d0-2d166028ea0f
 		summarizeBy: none
 		sourceColumn: keyword_type
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -161,6 +217,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: portfolio_id
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column purchases_1d
@@ -170,6 +228,8 @@ table 'SP purchased_product'
 		lineageTag: 31434e2c-f86f-4c4b-a298-735bf107d010
 		summarizeBy: sum
 		sourceColumn: purchases_1d
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -181,6 +241,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: purchases_7d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column ad_group_name
@@ -190,6 +252,8 @@ table 'SP purchased_product'
 		summarizeBy: none
 		sourceColumn: ad_group_name
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column campaign_name
@@ -198,6 +262,8 @@ table 'SP purchased_product'
 		lineageTag: 0b46f662-02cd-43bd-a8ff-b50bd7dcd7d9
 		summarizeBy: none
 		sourceColumn: campaign_name
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -209,6 +275,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: purchases_14d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column purchases_30d
@@ -219,6 +287,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: purchases_30d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column advertised_sku
@@ -227,6 +297,8 @@ table 'SP purchased_product'
 		lineageTag: aae2f647-cfd3-421a-bde9-4888c979bcb4
 		summarizeBy: none
 		sourceColumn: advertised_sku
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -237,6 +309,8 @@ table 'SP purchased_product'
 		summarizeBy: none
 		sourceColumn: purchased_asin
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column advertised_asin
@@ -246,6 +320,8 @@ table 'SP purchased_product'
 		summarizeBy: none
 		sourceColumn: advertised_asin
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column sales_other_sku_1d
@@ -254,6 +330,8 @@ table 'SP purchased_product'
 		lineageTag: 3db54af3-0e30-4149-b69b-c71d8b6b7dea
 		summarizeBy: sum
 		sourceColumn: sales_other_sku_1d
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -266,6 +344,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: sales_other_sku_7d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -277,6 +357,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: sales_other_sku_14d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -287,6 +369,8 @@ table 'SP purchased_product'
 		lineageTag: 4dff473f-aad4-433c-a7c2-087acb2ceb61
 		summarizeBy: sum
 		sourceColumn: sales_other_sku_30d
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -300,6 +384,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: units_sold_clicks_1d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column units_sold_clicks_7d
@@ -309,6 +395,8 @@ table 'SP purchased_product'
 		lineageTag: bc97d521-00d7-455c-9aa1-b5aa23c263f2
 		summarizeBy: sum
 		sourceColumn: units_sold_clicks_7d
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -320,6 +408,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: units_sold_clicks_14d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column units_sold_clicks_30d
@@ -329,6 +419,8 @@ table 'SP purchased_product'
 		lineageTag: 6c2cc1a4-ddc1-4341-ba72-eb17a7ee09e0
 		summarizeBy: sum
 		sourceColumn: units_sold_clicks_30d
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -340,6 +432,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: purchases_other_sku_1d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column purchases_other_sku_7d
@@ -349,6 +443,8 @@ table 'SP purchased_product'
 		lineageTag: 085bf7bc-a128-489a-8773-8011c971f1ce
 		summarizeBy: sum
 		sourceColumn: purchases_other_sku_7d
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -360,6 +456,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: purchases_other_sku_14d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column purchases_other_sku_30d
@@ -369,6 +467,8 @@ table 'SP purchased_product'
 		lineageTag: ddf18bde-760c-4100-80a6-551d35c25634
 		summarizeBy: sum
 		sourceColumn: purchases_other_sku_30d
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -380,6 +480,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: units_sold_other_sku_1d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column units_sold_other_sku_7d
@@ -389,6 +491,8 @@ table 'SP purchased_product'
 		lineageTag: adf83ebc-24e5-40bb-9017-9efeb80bb752
 		summarizeBy: sum
 		sourceColumn: units_sold_other_sku_7d
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -400,6 +504,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: units_sold_other_sku_14d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column units_sold_other_sku_30d
@@ -410,6 +516,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: units_sold_other_sku_30d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column campaign_budget_currency_code
@@ -418,6 +526,8 @@ table 'SP purchased_product'
 		lineageTag: 62e7c835-c6ac-4dd9-8626-ebfec0805724
 		summarizeBy: none
 		sourceColumn: campaign_budget_currency_code
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -429,6 +539,8 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: kindle_edition_normalized_pages_read_14d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column kindle_edition_normalized_pages_royalties_14d
@@ -439,21 +551,29 @@ table 'SP purchased_product'
 		summarizeBy: sum
 		sourceColumn: kindle_edition_normalized_pages_royalties_14d
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	partition 'SP purchased_product' = m
-		mode: directQuery
+		mode: import
 		source =
 				let
 				    Source = GoogleBigQuery.Database([Implementation="2.0"]),
 				    #"modern-sublime-383117_Database" = Source{[Name="modern-sublime-383117",Kind="Database"]}[Data],
 				    sponsored_products_Schema = #"modern-sublime-383117_Database"{[Name="sponsored_products",Kind="Schema"]}[Data],
 				    purchased_product_Table = sponsored_products_Schema{[Name="purchased_product",Kind="Table"]}[Data],
-				    #"Removed Columns" = Table.RemoveColumns(purchased_product_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"})
+				    #"Removed Columns" = Table.RemoveColumns(purchased_product_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
 				in
-				    #"Removed Columns"
+				    #"Filtered Rows"
+
+	changedProperty = IsHidden
 
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_IsMQueryFoldable = True
 

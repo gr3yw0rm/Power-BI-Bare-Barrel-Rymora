@@ -16,11 +16,16 @@ queryGroup 'Query Errors - 8/16/2025 11:58:07 PM'
 
 	annotation PBI_QueryGroupOrder = 1
 
-annotation PBI_QueryOrder = ["search_query_performance_asin_view","search_query_performance_brand_view","detail_page_sales_and_traffic_parent","detail_page_sales_and_traffic_child","summaries","Dim BB Product Codes","Dim RY Product Codes","Dim Parent Portfolio Code","Dim Sku Market Category","DimPrimePrice","h10_keyword_tracker","SP campaign_adgroup","Dim SD campaigns","Dim Customer Search Term","Exhange Rates 2024","Exhange Rates 2023","Exhange Rates 2022","Exchange Rates","Exchange Rates Average","COGS (WW)","BB COGS (WW)","RY COGS (WW)","SD Historical Campaign Cost","Dim Previous Date Interval","SQP Rankings","h10_keyword_tracker Search Volume","brand_analytics search_query_performance_weekly_asin","tenants","amazon_orders_summary_view","Orders KPI Tracker","SP advertised_product","SP purchased_product","Errors in h10_keyword_tracker"]
+/// Errors in queries that were loaded on 8/24/2025 7:48:11 AM.
+queryGroup 'Query Errors - 8/24/2025 7:48:11 AM'
+
+	annotation PBI_QueryGroupOrder = 2
+
+annotation PBI_QueryOrder = ["search_query_performance_asin_view","search_query_performance_brand_view","search_query_performance_weekly_asin","detail_page_sales_and_traffic_parent","detail_page_sales_and_traffic_child","summaries","Dim Product Codes","Dim BB Product Codes","Dim RY Product Codes","Dim Parent Portfolio Code","DimPrimePrice","h10_keyword_tracker","Dim Customer Search Term","Exhange Rates 2024","Exhange Rates 2023","Exhange Rates 2022","Exchange Rates","Exchange Rates Average","COGS (WW)","BB COGS (WW)","RY COGS (WW)","Dim Previous Date Interval","SQP Rankings","h10_keyword_tracker Search Volume","Dim tenants","Dim Marketplace","amazon_orders_summary_view","SB Historical Campaign Cost","SD Historical Campaign Cost","SP Historical Campaign Cost","SP advertised_product","SP purchased_product","Errors in h10_keyword_tracker","SD advertised_product","RangeStart","RangeEnd","Errors in h10_keyword_tracker (2)"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBIDesktopVersion = 2.146.705.0 (25.08)+b71502aff0a01340c88f384884ef42771068f115
+annotation PBIDesktopVersion = 2.146.1133.0 (25.08)+c8010d55d1db76eda03c968b03481610e96a1ef7
 
 annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode","TMDLView_Desktop"]
 
@@ -44,21 +49,10 @@ ref table LocalDateTable_489fe00b-02e4-4a81-84e9-147f3eca2dd1
 ref table LocalDateTable_76e6be49-ab29-454e-b714-1bcc73bd1fc0
 ref table LocalDateTable_bb3d9b59-d8f0-42f4-9a45-cd840f6b4aab
 ref table LocalDateTable_0ea5fab9-5c65-4107-904f-ae11c3002297
-ref table 'Dim Sku Market Category'
-ref table LocalDateTable_a273cbaa-e6ba-4f25-bc8c-e90734e5e854
-ref table LocalDateTable_206e875c-7fef-4af9-a01e-3731d8099120
-ref table LocalDateTable_3b8576d3-37fa-4469-91b3-7f3fc6a36ab3
-ref table LocalDateTable_e11a50a6-6783-4acd-b1a0-83d8a01e9600
-ref table LocalDateTable_9517bac8-ebe4-4847-a7c2-aa723000af9c
 ref table DimPrimePrice
 ref table h10_keyword_tracker
-ref table 'SP campaign_adgroup'
-ref table LocalDateTable_cd7690a9-c4b0-4c3e-a13e-305c44390a3c
-ref table LocalDateTable_e7059b76-cb78-4e65-9eb4-ac65d9db6fcb
-ref table 'Dim SD campaigns'
 ref table 'SD Historical Campaign Cost'
 ref table 'Dim Customer Search Term'
-ref table LocalDateTable_cd75c65d-db27-4a06-9a7e-dd3313daef48
 ref table 'COGS (WW)'
 ref table 'KPI Tracker Measures'
 ref table 'Exchange Rates Average'
@@ -70,16 +64,13 @@ ref table DateParameter
 ref table 'Dim Previous Date Interval'
 ref table DatePeriods
 ref table SpecialDates
-ref table LocalDateTable_bae4c8e4-5bed-4a6b-a3c2-8a48efc6491b
-ref table LocalDateTable_b951c3b7-c579-48bc-963f-3203015933d3
-ref table LocalDateTable_e643996a-71a7-4435-a8f5-3200a00efdc6
 ref table 'SQP Rankings'
 ref table 'h10_keyword_tracker Search Volume'
-ref table 'brand_analytics search_query_performance_weekly_asin'
+ref table search_query_performance_weekly_asin
 ref table LocalDateTable_7277eb76-4a89-48dc-9ca9-bd733120ac7c
 ref table LocalDateTable_e0a40fb1-eef2-4b98-83a7-27c8f87d29d7
 ref table 'Dim RY Product Codes'
-ref table tenants
+ref table 'Dim tenants'
 ref table LocalDateTable_78bf700a-3353-4729-be24-31d22e6adfe7
 ref table LocalDateTable_fc51aa47-c142-4b40-b4e1-a6801d207b17
 ref table 'Dim Parent Portfolio Code'
@@ -93,10 +84,21 @@ ref table amazon_orders_summary_view
 ref table LocalDateTable_4420d496-a5f5-4a2e-8427-2c3770302ee7
 ref table LocalDateTable_f5b4e1b9-0680-413d-8875-1ae46128688a
 ref table LocalDateTable_2bd0774f-3a5e-47e3-95bd-75552430b055
-ref table 'Orders KPI Tracker'
-ref table LocalDateTable_c3997e70-f216-44f2-98a3-83bbdc591d5b
 ref table 'SP advertised_product'
 ref table 'SP purchased_product'
+ref table 'Dim Marketplace'
+ref table 'Dim Product Codes'
+ref table 'SB Historical Campaign Cost'
+ref table 'SP Historical Campaign Cost'
+ref table 'SD advertised_product'
+ref table LocalDateTable_dd291d5f-fb26-41ab-b890-dd38f674c51c
+ref table LocalDateTable_3adef37d-5979-4c41-bab7-eb90b5549e26
+ref table LocalDateTable_0246d5fb-33b8-4793-981c-fd78e39eacbf
+ref table LocalDateTable_0df5734d-1b9d-4868-8c51-2524c2a33a38
+ref table LocalDateTable_70d0cd75-92e5-408a-ad90-4b23d52da6b4
+ref table LocalDateTable_e832a7c6-497f-4fc6-b9ab-9c2d43a1918e
+ref table LocalDateTable_c1bf0275-2198-4958-87d8-d5f92107f400
+ref table LocalDateTable_a8b55f7a-5589-4df7-9953-5272cdb67245
 
 ref role 'Rymora Only'
 ref role 'All Access'

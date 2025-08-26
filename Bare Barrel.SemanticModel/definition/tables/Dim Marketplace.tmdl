@@ -1,0 +1,62 @@
+table 'Dim Marketplace'
+	lineageTag: 56090776-0424-4008-8b84-3a789c5691ae
+
+	column active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: befed036-a18d-4bd9-ade3-c51002b905cd
+		summarizeBy: none
+		sourceColumn: active
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 9cc52d95-a76b-42f4-81c4-935ba253766b
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column endpoint
+		dataType: string
+		lineageTag: 7f86de72-5223-41a4-abda-537ef0d06638
+		summarizeBy: none
+		sourceColumn: endpoint
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace_id
+		dataType: string
+		lineageTag: bbbf2dc1-d7f7-43b3-8c05-e455299c2bfc
+		summarizeBy: none
+		sourceColumn: marketplace_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketplace_name
+		dataType: string
+		lineageTag: 4a67943b-5615-4506-8d8c-9ce5dcaa14f9
+		summarizeBy: none
+		sourceColumn: marketplace_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Marketplace' = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([Implementation="2.0"]),
+				    #"modern-sublime-383117_Database" = Source{[Name="modern-sublime-383117",Kind="Database"]}[Data],
+				    public_Schema = #"modern-sublime-383117_Database"{[Name="public",Kind="Schema"]}[Data],
+				    amazon_marketplaces_Table = public_Schema{[Name="amazon_marketplaces",Kind="Table"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(amazon_marketplaces_Table,{"_airbyte_raw_id", "_airbyte_extracted_at", "_airbyte_meta", "_airbyte_generation_id"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

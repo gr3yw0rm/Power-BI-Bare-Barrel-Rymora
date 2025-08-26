@@ -1,109 +1,150 @@
 table 'SD Historical Campaign Cost'
+	isHidden
 	lineageTag: 69ad3f3a-a047-42af-9ab6-a66c2e89bab7
+
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 5
+		incrementalGranularity: month
+		incrementalPeriods: 2
+		sourceExpression =
+			let
+			    Source = GoogleBigQuery.Database(),
+			    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+			    sponsored_display_Schema = #"modern-sublime-383117"{[Name="sponsored_display",Kind="Schema"]}[Data],
+			    portfolio_performance_summary_view = sponsored_display_Schema{[Name="portfolio_performance_summary_view",Kind="View"]}[Data],
+			    #"Changed Type" = Table.TransformColumnTypes(portfolio_performance_summary_view,{{"date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
 
 	column date
 		dataType: dateTime
-		formatString: General Date
+		isHidden
+		formatString: Long Date
 		lineageTag: 44985b8b-f902-4399-a350-488823a61174
 		summarizeBy: none
 		sourceColumn: date
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column marketplace
 		dataType: string
+		isHidden
 		lineageTag: d08c0af6-ff78-4cce-a691-7b86e40227a1
 		summarizeBy: none
 		sourceColumn: marketplace
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column currency
 		dataType: string
+		isHidden
 		lineageTag: 60aa7789-18dd-4093-bfb2-8e1357cba219
 		summarizeBy: none
 		sourceColumn: currency
 
-		annotation SummarizationSetBy = Automatic
-
-	column total_cost
-		dataType: double
-		lineageTag: 3214d88d-ac17-4cf9-b80f-604274c5e029
-		summarizeBy: sum
-		sourceColumn: total_cost
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column attributed_units_ordered_7d
-		dataType: double
-		lineageTag: 8e7c6b77-ccfb-449d-82fd-b3d0899d811e
-		summarizeBy: sum
-		sourceColumn: attributed_units_ordered_7d
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column total_clicks
-		dataType: double
-		lineageTag: 38fec2e3-697b-4a60-9b5c-dee4332840a1
-		summarizeBy: sum
-		sourceColumn: total_clicks
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column total_impressions
-		dataType: double
-		lineageTag: 9ca474a2-f7d7-47d6-a9f0-7f47153a36a3
-		summarizeBy: sum
-		sourceColumn: total_impressions
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column campaign_id
-		dataType: double
-		lineageTag: 2956e312-f7c0-4e6d-8814-ade42cf6e624
+	column portfolio_name
+		dataType: string
+		isHidden
+		lineageTag: c764cda0-93cc-4d8a-8a13-ef01333e98ea
 		summarizeBy: none
-		sourceColumn: campaign_id
+		sourceColumn: portfolio_name
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+	column product_code
+		dataType: string
+		isHidden
+		lineageTag: 1ff131d7-5625-4998-a2be-3320539ae6b2
+		summarizeBy: none
+		sourceColumn: product_code
 
-	column total_sales
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost
 		dataType: double
-		lineageTag: 4fe45b50-86e7-4e54-9745-3b829aa88844
+		isHidden
+		lineageTag: b13df212-8bad-47fb-b60a-011d7e2a6ab5
 		summarizeBy: sum
-		sourceColumn: total_sales
+		sourceColumn: cost
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column tenant_id
-		dataType: int64
-		formatString: 0
-		lineageTag: 63666ae0-6af1-4095-820d-975293187c8e
+	column units_sold
+		dataType: double
+		isHidden
+		lineageTag: e2f9db81-2712-40b7-add4-4cebf08aa528
 		summarizeBy: sum
-		sourceColumn: tenant_id
+		sourceColumn: units_sold
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clicks
+		dataType: double
+		isHidden
+		lineageTag: 2f613f5d-d3b6-468e-948d-95211e0eaf4d
+		summarizeBy: sum
+		sourceColumn: clicks
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column impressions
+		dataType: double
+		isHidden
+		lineageTag: 1e9b1e82-81ab-4fdb-9daa-02787318b1b6
+		summarizeBy: sum
+		sourceColumn: impressions
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition 'SD Historical Campaign Cost' = m
 		mode: import
 		source =
 				let
-				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [CommandTimeout=#duration(0, 0, 5, 0)]), "-- API console (2023-06-11 - present)#(lf)select date,#(lf)       marketplace,#(lf)       campaign_id,#(lf)       currency,#(lf)       tenant_id,#(lf)       sum(cost) total_cost,#(lf)       sum(attributed_units_ordered_7d) as attributed_units_ordered_7d,#(lf)       sum(clicks) total_clicks,#(lf)       sum(impressions) total_impressions,#(lf)       sum(attributed_sales_14d) total_sales#(lf)from sponsored_display.campaign_v2#(lf)group by date, campaign_id, marketplace, currency, tenant_id#(lf)#(lf)UNION#(lf)#(lf)-- Advertising reports from console (2023-03-13 - 2023-06-10)#(lf)select date,#(lf)       t1.marketplace,#(lf)       t2.campaign_id,#(lf)       currency, #(lf)       t1.tenant_id,#(lf)       sum(spend) total_cost,#(lf)       sum(""14_day_total_units"") attributed_units_ordered_7d,#(lf)       sum(clicks) total_clicks,#(lf)       sum(impressions) total_impressions,#(lf)       sum(""14_day_total_sales"") total_sales#(lf)from sponsored_display.campaign_console t1#(lf)left join sponsored_display.campaigns as t2 on t1.campaign_name = t2.name#(lf)                                            and t1.marketplace = t2.marketplace#(lf)where date <= '2023-06-10'#(lf)group by date, t2.campaign_id, t1.marketplace, currency, t1.tenant_id#(lf)order by date, campaign_id, marketplace", null, [EnableFolding=true])
+				    Source = GoogleBigQuery.Database(),
+				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+				    sponsored_display_Schema = #"modern-sublime-383117"{[Name="sponsored_display",Kind="Schema"]}[Data],
+				    portfolio_performance_summary_view = sponsored_display_Schema{[Name="portfolio_performance_summary_view",Kind="View"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(portfolio_performance_summary_view,{{"date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [date] >= RangeStart and [date] <= RangeEnd)
 				in
-				    Source
+				    #"Filtered Rows"
+
+	changedProperty = IsHidden
 
 	annotation PBI_ResultType = Table
 
 	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_IsMQueryFoldable = True
 

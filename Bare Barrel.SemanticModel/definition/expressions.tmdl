@@ -141,3 +141,41 @@ expression 'Errors in h10_keyword_tracker' =
 
 	annotation PBI_ResultType = Table
 
+expression RangeStart = #datetime(2020, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: 2a2ef251-6dfd-484c-9b8f-693a363ac0ec
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+
+expression RangeEnd = #datetime(2999, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: 0c7dc1fe-0cac-4d6d-adf0-21ad9dda6910
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+
+expression 'Errors in h10_keyword_tracker (2)' =
+		let
+		Source = h10_keyword_tracker,
+		  #"Detected Type Mismatches" = let
+		    tableWithOnlyPrimitiveTypes = Table.SelectColumns(Source, Table.ColumnsOfType(Source, {type nullable number, type nullable text, type nullable logical, type nullable date, type nullable datetime, type nullable datetimezone, type nullable time, type nullable duration})),
+		    recordTypeFields = Type.RecordFields(Type.TableRow(Value.Type(tableWithOnlyPrimitiveTypes))),
+		    fieldNames = Record.FieldNames(recordTypeFields),
+		    fieldTypes = List.Transform(Record.ToList(recordTypeFields), each [Type]),
+		    pairs = List.Transform(List.Positions(fieldNames), (i) => {fieldNames{i}, (v) => if v = null or Value.Is(v, fieldTypes{i}) then v else error [Message = "The type of the value does not match the type of the column.", Detail = v], fieldTypes{i}})
+		in
+		    Table.TransformColumns(Source, pairs),
+		  #"Added Index" = Table.AddIndexColumn(#"Detected Type Mismatches", "Row Number" ,1),
+		  #"Kept Errors" = Table.SelectRowsWithErrors(#"Added Index", {"asin", "title", "keyword", "date_added", "organic_rank", "search_volume", "marketplace_id", "sponsored_position", "Date"}),
+		  #"Reordered Columns" = Table.ReorderColumns(#"Kept Errors", {"Row Number", "asin", "title", "keyword", "date_added", "organic_rank", "search_volume", "marketplace_id", "sponsored_position", "Date"}),
+		    Date = #"Reordered Columns"{0}[Date]
+		in
+		  Date
+	lineageTag: 7b83ddcb-03f3-44de-992d-08eee0692bc9
+	queryGroup: 'Query Errors - 8/24/2025 7:48:11 AM'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

@@ -1,11 +1,36 @@
 table 'Dim Customer Search Term'
 	lineageTag: e64c8787-dba5-4a53-a457-d5fff51028c1
 
-	column search_term
+	column sku
 		dataType: string
-		lineageTag: bb20d000-898e-4dd3-ac6b-a1f47277d325
+		lineageTag: cce80994-85ad-4db3-9036-846cef81a12a
 		summarizeBy: none
-		sourceColumn: search_term
+		sourceColumn: sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column asin
+		dataType: string
+		lineageTag: d0dc24f7-0c11-4d39-9354-0cdf5f357785
+		summarizeBy: none
+		sourceColumn: asin
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_type
+		dataType: string
+		lineageTag: 5121e8bb-9048-42d0-9f1f-4fa4981a6643
+		summarizeBy: none
+		sourceColumn: product_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c430fb35-58cf-46a2-9f71-01580ba6d0cd
+		summarizeBy: sum
+		sourceColumn: tenant_id
 
 		annotation SummarizationSetBy = Automatic
 
@@ -13,7 +38,7 @@ table 'Dim Customer Search Term'
 		mode: import
 		source =
 				let
-				    Source = Value.NativeQuery(PostgreSQL.Database("edgepify.app", "ecommerce", [CommandTimeout=#duration(0, 0, 5, 0)]), "SELECT DISTINCT LOWER(search_term) search_term FROM sponsored_products.search_term", null, [EnableFolding=true])
+				    Source = Value.NativeQuery(GoogleBigQuery.Database([Implementation="2.0"]){[Name="modern-sublime-383117"]}[Data], "SELECT DISTINCT sku,#(lf)                asin,#(lf)                product_type,#(lf)                tenant_id#(lf)FROM listings_items.summaries#(lf)WHERE tenant_id = 1#(lf)    AND date = (SELECT MAX(date) #(lf)                    FROM listings_items.summaries#(lf)                    WHERE tenant_id = 1)", null, [EnableFolding=true])
 				in
 				    Source
 

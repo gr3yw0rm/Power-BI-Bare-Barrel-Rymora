@@ -1,17 +1,31 @@
 table amazon_orders_summary_view
 	lineageTag: 69a83461-0a16-4fe3-8b55-578f52f3d74e
 
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 5
+		incrementalGranularity: month
+		incrementalPeriods: 3
+		sourceExpression =
+			let
+			    Source = GoogleBigQuery.Database(),
+			    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
+			    orders_Schema = #"modern-sublime-383117"{[Name="orders",Kind="Schema"]}[Data],
+			    amazon_orders_summary_view_View = orders_Schema{[Name="amazon_orders_summary_view",Kind="View"]}[Data],
+			    #"Changed Type" = Table.TransformColumnTypes(amazon_orders_summary_view_View,{{"purchase_date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [purchase_date] >= RangeStart and [purchase_date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
 	column purchase_date
 		dataType: dateTime
 		formatString: Long Date
-		sourceProviderType: date
 		lineageTag: 83b712ff-b2bf-4172-a965-141572e5193d
 		summarizeBy: none
 		sourceColumn: purchase_date
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column marketplace
 		dataType: string
@@ -173,18 +187,33 @@ table amazon_orders_summary_view
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column output_vat
+		dataType: double
+		sourceProviderType: decimal(38, 9)
+		lineageTag: 9adc3365-ca99-4271-9b0c-51efbf7a011b
+		summarizeBy: sum
+		sourceColumn: output_vat
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition amazon_orders_summary_view = m
-		mode: dual
+		mode: import
 		source =
 				let
 				    Source = GoogleBigQuery.Database(),
 				    #"modern-sublime-383117" = Source{[Name="modern-sublime-383117"]}[Data],
 				    orders_Schema = #"modern-sublime-383117"{[Name="orders",Kind="Schema"]}[Data],
-				    amazon_orders_summary_view_View = orders_Schema{[Name="amazon_orders_summary_view",Kind="View"]}[Data]
+				    amazon_orders_summary_view_View = orders_Schema{[Name="amazon_orders_summary_view",Kind="View"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(amazon_orders_summary_view_View,{{"purchase_date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [purchase_date] >= RangeStart and [purchase_date] <= RangeEnd)
 				in
-				    amazon_orders_summary_view_View
+				    #"Filtered Rows"
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Exception
+	annotation PBI_ResultType = Table
+
+	annotation PBI_IsMQueryFoldable = True
 

@@ -1,0 +1,69 @@
+DEFINE
+	VAR __DS0FilterTable = 
+		TREATAS({"CA"}, 'Dim Marketplace'[marketplace_name])
+
+	VAR __DS0FilterTable2 = 
+		FILTER(
+			KEEPFILTERS(VALUES('Dim Parent Portfolio Code'[parent_code])),
+			NOT('Dim Parent Portfolio Code'[parent_code] IN {"CADY"})
+		)
+
+	VAR __DS0FilterTable3 = 
+		FILTER(
+			KEEPFILTERS(VALUES('Dim Date'[Date])),
+			AND('Dim Date'[Date] >= DATE(2025, 7, 1), 'Dim Date'[Date] < DATE(2025, 8, 1))
+		)
+
+	VAR __DS0FilterTable4 = 
+		TREATAS({"Custom..."}, 'SpecialDates'[Period])
+
+	VAR __DS0FilterTable5 = 
+		TREATAS({"Month"}, 'Dim Previous Date Interval'[Date Interval])
+
+	VAR __DS0FilterTable6 = 
+		TREATAS({"Bare Barrel"}, 'Dim tenants'[company])
+
+	VAR __DS0FilterTable7 = 
+		FILTER(KEEPFILTERS(VALUES('SQP Rankings'[rank])), 'SQP Rankings'[rank] <= 10)
+
+	VAR __DS0FilterTable8 = 
+		TREATAS({TRUE}, 'Dim Marketplace'[active])
+
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			'Dim Date'[Date],
+			__DS0FilterTable,
+			__DS0FilterTable2,
+			__DS0FilterTable3,
+			__DS0FilterTable4,
+			__DS0FilterTable5,
+			__DS0FilterTable6,
+			__DS0FilterTable7,
+			__DS0FilterTable8,
+			"Net_Profit____", 'KPI Tracker Measures'[Net Profit ($)],
+			"Net_Profit_____7D_MA", 'KPI Tracker Measures'[Net Profit ($) 7D MA],
+			"Prev_Net_Profit_____7D_MA", 'KPI Tracker Variance Measures'[Prev Net Profit ($) 7D MA]
+		)
+
+	VAR __DS0BodyLimited = 
+		SAMPLE(3502, __DS0Core, 'Dim Date'[Date], 1)
+
+EVALUATE
+	SUMMARIZECOLUMNS(
+		__DS0FilterTable,
+		__DS0FilterTable2,
+		__DS0FilterTable3,
+		__DS0FilterTable4,
+		__DS0FilterTable5,
+		__DS0FilterTable6,
+		__DS0FilterTable7,
+		__DS0FilterTable8,
+		"CFMaxNetProfitMA", IGNORE('KPI Tracker Measures'[CFMaxNetProfitMA]),
+		"CFMinNetProfitMA", IGNORE('KPI Tracker Measures'[CFMinNetProfitMA])
+	)
+
+EVALUATE
+	__DS0BodyLimited
+
+ORDER BY
+	'Dim Date'[Date]

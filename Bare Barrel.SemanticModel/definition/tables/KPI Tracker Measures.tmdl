@@ -26,13 +26,19 @@ table 'KPI Tracker Measures'
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 67150f8f-f8c8-46c2-9103-0e3eff7f6977
 
-	measure 'COGS per Order Item' =
+	measure 'COGS per Order Item' = ```
 			
-			LOOKUPVALUE(
-			    'COGS (WW)'[COGS],
-			    'amazon_orders_summary_view'[purchase_date], 'COGS (WW)'[date],
-			    'amazon_orders_summary_view'[asin], 'COGS (WW)'[ASIN]
-			)
+			    CALCULATE(
+			        MAX('COGS (WW)'[COGS]),
+			        FILTER(
+			            'COGS (WW)',
+			            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
+			            'COGS (WW)'[Date] = SELECTEDVALUE(amazon_orders_summary_view[purchase_date]) &&
+			            'COGS (WW)'[Marketplace] = SELECTEDVALUE(amazon_orders_summary_view[marketplace])
+			        )
+			    )
+			```
+		formatString: 0
 		lineageTag: 21fe9dce-5135-412e-b74a-31bb5cd91637
 
 	measure 'Returns Cost' = ```
@@ -58,31 +64,35 @@ table 'KPI Tracker Measures'
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'Returns per Order Item' =
+	measure 'Returns per Order Item' = ```
 			
-			CALCULATE(
-			    SUM('COGS (WW)'[Returns]),
-			    FILTER(
-			        'COGS (WW)',
-			        'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
-			        SELECTEDVALUE(amazon_orders[purchase_date]) >= 'COGS (WW)'[Date Start] &&
-			        SELECTEDVALUE(amazon_orders[purchase_date]) <= 'COGS (WW)'[Date End] || ISBLANK('COGS (WW)'[Date End]))
+			    CALCULATE(
+			        MAX('COGS (WW)'[Returns]),
+			        FILTER(
+			            'COGS (WW)',
+			            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
+			            'COGS (WW)'[Date] = SELECTEDVALUE(amazon_orders_summary_view[purchase_date]) &&
+			            'COGS (WW)'[Marketplace] = SELECTEDVALUE(amazon_orders_summary_view[marketplace])
+			        )
 			    )
+			```
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: 16457a45-93e9-4404-8899-b35ce630e1d7
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'Storage Fee per Order Item' =
+	measure 'Storage Fee per Order Item' = ```
 			
-			CALCULATE(
-			    SUM('COGS (WW)'[Storage]),
-			    FILTER(
-			        'COGS (WW)',
-			        'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
-			        SELECTEDVALUE(amazon_orders[purchase_date]) >= 'COGS (WW)'[Date Start] &&
-			        SELECTEDVALUE(amazon_orders[purchase_date]) <= 'COGS (WW)'[Date End] || ISBLANK('COGS (WW)'[Date End]))
+			    CALCULATE(
+			        MAX('COGS (WW)'[Storage]),
+			        FILTER(
+			            'COGS (WW)',
+			            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
+			            'COGS (WW)'[Date] = SELECTEDVALUE(amazon_orders_summary_view[purchase_date]) &&
+			            'COGS (WW)'[Marketplace] = SELECTEDVALUE(amazon_orders_summary_view[marketplace])
+			        )
 			    )
+			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 77d31223-7d9c-4872-90b5-dba51a2ae62c
 
@@ -115,8 +125,8 @@ table 'KPI Tracker Measures'
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'FBA Fees' = SUMX(amazon_orders_summary_view, [FBA Fee per Order Item] * amazon_orders_summary_view[quantity_ordered])
-		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+	measure 'FBA Fees' = SUMX(amazon_orders_summary_view, [FBA Fee per Order Item] * [quantity_ordered])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: c23d2550-b82b-4e89-9753-548ae2e4cd3f
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
@@ -206,7 +216,7 @@ table 'KPI Tracker Measures'
 			    amazon_orders_summary_view,
 			    SWITCH(
 			        TRUE(), // UK Sales have 20% VAT included
-			        'amazon_orders_summary_view'[marketplace] = "UK", ( 'amazon_orders_summary_view'[item_price_amount] - 'amazon_orders_summary_view'[promotion_discount_amount] - 'amazon_orders_summary_view'[item_tax_amount] ),
+			        'amazon_orders_summary_view'[marketplace] = "UK", ( 'amazon_orders_summary_view'[item_price_amount] - 'amazon_orders_summary_view'[promotion_discount_amount] - 'amazon_orders_summary_view'[output_vat] ),
 			        'amazon_orders_summary_view'[item_price_amount] - 'amazon_orders_summary_view'[promotion_discount_amount]
 			    )
 			)
@@ -347,17 +357,8 @@ table 'KPI Tracker Measures'
 
 	measure 'VAT UK' =
 			
-			SUMX(
-			    amazon_orders_summary_view,
-			    IF(
-			        'amazon_orders_summary_view'[marketplace] = "UK",
-			        [Sales Revenue] * 0.20,
-			        0
-			        )
-			)
+			SUM(amazon_orders_summary_view[output_vat])
 		lineageTag: f51b2d8c-0289-4afa-9728-d2fc724d4bf0
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure TACOS = DIVIDE ( [PPC Cost], [Sales Revenue] )
 		formatString: 0.0%;-0.0%;0.0%
@@ -438,7 +439,7 @@ table 'KPI Tracker Measures'
 			                                    'Exchange Rates Average'[Exchange Rate], 
 			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
 			    )
-			    RETURN DIVIDE('amazon_orders_summary_view'[Coupon Fee], _exchangerate)
+			    RETURN DIVIDE('amazon_orders_summary_view'[coupon_fee], _exchangerate)
 			)
 			```
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
@@ -453,30 +454,31 @@ table 'KPI Tracker Measures'
 	measure 'FBA Fee per Order Item' = ```
 			
 			    CALCULATE(
-			        SUM('COGS (WW)'[FBA Fee]),
+			        MAX('COGS (WW)'[FBA Fee]),
 			        FILTER(
 			            'COGS (WW)',
 			            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
-			            SELECTEDVALUE(amazon_orders[purchase_date]) >= 'COGS (WW)'[Date Start] &&
-			            SELECTEDVALUE(amazon_orders[purchase_date]) <= 'COGS (WW)'[Date End] || ISBLANK('COGS (WW)'[Date End]))
+			            'COGS (WW)'[Date] = SELECTEDVALUE(amazon_orders_summary_view[purchase_date]) &&
+			            'COGS (WW)'[Marketplace] = SELECTEDVALUE(amazon_orders_summary_view[marketplace])
 			        )
+			    )
 			```
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: 42f1c946-eb61-4cae-a3a6-577250dd6e93
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'SD Units Sold' = SUM('SD Historical Campaign Cost'[attributed_units_ordered_7d])
+	measure 'SD Units Sold' = SUMX('SD advertised_product', [units_sold_clicks])
 		lineageTag: 27594c7a-4e93-4666-8473-0cabec74d9df
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'SD Sales' = SUM('SD Historical Campaign Cost'[total_sales])
+	measure 'SD Sales' = SUMX('SD advertised_product', [sales])
 		lineageTag: abff3a92-1172-4b7f-a4d0-f7e0ee746dd1
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'SD Impressions' = SUM('SD Historical Campaign Cost'[total_impressions])
+	measure 'SD Impressions' = SUMX('SD advertised_product', [impressions])
 		lineageTag: 56cd8021-e49f-4f53-b9f9-eee0ee579014
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -496,26 +498,26 @@ table 'KPI Tracker Measures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'SD Cost' = SUM('SD Historical Campaign Cost'[total_cost])
+	measure 'SD Cost' = SUMX('SD advertised_product', [cost])
 		lineageTag: 706c21c4-3261-45d1-9780-c342e14ec2c1
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'SD Clicks' = SUM('SD Historical Campaign Cost'[total_clicks])
+	measure 'SD Clicks' = SUMX('SD advertised_product', [clicks])
 		lineageTag: 49019e6e-7967-4860-bc17-229b33992e79
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'SP Units Sold' = SUM('SP Historical Campaign Cost'[total_units_sold_clicks_7d])
+	measure 'SP Units Sold' = SUMX('SP advertised_product', [units_sold_clicks_14d])
 		formatString: 0
 		lineageTag: 2463db63-a705-4dcf-909f-7998670771c2
 
-	measure 'SP Sales' = SUM('SP Historical Campaign Cost'[sales_7d])
+	measure 'SP Sales' = SUMX('SP advertised_product', [sales_14d])
 		lineageTag: 7e32921a-0e6e-4329-9eeb-71e0d34db8a3
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'SP Impressions' = SUM('SP Historical Campaign Cost'[total_impressions])
+	measure 'SP Impressions' = SUMX('SP advertised_product', [impressions])
 		formatString: 0
 		lineageTag: 9466cb53-80a0-4527-a0d8-ae5dbfa5c6dd
 
@@ -534,24 +536,24 @@ table 'KPI Tracker Measures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'SP Cost' = SUM('SP Historical Campaign Cost'[total_cost])
+	measure 'SP Cost' = SUMX('SP advertised_product', [spend])
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 58d0dea7-b15c-4b1c-a61d-4c82e20eb598
 
-	measure 'SP Clicks' = SUM('SP Historical Campaign Cost'[total_clicks])
+	measure 'SP Clicks' = SUMX('SP advertised_product', [acos_clicks_14d])
 		formatString: 0
 		lineageTag: 798a1158-1089-450f-b655-3e07bc4d0a76
 
-	measure 'SB Units Sold' = SUM('SB Historical Campaign Cost'[attributed_units_ordered_new_to_brand_14d])
+	measure 'SB Units Sold' = SUMX('SB Historical Campaign Cost', [units_sold])
 		formatString: 0
 		lineageTag: 087fae61-4e25-4a07-bd51-e40cdd86c786
 
-	measure 'SB Sales' = SUM('SB Historical Campaign Cost'[attributed_sales_14d])
+	measure 'SB Sales' = SUMX('SB Historical Campaign Cost', [sales])
 		lineageTag: 45b453de-6a49-49eb-a6b5-e4cf616a244f
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'SB Impressions' = SUM('SB Historical Campaign Cost'[total_impressions])
+	measure 'SB Impressions' = SUMX('SB Historical Campaign Cost', [impressions])
 		formatString: 0
 		lineageTag: d8cc46eb-5b9c-422f-901b-3544725cfd13
 
@@ -570,11 +572,11 @@ table 'KPI Tracker Measures'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'SB Cost' = SUM('SB Historical Campaign Cost'[total_cost])
+	measure 'SB Cost' = SUMX('SB Historical Campaign Cost', [cost])
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 47d66599-cd48-4e3b-a63d-6ac846f338a2
 
-	measure 'SB Clicks' = SUM('SB Historical Campaign Cost'[total_clicks])
+	measure 'SB Clicks' = SUMX('SB Historical Campaign Cost', [clicks])
 		formatString: 0
 		lineageTag: c2e7da83-10ae-4958-a8e0-07af2586d7cc
 
@@ -653,13 +655,13 @@ table 'KPI Tracker Measures'
 
 	measure HighlightMeasure =
 			
-			VAR SelectedCategory = SELECTEDVALUE('Dim Marketplace'[marketplace])
+			VAR SelectedCategory = SELECTEDVALUE('Dim Marketplace'[marketplace_name])
 			VAR SelectedDate = SELECTEDVALUE('Dim Date'[Date])
 			RETURN
 			IF(
-			    ISFILTERED('Dim Marketplace'[marketplace]) && ISFILTERED('Dim Date'[Date]),
+			    ISFILTERED('Dim Marketplace'[marketplace_name]) && ISFILTERED('Dim Date'[Date]),
 			    IF(
-			         SELECTEDVALUE('Dim Marketplace'[marketplace]) = SELECTEDVALUE('Dim Date'[Date]) = SelectedDate,
+			         SELECTEDVALUE('Dim Marketplace'[marketplace_name]) = SELECTEDVALUE('Dim Date'[Date]) = SelectedDate,
 			        [PPC Conversion Rate],
 			        BLANK()
 			    ),
@@ -684,11 +686,11 @@ table 'KPI Tracker Measures'
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 21e67d5c-da5c-45c7-bc81-05aa72a3bcf6
 
-	measure 'Gross Profit' = [Sales Revenue] - [Total COGS] - [FBA Fees] - [Storage Fees] - [Returns Cost] - [Referral Fee] - [Coupon Fee ($)]
+	measure 'Gross Profit' = [Gross Revenue] - [Total COGS] - [FBA Fees] - [Storage Fees] - [Returns Cost] - [Referral Fee] - [Coupon Fee ($)] - [UK Output Vat ($)]
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: c2a7b6fe-d27a-43ad-b387-876e58a1483b
 
-	measure 'Gross Profit ($)' = [Sales Revenue ($)] - [Total COGS ($)] - [FBA Fees ($)] - [Storage Fees ($)] - [Returns Cost ($)] - [Referral Fee ($)] - [Coupon Fee ($)]
+	measure 'Gross Profit ($)' = [Gross Revenue ($)] - [Total COGS ($)] - [FBA Fees ($)] - [Storage Fees ($)] - [Returns Cost ($)] - [Referral Fee ($)] - [Coupon Fee ($)]
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: cb6c5516-0080-4b7d-abb5-13fc05450173
 
@@ -1099,6 +1101,66 @@ table 'KPI Tracker Measures'
 		lineageTag: f2f872e0-475a-4e4c-9d14-134c825c2a65
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Gross Revenue' = SUMX(amazon_orders_summary_view, [item_price_amount])
+		lineageTag: 18086e49-15c3-46ea-bd3e-782ebcfe5272
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gross Revenue ($)' = ```
+			
+			SUMX(
+			    'amazon_orders_summary_view',
+			    var _exchangerate =  LOOKUPVALUE( 
+			                                    'Exchange Rates Average'[Exchange Rate], 
+			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
+			    )
+			    RETURN DIVIDE([Gross Revenue], _exchangerate)
+			)
+			```
+		lineageTag: 77939828-ce9a-4000-8fcf-21691a9cc1a2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promotion Discount' = SUMX(amazon_orders_summary_view, [promotion_discount_amount])
+		lineageTag: 87375f93-b585-42da-a524-53ff4abc2806
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promotion Discount ($)' = ```
+			
+			SUMX(
+			    'amazon_orders_summary_view',
+			    var _exchangerate =  LOOKUPVALUE( 
+			                                    'Exchange Rates Average'[Exchange Rate], 
+			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
+			    )
+			    RETURN DIVIDE([Promotion Discount], _exchangerate)
+			)
+			```
+		lineageTag: 6c53e642-c34a-48ba-bcbe-9b7757a9a8a6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'UK Output VAT' = SUMX(amazon_orders_summary_view, [output_vat])
+		lineageTag: ba2bf431-aac1-43d7-a355-c3edac2c882f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'UK Output Vat ($)' = ```
+			
+			SUMX(
+			    'amazon_orders_summary_view',
+			    var _exchangerate =  LOOKUPVALUE( 
+			                                    'Exchange Rates Average'[Exchange Rate], 
+			                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
+			    )
+			    RETURN DIVIDE([UK Output VAT], _exchangerate)
+			)
+			```
+		lineageTag: d3c5c160-9f83-402e-bb38-893a3427c1f3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column Column
 		isHidden

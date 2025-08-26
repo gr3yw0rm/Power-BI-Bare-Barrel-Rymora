@@ -1,7 +1,7 @@
 role 'Rymora Only'
 	modelPermission: read
 
-	tablePermission tenants = [company] == "Rymora"
+	tablePermission 'Dim tenants' = [company] == "Rymora"
 
 	annotation PBI_Id = 67d7a2ad477a4847aa7dabec6f083f1b
 

@@ -1,0 +1,1124 @@
+createOrReplace
+
+	table 'KPI Tracker Measures'
+		lineageTag: 238bbe3d-3d73-40e3-a513-04729cb3d5a8
+
+		measure 'Total COGS ($)' = ```
+				
+				SUMX(
+				    'COGS (WW)',
+				    var _exchangerate = LOOKUPVALUE( 
+				                                    'Exchange Rates Average'[Exchange Rate], 
+				                                    'Exchange Rates Average'[Foreign Currency], 'COGS (WW)'[Currency]
+				    )
+				    RETURN DIVIDE([Total COGS], _exchangerate)
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: bc2549c0-df07-4fa7-9249-936f4ddfa8a1
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Total COGS' = ```
+				SUMX(
+				    amazon_orders_summary_view, 
+				    [COGS per Order Item] * amazon_orders_summary_view[quantity_ordered]
+				    )
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 67150f8f-f8c8-46c2-9103-0e3eff7f6977
+
+		measure 'COGS per Order Item' = ```
+				
+				    CALCULATE(
+				        MAX('COGS (WW)'[COGS]),
+				        FILTER(
+				            'COGS (WW)',
+				            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
+				            'COGS (WW)'[Date] = SELECTEDVALUE(amazon_orders_summary_view[purchase_date]) &&
+				            'COGS (WW)'[Marketplace] = SELECTEDVALUE(amazon_orders_summary_view[marketplace])
+				        )
+				    )
+				```
+			formatString: 0
+			lineageTag: 21fe9dce-5135-412e-b74a-31bb5cd91637
+
+		measure 'Returns Cost' = ```
+				SUMX(
+				    amazon_orders_summary_view, 
+				    [Returns per Order Item] * amazon_orders_summary_view[quantity_ordered]
+				    )
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: d529137f-ddad-4c56-8fab-b456c64b8230
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Returns Cost ($)' =
+				
+				SUMX (
+				    'amazon_orders_summary_view',
+				     var _exchangerate = LOOKUPVALUE( 'Exchange Rates Average'[Exchange Rate], 'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code])
+				    RETURN DIVIDE([Returns Cost], _exchangerate)
+				)
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 8b2489b1-7915-4839-bae1-8c6c491e2623
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Returns per Order Item' = ```
+				
+				    CALCULATE(
+				        MAX('COGS (WW)'[Returns]),
+				        FILTER(
+				            'COGS (WW)',
+				            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
+				            'COGS (WW)'[Date] = SELECTEDVALUE(amazon_orders_summary_view[purchase_date]) &&
+				            'COGS (WW)'[Marketplace] = SELECTEDVALUE(amazon_orders_summary_view[marketplace])
+				        )
+				    )
+				```
+			formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+			lineageTag: 16457a45-93e9-4404-8899-b35ce630e1d7
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Storage Fee per Order Item' = ```
+				
+				    CALCULATE(
+				        MAX('COGS (WW)'[Storage]),
+				        FILTER(
+				            'COGS (WW)',
+				            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
+				            'COGS (WW)'[Date] = SELECTEDVALUE(amazon_orders_summary_view[purchase_date]) &&
+				            'COGS (WW)'[Marketplace] = SELECTEDVALUE(amazon_orders_summary_view[marketplace])
+				        )
+				    )
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 77d31223-7d9c-4872-90b5-dba51a2ae62c
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Storage Fees' = ```
+				SUMX(
+				    amazon_orders_summary_view, 
+				    [Storage Fee per Order Item] * amazon_orders_summary_view[quantity_ordered]
+				    )
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 64bca5c9-4a9b-4d2c-9197-f0ff59c094fc
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Storage Fees ($)' = ```
+				
+				SUMX(
+				    'COGS (WW)',
+				    var _exchangerate = LOOKUPVALUE( 
+				                                    'Exchange Rates Average'[Exchange Rate], 
+				                                    'Exchange Rates Average'[Foreign Currency], 'COGS (WW)'[Currency]
+				    )
+				    RETURN DIVIDE([Storage Fees], _exchangerate)
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 22761e7a-22e5-4086-baea-8d094d9b321a
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'FBA Fees' = SUMX(amazon_orders_summary_view, [FBA Fee per Order Item] * [quantity_ordered])
+			formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+			lineageTag: c23d2550-b82b-4e89-9753-548ae2e4cd3f
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'FBA Fees ($)' = ```
+				
+				SUMX (
+				    'amazon_orders_summary_view',
+				     var _exchangerate = LOOKUPVALUE(
+				                                    'Exchange Rates Average'[Exchange Rate], 
+				                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
+				    )
+				    RETURN DIVIDE([FBA Fees], _exchangerate)
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: d6d3781f-8569-4371-a683-956c0f4073c9
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Sales Revenue ($) 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Sales Revenue ($)]
+				    )
+				)
+				```
+			formatString: \$#,0;(\$#,0);\$#,0
+			lineageTag: 6e8d75ee-30a8-41fb-88e4-ad55a201c892
+
+		measure 'Sales Revenue ($) per Session' = DIVIDE( [Sales Revenue ($)], SUM(detail_page_sales_and_traffic_child[traffic_by_asin_sessions]) )
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 8e885fed-e8f0-482a-8361-31f9c9e8d4be
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Sales Revenue 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Sales Revenue]
+				    )
+				)
+				```
+			lineageTag: d6116a12-48e4-42d1-a783-6b6adf0fc23d
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'Sales Revenue per Session' = IFERROR( [Sales Revenue] / SUM(detail_page_sales_and_traffic_child[traffic_by_asin_sessions]), BLANK() )
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 0ae7e225-7da0-40f9-a3cb-6114b4bd7c5b
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Sales Revenue ($)' = ```
+				
+				SUMX (
+				    'amazon_orders_summary_view',
+				     var _exchangerate = LOOKUPVALUE(
+				                                    'Exchange Rates Average'[Exchange Rate], 
+				                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
+				    )
+				    RETURN DIVIDE([Sales Revenue], _exchangerate)
+				)
+				```
+			formatString: \$#,0;(\$#,0);\$#,0
+			lineageTag: ec892b7f-66d4-4580-81aa-91631a608df6
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Sales Revenue' =
+				
+				SUMX(
+				    amazon_orders_summary_view,
+				    SWITCH(
+				        TRUE(), // UK Sales have 20% VAT included
+				        'amazon_orders_summary_view'[marketplace] = "UK", ( 'amazon_orders_summary_view'[item_price_amount] - 'amazon_orders_summary_view'[promotion_discount_amount] - 'amazon_orders_summary_view'[output_vat] ),
+				        'amazon_orders_summary_view'[item_price_amount] - 'amazon_orders_summary_view'[promotion_discount_amount]
+				    )
+				)
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: fa8ee2ea-208a-41e3-a9a1-20e910e125af
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure ROI = DIVIDE ( [Net Profit], [Total COGS] )
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: 4dd8c967-85b8-4fee-a3f4-810ab9707bdd
+
+		measure 'Revenue p.u. 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Revenue p.u.]
+				    )
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 8f3c345b-4117-479a-ad74-975c7e69c3c3
+
+		measure 'Revenue p.u. ($) 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Revenue p.u. ($)]
+				    )
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 642a9967-c011-4bac-9176-344bd32fe03e
+
+		measure 'Revenue p.u. ($)' = [Sales Revenue ($)] / SUM(amazon_orders_summary_view[quantity_ordered])
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 6375e9f3-c150-4166-b255-6201f5da5e77
+
+		measure 'Revenue p.u.' = [Sales Revenue] / SUM(amazon_orders_summary_view[quantity_ordered])
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 939a15bd-514c-4066-84e6-41b2f9277927
+
+		measure 'Referral Fee ($)' = ```
+				
+				SUMX (
+				    'amazon_orders_summary_view',
+				     var _exchangerate = LOOKUPVALUE(
+				                                    'Exchange Rates Average'[Exchange Rate], 
+				                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
+				    )
+				    RETURN DIVIDE([Referral Fee], _exchangerate)
+				)
+				```
+			lineageTag: d211f212-e9d3-4a6a-9c62-aaff48e861a4
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'Referral Fee' = ```
+				
+				SUMX(
+				    amazon_orders_summary_view, 
+				    MAX([Sales Revenue] * 0.15, 0.30)
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 471877ea-3c48-431c-8cbe-480799d5a223
+
+		measure 'Net Profit' = [Gross Profit] - [PPC Cost]
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: b2bf5d1d-73e6-4883-a150-ecc4d7ecc8ac
+
+		measure 'Net Profit ($)' = [Gross Profit ($)] - [PPC Cost ($)]
+			formatString: \$#,0;(\$#,0);\$#,0
+			lineageTag: 5f85c167-1d0c-41cc-9219-f0ecae0f3bf0
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Net Profit ($) 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Net Profit ($)]
+				    )
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 345d291e-cc49-4933-bfec-e74e6f99fb69
+
+		measure 'Net Profit 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Net Profit]
+				    )
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 5fd1dbb1-f19e-4243-936e-cf7e5942c07a
+
+		measure 'VAT UK ($)' = ```
+				
+				SUMX (
+				    'amazon_orders_summary_view',
+				    var _exchangerate = LOOKUPVALUE( 
+				                                    'Exchange Rates Average'[Exchange Rate], 
+				                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
+				    )
+				    RETURN DIVIDE([VAT UK], _exchangerate)
+				)
+				```
+			lineageTag: 27110e12-9b00-4c28-9156-881ec57abd4f
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'VAT UK' =
+				
+				SUM(amazon_orders_summary_view[output_vat])
+			lineageTag: f51b2d8c-0289-4afa-9728-d2fc724d4bf0
+
+		measure TACOS = DIVIDE ( [PPC Cost], [Sales Revenue] )
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: 1e7e0535-aef5-4335-b4c7-cc1e87544b78
+
+		measure 'PPC Units Sold' = [SP Units Sold] + [SB Units Sold] + [SD Units Sold]
+			formatString: #,0
+			lineageTag: a45f44ea-be9a-42c1-8477-73ff4a673e88
+
+		measure 'PPC Sales' = [SP Sales] + [SB Sales] + [SD Sales]
+			lineageTag: d9b506ae-1d78-442f-b668-f1c170e42ffb
+
+		measure 'PPC Impressions' = [SP Impressions] + [SB Impressions] + [SD Impressions]
+			formatString: #,0
+			lineageTag: adbcd88d-4996-4462-8dba-6ff238e3d9a8
+
+		measure 'PPC Cost ($)' = [SP Cost ($)] + [SB Cost ($)] + [SD Cost ($)]
+			formatString: \$#,0;(\$#,0);\$#,0
+			lineageTag: 606db4ff-d75c-410e-ba35-122087b18919
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'PPC Cost' = [SP Cost] + [SB Cost] + [SD Cost]
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 3c8d79f1-f114-4ee5-92ba-304ba379bfbd
+
+		measure 'PPC Conversion Rate 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [PPC Conversion Rate]
+				    )
+				)
+				```
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: 9286286a-d8e3-4b42-8f73-d33a85181490
+
+		measure 'PPC Conversion Rate' = [PPC Units Sold] / [PPC Clicks]
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: 1a6208d8-b372-4053-9983-67a3107da10d
+
+		measure 'PPC Clicks' = [SP Clicks] + [SB Clicks] + [SD Clicks]
+			formatString: 0
+			lineageTag: bba46f94-4b90-461a-9f6c-ea234c5a8317
+
+		measure 'Organic Units Sold 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Organic Units Sold]
+				    )
+				)
+				```
+			formatString: 0.0
+			lineageTag: 7da7557f-35ca-4481-bde1-a8a8871b8929
+
+		measure 'Organic Units Sold' = [Total Orders] - [PPC Units Sold]
+			formatString: #,0
+			lineageTag: 192ddef0-d6c4-4f4c-a95d-b46ab37ac51d
+
+		measure 'Coupon Fee ($)' = ```
+				
+				SUMX (
+				    'amazon_orders_summary_view',
+				     var _exchangerate = LOOKUPVALUE(
+				                                    'Exchange Rates Average'[Exchange Rate], 
+				                                    'Exchange Rates Average'[Foreign Currency], 'amazon_orders_summary_view'[item_price_currency_code]
+				    )
+				    RETURN DIVIDE('amazon_orders_summary_view'[coupon_fee], _exchangerate)
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: cb8659e3-161d-4aba-a690-67b6df6036a1
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Profit Margin (CM3)' = DIVIDE ( [Net Profit], [Sales Revenue] )
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: 2806551a-3fe3-4c52-b4aa-f654dd23a0ad
+
+		measure 'FBA Fee per Order Item' = ```
+				
+				    CALCULATE(
+				        MAX('COGS (WW)'[FBA Fee]),
+				        FILTER(
+				            'COGS (WW)',
+				            'COGS (WW)'[ASIN] = SELECTEDVALUE(amazon_orders_summary_view[asin]) &&
+				            'COGS (WW)'[Date] = SELECTEDVALUE(amazon_orders_summary_view[purchase_date]) &&
+				            'COGS (WW)'[Marketplace] = SELECTEDVALUE(amazon_orders_summary_view[marketplace])
+				        )
+				    )
+				```
+			formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+			lineageTag: 42f1c946-eb61-4cae-a3a6-577250dd6e93
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'SD Units Sold' = SUMX('SD advertised_product', [units_sold_clicks])
+			lineageTag: 27594c7a-4e93-4666-8473-0cabec74d9df
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'SD Sales' = SUMX('SD advertised_product', [sales])
+			lineageTag: abff3a92-1172-4b7f-a4d0-f7e0ee746dd1
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'SD Impressions' = SUMX('SD advertised_product', [impressions])
+			lineageTag: 56cd8021-e49f-4f53-b9f9-eee0ee579014
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'SD Cost ($)' = ```
+				
+				SUMX(
+				    'SD Historical Campaign Cost',
+				    var _exchangerate = LOOKUPVALUE( 
+				                                    'Exchange Rates Average'[Exchange Rate], 
+				                                    'Exchange Rates Average'[Foreign Currency], 'SD Historical Campaign Cost'[currency]
+				    )
+				    RETURN DIVIDE([SD Cost], _exchangerate)
+				)
+				```
+			lineageTag: 3a1c217e-4939-4ca0-989b-67d894f82fa2
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'SD Cost' = SUMX('SD advertised_product', [cost])
+			lineageTag: 706c21c4-3261-45d1-9780-c342e14ec2c1
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'SD Clicks' = SUMX('SD advertised_product', [clicks])
+			lineageTag: 49019e6e-7967-4860-bc17-229b33992e79
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'SP Units Sold' = SUMX('SP advertised_product', [units_sold_clicks_14d])
+			formatString: 0
+			lineageTag: 2463db63-a705-4dcf-909f-7998670771c2
+
+		measure 'SP Sales' = SUMX('SP advertised_product', [sales_14d])
+			lineageTag: 7e32921a-0e6e-4329-9eeb-71e0d34db8a3
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'SP Impressions' = SUMX('SP advertised_product', [impressions])
+			formatString: 0
+			lineageTag: 9466cb53-80a0-4527-a0d8-ae5dbfa5c6dd
+
+		measure 'SP Cost ($)' = ```
+				
+				SUMX(
+				    'SP Historical Campaign Cost',
+				    var _exchangerate = LOOKUPVALUE( 
+				                                    'Exchange Rates Average'[Exchange Rate], 
+				                                    'Exchange Rates Average'[Foreign Currency], 'SP Historical Campaign Cost'[currency]
+				    )
+				    RETURN DIVIDE([SP Cost], _exchangerate)
+				)
+				```
+			lineageTag: fbc3ae50-1f29-4c37-a9dc-f8c26910d93b
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'SP Cost' = SUMX('SP advertised_product', [spend])
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 58d0dea7-b15c-4b1c-a61d-4c82e20eb598
+
+		measure 'SP Clicks' = SUMX('SP advertised_product', [acos_clicks_14d])
+			formatString: 0
+			lineageTag: 798a1158-1089-450f-b655-3e07bc4d0a76
+
+		measure 'SB Units Sold' = SUMX('SB Historical Campaign Cost', [units_sold])
+			formatString: 0
+			lineageTag: 087fae61-4e25-4a07-bd51-e40cdd86c786
+
+		measure 'SB Sales' = SUMX('SB Historical Campaign Cost', [sales])
+			lineageTag: 45b453de-6a49-49eb-a6b5-e4cf616a244f
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'SB Impressions' = SUMX('SB Historical Campaign Cost', [impressions])
+			formatString: 0
+			lineageTag: d8cc46eb-5b9c-422f-901b-3544725cfd13
+
+		measure 'SB Cost ($)' = ```
+				
+				SUMX(
+				    'SB Historical Campaign Cost',
+				    var _exchangerate =  LOOKUPVALUE( 
+				                                    'Exchange Rates Average'[Exchange Rate], 
+				                                    'Exchange Rates Average'[Foreign Currency], 'SB Historical Campaign Cost'[currency]
+				    )
+				    RETURN DIVIDE([SB Cost], _exchangerate)
+				)
+				```
+			lineageTag: 7a2f3ca1-9194-4294-ae87-607bf4b22e1c
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'SB Cost' = SUMX('SB Historical Campaign Cost', [cost])
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 47d66599-cd48-4e3b-a63d-6ac846f338a2
+
+		measure 'SB Clicks' = SUMX('SB Historical Campaign Cost', [clicks])
+			formatString: 0
+			lineageTag: c2e7da83-10ae-4958-a8e0-07af2586d7cc
+
+		measure 'Total Orders' = SUM(amazon_orders_summary_view[quantity_ordered])
+			formatString: #,0
+			lineageTag: c13155e3-1c06-4f82-bbce-e79528cf6e95
+
+		measure 'Total Orders 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Total Orders]
+				    )
+				)
+				```
+			lineageTag: 725753b7-4521-459a-af55-fa65323c8182
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'TACOS 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [TACOS]
+				    )
+				)
+				```
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: 3eab8744-f524-403b-b25d-fc3188ca13ff
+
+		measure 'ROI 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [ROI]
+				    )
+				)
+				```
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: a0e2fa58-21ea-4e3d-97b3-bcee508485ee
+
+		measure 'Profit Margin (CM3) 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Profit Margin (CM3)]
+				    )
+				)
+				```
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: 23ee856c-e030-41d3-9bce-6d1507272075
+
+		measure HighlightMeasure =
+				
+				VAR SelectedCategory = SELECTEDVALUE('Dim Marketplace'[marketplace_name])
+				VAR SelectedDate = SELECTEDVALUE('Dim Date'[Date])
+				RETURN
+				IF(
+				    ISFILTERED('Dim Marketplace'[marketplace_name]) && ISFILTERED('Dim Date'[Date]),
+				    IF(
+				         SELECTEDVALUE('Dim Marketplace'[marketplace_name]) = SELECTEDVALUE('Dim Date'[Date]) = SelectedDate,
+				        [PPC Conversion Rate],
+				        BLANK()
+				    ),
+				    [PPC Conversion Rate]
+				)
+			formatString: 0
+			lineageTag: 1ca66f50-30fd-47be-bd61-5be91a87d34e
+
+		measure 'Gross Profit p.u.' = DIVIDE ( [Gross Profit], [Total Orders] )
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: f3739da3-17d9-458b-9a51-ac462934de8f
+
+		measure 'Profit per PPC Order' =
+				
+				IF (
+				    [PPC Units Sold] > 0, [Gross Profit p.u.] - ( [PPC Cost] / [PPC Units Sold] )
+				)
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 267a365f-3636-408f-bb91-50cce80be0da
+
+		measure 'Organic Gross Profit' = [Gross Profit p.u.] * [Organic Units Sold]
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 21e67d5c-da5c-45c7-bc81-05aa72a3bcf6
+
+		measure 'Gross Profit' = [Sales Revenue] - [Total COGS] - [FBA Fees] - [Storage Fees] - [Returns Cost] - [Referral Fee] - [Coupon Fee ($)]
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: c2a7b6fe-d27a-43ad-b387-876e58a1483b
+
+		measure 'Gross Profit ($)' = [Sales Revenue ($)] - [Total COGS ($)] - [FBA Fees ($)] - [Storage Fees ($)] - [Returns Cost ($)] - [Referral Fee ($)] - [Coupon Fee ($)]
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: cb6c5516-0080-4b7d-abb5-13fc05450173
+
+		measure 'Net Profit p.u.' = DIVIDE ( [Net Profit], [Total Orders] )
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 95d898f7-5315-434e-8153-1620d2738575
+
+		measure 'PPC Profit' =
+				
+				IF (
+				    [PPC Units Sold] > 0, [Profit per PPC Order] * [PPC Units Sold],
+				    - [PPC Cost]
+				    )
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 15a1e231-a361-4bd8-942b-7c290c33b6cb
+
+		measure 'Gross Profit p.u. ($)' = DIVIDE ( [Gross Profit ($)], [Total Orders] )
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 2725fe4a-a46d-47fe-9e41-8a6ecf9002b0
+
+		measure 'Net Profit p.u. ($)' = DIVIDE ( [Net Profit ($)], [Total Orders] )
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 75f67726-ac6d-4aa0-bf21-776ee3853030
+
+		measure 'Organic Gross Profit ($)' = [Gross Profit p.u. ($)] * [Organic Units Sold]
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: cbbf2c0a-b9cd-4b3f-b662-e78ea8286dc6
+
+		measure 'PPC Profit ($)' =
+				
+				IF (
+				    [PPC Units Sold] > 0, [Profit per PPC Order ($)] * [PPC Units Sold],
+				    - [PPC Cost ($)]
+				)
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 06b5adbb-d15a-4adc-b699-4bf39a64fce6
+
+		measure 'Profit per PPC Order ($)' = [Gross Profit p.u. ($)] - DIVIDE( [PPC Cost ($)], [PPC Units Sold] )
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 8fb8079a-0c63-4768-b274-0e4889eb07b4
+
+		measure 'Net Profit p.u. ($) 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Net Profit p.u. ($)]
+				    )
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 965876a9-c728-42af-9a50-dc29837ef0fe
+
+		measure 'Gross Profit p.u. ($) 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Gross Profit p.u. ($)]
+				    )
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 4a82bb27-e144-4b57-bafc-28098640b368
+
+		measure 'Profit per PPC Order ($) 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Profit per PPC Order ($)]
+				    )
+				)
+				```
+			lineageTag: 10f72102-eb44-448b-91ff-f7073bf2ea58
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'Conversion Rate per Page View' = ```
+				
+				DIVIDE ( 
+				    SUM( detail_page_sales_and_traffic_child[sales_by_asin_units_ordered] ), 
+				    SUM( detail_page_sales_and_traffic_child[traffic_by_asin_page_views] ) 
+				)
+				```
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: 77e9b71a-3080-4a36-b4cc-3d4cc7c492f9
+
+		measure 'Conversion Rate per Page View 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Conversion Rate per Page View]
+				    )
+				)
+				```
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: e7a6c247-25e1-439f-86f7-fbbb7f164bfe
+
+		measure 'Organic Sales %' = DIVIDE( [Organic Units Sold], [Total Orders] )
+			formatString: 0.0%;-0.0%;0.0%
+			lineageTag: 392c0d76-105b-4ed4-9130-1e36431908ee
+
+		measure 'PPC Units Sold 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [PPC Units Sold]
+				    )
+				)
+				```
+			formatString: 0.0
+			lineageTag: e228e7cf-60a5-4364-864f-9bdc1df0b5b5
+
+		measure 'Sales Revenue per Session 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Sales Revenue per Session]
+				    )
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 3b55d4d9-adc3-4f96-8cee-7ca2ac243a55
+
+		measure 'Sales Revenue ($) per Session 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Sales Revenue ($) per Session]
+				    )
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 9cc8cd22-4bb9-4a24-ba63-5dc10c46254f
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Traffic Sessions' = SUM(detail_page_sales_and_traffic_child[traffic_by_asin_sessions])
+			formatString: #,0
+			lineageTag: 31b63b2c-ae03-45ba-be1f-372779016198
+
+		measure BlankMeasure1 = BLANK()
+			formatString: 0
+			lineageTag: 188f5e8f-9aa8-4ffd-a4bc-f9b5bb02ad33
+
+		measure BlankMeasure2 = BLANK()
+			formatString: 0
+			lineageTag: 490e68df-2142-4bdc-9637-4c651f13bf6e
+
+		measure BlankMeasure3 = BLANK()
+			formatString: 0
+			lineageTag: 657d380f-1d09-4198-8077-bd0c21c040a4
+
+		measure BlankMeasure4 = BLANK()
+			formatString: 0
+			lineageTag: 290d2a53-4047-4470-8cc7-eec6bfe6ac4a
+
+		measure BlankMeasure5 = BLANK()
+			formatString: 0
+			lineageTag: 6ed8a43b-d4ed-4778-b09e-7e438306388b
+
+		measure 'Traffic Sessions 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Traffic Sessions]
+				    )
+				)
+				```
+			formatString: #,0
+			lineageTag: 02a4bdf5-fe25-4ed7-a924-b40d993050da
+
+			annotation PBI_FormatHint = {"isDecimal":true}
+
+		measure CFMaxTotalOrdersMA = MAXX('Dim Date', [Total Orders 7D MA]) * 1.10
+			lineageTag: 108e1069-3b11-4421-8f20-e750788ccdd8
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMinProfitPerPPCOrderMA = MINX('Dim Date', [Profit per PPC Order ($) 7D MA])  * 1.10
+			lineageTag: 0cd814e5-22f7-4f08-9e62-2b8ec044d5c0
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMinSalesRevenueMA = MINX('Dim Date', [Sales Revenue ($) 7D MA]) * 0.20
+			lineageTag: fa512e6e-45b1-47ae-81ab-56f20c67ce13
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMinRevenuePerUnitMA = MINX('Dim Date', [Revenue p.u. ($) 7D MA]) * 0.70
+			lineageTag: db51a6bf-038b-477b-b88d-116477f9ffa5
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMaxSalesRevenuePerSessionMA = MAXX('Dim Date', [Sales Revenue ($) per Session 7D MA]) * 1.10
+			lineageTag: bb629dd3-7ede-4c33-ab2f-3a1361eb737e
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMaxPPCCVRMA = MAXX('Dim Date', [PPC Conversion Rate 7D MA]) * 1.20
+			lineageTag: 0901eda1-ec33-47ee-bb57-41b5089fa67c
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMinOrganicUnitsSoldMA = MINX('Dim Date', [Organic Units Sold 7D MA])
+			lineageTag: 94e2676d-9a99-4664-9199-444608f9b52d
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMaxROIMA = MAXX('Dim Date', [ROI 7D MA])
+			lineageTag: 5fe1d476-92e1-4cd9-920c-38ba7a4d21c5
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMinROIMA = MINX('Dim Date', [ROI 7D MA]) --MIN(MINX('Dim Date', [ROI 7D MA]), MINX('Dim Date', [ROI 7D MA]) * 4)
+			lineageTag: fb403142-aef9-4818-9e32-56604bb6eb41
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMinPMROIMA =
+				
+				VAR _mincurrent = MIN(MINX('Dim Date', [ROI 7D MA]), MINX('Dim Date', [Profit Margin (CM3) 7D MA]))
+				VAR _minprev = MIN(MINX('Dim Date', [Prev ROI 7D MA]), MINX('Dim Date', [Prev Profit Margin (CM3) 7D MA]))
+				VAR _minvalue = MIN(_mincurrent, _minprev)
+				VAR _minrange = IF(_minvalue > 0, _minvalue * 0.80, _minvalue * 1.20)
+				
+				RETURN
+				_minvalue
+			lineageTag: f26b4262-0468-4951-993d-594bbd641ebd
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMaxROITACOSMA =
+				
+				VAR _maxvalue = MAX(MAXX('Dim Date', [ROI 7D MA]), MAXX('Dim Date', [TACOS 7D MA]))
+				VAR _maxrange = IF(_maxvalue > 0, _maxvalue * 1.20, _maxvalue * 0.80)
+				
+				RETURN
+				_maxrange
+			lineageTag: 6d28db1a-ef00-460f-b3bc-efcb0875406c
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'PPC Cost ($) 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [PPC Cost ($)]
+				    )
+				)
+				```
+			formatString: \$#,0;(\$#,0);\$#,0
+			lineageTag: 99aa800e-756e-4672-9da6-7bcd7c5cc742
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'COGS per Order Item ($)' = DIVIDE([Total COGS ($)], [Total Orders])
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: c7235645-9677-4a2c-ab25-0b0c6356d167
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure CFMaxNetProfitMA = MAX(MAXX('Dim Date', [Net Profit ($)]), MAXX('Dim Date', [Net Profit ($) 7D MA]))
+			lineageTag: 73aa08a8-f2a9-4ef2-bf2a-2928615f059f
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMinNetProfitMA = MIN(MINX('Dim Date', [Net Profit ($)]), MINX('Dim Date', [Net Profit ($) 7D MA]))
+			lineageTag: f5f252ce-c248-4274-837d-3c6e00970675
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'CM3 ROI TACOS Data Label' = ```
+				
+				    FORMAT([ROI 7D MA], "0.0%") & " | " & 
+				    FORMAT([Profit Margin (CM3) 7D MA], "0.0%") -- & " | "
+				    -- & FORMAT([TACOS 7D MA], "0.0%")
+				
+				```
+			lineageTag: 4ac390d9-9d21-42ce-8270-995f6cfcf000
+
+		measure CFMaxSalesRevenueMA = MAXX('Dim Date', [Sales Revenue ($) 7D MA]) * 1.50
+			lineageTag: 983d8500-9bb5-4151-9a38-5e64797f38bd
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure CFMaxRevenuePerUnitMA = MAXX('Dim Date', [Revenue p.u. ($) 7D MA]) * 1.05
+			lineageTag: ba6c07d8-49c3-41d1-b80c-61924d48dec0
+
+			annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		measure 'Avg Net Profit ($)' =
+				
+				AVERAGEX(
+				    VALUES('Dim Date'[Date]),
+				    [Net Profit ($)]
+				)
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 701068c4-3e14-4699-b07d-fa8cd1474413
+
+		measure 'Avg PPC Cost ($)' =
+				
+				AVERAGEX(
+				    VALUES('Dim Date'[Date]),
+				    [PPC Cost ($)]
+				)
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 8aa273a5-8acd-4a66-b72b-ca749022c483
+
+		measure 'Avg Sales Revenue ($)' =
+				
+				AVERAGEX(
+				    VALUES('Dim Date'[Date]),
+				    [Sales Revenue ($)]
+				)
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: 345b5499-2eb6-47b3-abd3-a0f6f929742b
+
+		measure 'Avg Total Orders' =
+				
+				AVERAGEX(
+				    VALUES('Dim Date'[Date]),
+				    [Total Orders]
+				)
+			formatString: 0.00
+			lineageTag: 8bf93b6e-9b30-48ab-b095-9ea6eaa30046
+
+		measure 'Avg Traffic Sessions' =
+				
+				AVERAGEX(
+				    VALUES('Dim Date'[Date]),
+				    [Traffic Sessions]
+				)
+			formatString: #,0
+			lineageTag: cdc3da6b-34d1-427b-a072-ae29266cc267
+
+		measure MinROIMA = MIN(MINX('Dim Date', [ROI 7D MA]), MINX('Dim Date', [TACOS 7D MA]))
+			formatString: 0.00%;-0.00%;0.00%
+			lineageTag: ce88bac5-75ef-4388-a1b2-983710c6c996
+
+		measure 'Total COGS ($) 7D MA' = ```
+				
+				CALCULATE(
+				    AVERAGEX(
+				        DATESINPERIOD(
+				            'Dim Date'[Date], 
+				            LASTDATE('Dim Date'[Date]), 
+				            -7, 
+				            DAY
+				        ),
+				        [Total COGS ($)]
+				    )
+				)
+				```
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: f2f872e0-475a-4e4c-9d14-134c825c2a65
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		column Column
+			isHidden
+			formatString: 0
+			lineageTag: d1834e4e-38cd-47a7-a232-9323e87d477f
+			summarizeBy: sum
+			isNameInferred
+			sourceColumn: [Column]
+
+			annotation SummarizationSetBy = Automatic
+
+		partition 'KPI Tracker Measures' = calculated
+			mode: import
+			source = Row("Column", BLANK())
+
+		annotation PBI_Id = 6e74a8d12152437097c0ee5f376620e2
+
+		annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+
